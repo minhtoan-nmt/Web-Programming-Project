@@ -1,6 +1,7 @@
 import Image from "next/image"
+import Link from "next/link";
 
-function PageItem({ postTitle, imgSrc }) {
+function PageItem({ postTitle, imgSrc, redirect="#" }) {
   return (
     <div className="flex flex-col w-fit bg-white p-4">
       <Image
@@ -12,7 +13,9 @@ function PageItem({ postTitle, imgSrc }) {
         style={{ width: "100%", height: "auto" }}
       />
       <p className="font-bold">{postTitle}</p>
-      <a href="#" className="text-red-400">Xem thêm</a>
+      <Link href={redirect} className="text-red-400">
+        Xem thêm
+      </Link>
     </div>
   );
 }
