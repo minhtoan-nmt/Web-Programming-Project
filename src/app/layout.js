@@ -22,7 +22,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Khi nào có header thì xóa cái này */}
+        <div className="flex justify-center items-center w-full h-48 bg-gray-100 border-b border-gray-300">
+          <h1 className="text-3xl font-bold">Header</h1>
+        </div>
         {children}
+        {/* Khi nào có footer thì xóa cái này */}
+        <div className="flex justify-center items-center w-full h-48 bg-black border-t border-gray-300">
+          <h1 className="text-white text-3xl font-bold">Footer</h1>
+        </div>
       </body>
     </html>
   );
