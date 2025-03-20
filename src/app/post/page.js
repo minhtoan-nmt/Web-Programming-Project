@@ -1,50 +1,89 @@
 import PageItem from "../component/post-item"
 
 export default function Home() {
+  const mainPostList = [
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item2.webp",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item2.webp",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item2.webp",
+      redirect: "/post/detail"
+    },
+  ];
+  const relatedPostList = [
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item2.webp",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item1.jpg",
+      redirect: "/post/detail"
+    },
+    {
+      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
+      imgSrc: "/image/post/ps5-item2.webp",
+      redirect: "/post/detail"
+    },
+  ];
+
   return (
     <div className="flex flex-col justify-center p-24">
       {/* Các post chính */}
       <div className="grid grid-cols-4 gap-6 w-fit bg-gray-200 mx-8 mt-8 mb-36 p-6">
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item1.jpg"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item2.webp"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item1.jpg"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item1.jpg"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item2.webp"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item1.jpg"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item1.jpg"
-          redirect="/post/detail"
-        />
-        <PageItem
-          postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-          imgSrc="/image/post/ps5-item2.webp"
-          redirect="/post/detail"
-        />
+        {mainPostList.map((item, index) => {
+          return (
+            <PageItem key={index}
+              postTitle={item.postTitle}
+              imgSrc={item.imgSrc}
+              redirect={item.redirect}
+            />
+          );
+        })}
       </div>
 
       {/* Bài viết liên quan */}
@@ -54,31 +93,15 @@ export default function Home() {
           Bài viết liên quan
         </h2>
         <div className="grid grid-cols-5 gap-2 w-full">
-          <PageItem
-            postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-            imgSrc="/image/post/ps5-item1.jpg"
-            redirect="/post/detail"
-          />
-          <PageItem
-            postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-            imgSrc="/image/post/ps5-item2.webp"
-            redirect="/post/detail"
-          />
-          <PageItem
-            postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-            imgSrc="/image/post/ps5-item1.jpg"
-            redirect="/post/detail"
-          />
-          <PageItem
-            postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-            imgSrc="/image/post/ps5-item1.jpg"
-            redirect="/post/detail"
-          />
-          <PageItem
-            postTitle="Playstation 5 Black and White version of the PS5 coming out on sale."
-            imgSrc="/image/post/ps5-item2.webp"
-            redirect="/post/detail"
-          />
+          {relatedPostList.map((item, index) => {
+            return (
+              <PageItem key={index}
+                postTitle={item.postTitle}
+                imgSrc={item.imgSrc}
+                redirect={item.redirect}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
