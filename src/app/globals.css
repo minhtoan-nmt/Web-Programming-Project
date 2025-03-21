@@ -11,19 +11,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}*/
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--background);
+    --foreground: var(--foreground);
+  }
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}  */
-
 @theme {
-  --background: #edf2f4;
+  --background: #f8f8f8;
   --foreground: #2b2d42;
-  --tertiary: #8d99ae;
+  --tertiary: #f0f0f0;
 }
 
 body {
