@@ -23,11 +23,11 @@ export const metadata = {
 
 function Navbar() {
   return (
-    <div id="navbar" className="flex justify-evenly items-end p-5 bg-[#edf2f4] border-b-2 border-[#8d99ae] h-[125px]">
+    <div id="navbar" className="flex justify-evenly items-end p-5 bg-(--background) border-b-2 border-(--tertiary) h-[125px]">
       <Image src={logo} alt="logo" width={60} height={61}/>
       <h1 className="text-2xl font-bold">Shop của bạn</h1>
-      <form className="border-2 w-xl flex align-middle rounded-xl">
-        <button id="search" className="w-[42px] h-[42px] p-3">
+      <form className="border-2 w-293/720 flex align-middle rounded-xl">
+        <button id="search" className="w-42/500 h-[42px] p-3">
           <Image src={search} alt="Search icon" />
         </button>
         <input type="search" placeholder="Search ..." className="w-full h-[42px] p-4 border-none"></input>
@@ -39,11 +39,19 @@ function Navbar() {
   )
 }
 
+function Footer() {
+  return (
+    <div>
+
+    </div>
+  )
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased}`}
       >
         <Navbar />
         {children}
