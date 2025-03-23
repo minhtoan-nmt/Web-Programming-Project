@@ -52,7 +52,13 @@ function StarChecked({checked}) {
         )
 }
 
-function RatingStars({rating}) {
+function DisplayRating({numOfRating = 0}) {
+    if (numOfRating!=0) {
+        return <p className="text-gray-400 text-sm">{"(" + numOfRating + " lượt đánh giá) |"}</p>
+    } else return null;
+}
+
+export function RatingStars({rating, numOfRating = 0}) {
     let check = [];
     let i;
     for (i=0;i<rating;i++) {
@@ -71,7 +77,10 @@ function RatingStars({rating}) {
     })
     return (
         <div className="flex flex-row">
-            {stars}
+            <div className="flex flex-row mr-2">
+                {stars}
+            </div>
+            <DisplayRating numOfRating={numOfRating} />
         </div>
     )
 }

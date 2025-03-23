@@ -2,14 +2,15 @@ import ProductCard from "../component/product-card";
 import NuocMam from "../../../public/image/productItem/nuocmamnamngu.jpg"
 import Gamepad from "../../../public/image/productItem/game_pad.jpg"
 
-const listItems = [
+export const listItems = [
     {
         id: 1,
         productName: "Nước mắm nam ngư",
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 2,
@@ -17,7 +18,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 3,
@@ -25,7 +27,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 4,
@@ -33,7 +36,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 5,
@@ -41,7 +45,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 6,
@@ -49,7 +54,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 7,
@@ -57,7 +63,8 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 8,
@@ -65,18 +72,20 @@ const listItems = [
         price: 12000,
         discount: 0.4,
         rating: 4,
-        imageSrc: NuocMam
+        imageSrc: NuocMam,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
 ];
 
-const listItemsRelated = [
+export const listItemsRelated = [
     {
         id: 9,
         productName: "HAVIT HV-G92 Gamepad",
         price: 1000000,
         discount: 0.4,
         rating: 3,
-        imageSrc: Gamepad
+        imageSrc: Gamepad,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
     },
     {
         id: 10,
@@ -84,7 +93,9 @@ const listItemsRelated = [
         price: 1000000,
         discount: 0.12,
         rating: 3,
-        imageSrc: Gamepad
+        imageSrc: Gamepad,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
+
     },
     {
         id: 11,
@@ -92,7 +103,9 @@ const listItemsRelated = [
         price: 1000000,
         discount: 0.4,
         rating: 3,
-        imageSrc: Gamepad
+        imageSrc: Gamepad,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
+
     },
     {
         id: 12,
@@ -100,12 +113,14 @@ const listItemsRelated = [
         price: 1000000,
         discount: 0.4,
         rating: 3,
-        imageSrc: Gamepad
+        imageSrc: Gamepad,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero."
+
     },
 ]
 
-export default function ProductPage() {
-    const items = listItems.map((item) => {
+export function ItemRelated({listItemsRelated}) {
+    const itemsRelated = listItemsRelated.map((item) => {
         return (
             <ProductCard
                 key={item.id} 
@@ -118,7 +133,30 @@ export default function ProductPage() {
             />
         )
     })
-    const itemsRelated = listItemsRelated.map((item) => {
+    return (
+    <div className="p-30">
+                <h1 className="text-3xl mb-20 font-bold">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={24}
+                        height={24}
+                        fill="currentColor"
+                        className="bi bi-bookmark-fill inline mr-2"
+                        viewBox="0 0 16 16"
+                        >
+                        <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+                    </svg>
+                    Các sản phẩm liên quan
+                </h1>
+                <div className="flex flex-row">
+                    {itemsRelated}
+                </div>
+            </div>
+    )
+}
+
+export default function ProductPage() {
+    const items = listItems.map((item) => {
         return (
             <ProductCard
                 key={item.id} 
@@ -138,24 +176,7 @@ export default function ProductPage() {
                     {items}
                 </div>
             </div>
-            <div className="p-30">
-                <h1 className="text-3xl mb-20 font-bold">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        fill="currentColor"
-                        className="bi bi-bookmark-fill inline mr-2"
-                        viewBox="0 0 16 16"
-                        >
-                        <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
-                    </svg>
-                    Các sản phẩm liên quan
-                </h1>
-                <div className="flex flex-row">
-                    {itemsRelated}
-                </div>
-            </div>
+            <ItemRelated listItemsRelated={listItemsRelated} />
         </div>
     )
 }
