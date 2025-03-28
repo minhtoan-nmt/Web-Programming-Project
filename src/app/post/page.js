@@ -72,9 +72,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col justify-center p-24">
+    <div className="flex flex-col justify-center sm:p-6 md:p-12 lg:p-24">
       {/* Các post chính */}
-      <div className="grid grid-cols-4 gap-6 w-fit bg-(--tertiary) mx-8 mt-8 mb-36 p-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-fit bg-(--tertiary) mx-8 mt-8 mb-36 p-6">
         {mainPostList.map((item, index) => {
           return (
             <PageItem key={index}
@@ -92,7 +92,7 @@ export default function Home() {
           <span className="bg-red-400 rounded-md px-3 py-3 mr-6" />
           Bài viết liên quan
         </h2>
-        <div className="grid grid-cols-5 gap-2 w-full">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 bg-(--tertiary) w-full p-6">
           {relatedPostList.map((item, index) => {
             return (
               <PageItem key={index}

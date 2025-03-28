@@ -23,7 +23,7 @@ export default function Page() {
   ];
 
   return (
-    <div className="flex flex-col p-24">
+    <div className="flex flex-col max-sm:p-6 max-md:p-12 p-24">
       <span className="text-sm text-gray-500">
         Trang chủ / Bài viết / Bài viết chi tiết
       </span>
