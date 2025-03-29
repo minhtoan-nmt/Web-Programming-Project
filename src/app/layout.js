@@ -24,8 +24,8 @@ export const metadata = {
 
 function Navbar() {
   return (
-    <div id="navbar" className="flex justify-evenly items-end p-5 bg-(--background) border-b-2 border-gray-300 h-[125px]">
-      <Image src={logo} alt="logo" width={60} height={61}/>
+    <div id="navbar" className="flex justify-evenly items-center p-5 bg-(--background) border-b-2 border-gray-300 h-[125px]">
+      <Image src={logo} alt="logo" width={70} height={72}/>
       <h1 className="text-2xl font-bold">Shop của bạn</h1>
       <form className="border-2 w-293/720 flex align-middle rounded-xl">
         <button id="search" className="w-42/500 h-[42px] p-3">
