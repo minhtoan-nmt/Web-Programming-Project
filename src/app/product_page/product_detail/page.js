@@ -72,14 +72,14 @@ export default function ProductDetail() {
                     </p>
                     <div>
                         <p className="inline">Size: </p>
-                        <button className="m-3 border border-1 p-2 rounded-lg w-12">XS</button>
-                        <button className="m-3 border border-1 p-2 rounded-lg w-12">S</button>
-                        <button className="m-3 border border-1 p-2 rounded-lg w-12">M</button>
-                        <button className="m-3 border border-1 p-2 rounded-lg w-12">L</button>
-                        <button className="m-3 border border-1 p-2 rounded-lg w-12">XL</button>
+                        <button className="m-3 border-1 p-2 rounded-lg w-12">XS</button>
+                        <button className="m-3 border-1 p-2 rounded-lg w-12">S</button>
+                        <button className="m-3 border-1 p-2 rounded-lg w-12">M</button>
+                        <button className="m-3 border-1 p-2 rounded-lg w-12">L</button>
+                        <button className="m-3 border-1 p-2 rounded-lg w-12">XL</button>
                     </div>
                     <div className="flex flex-row justify-between">
-                        <div className="border border-2 inline-block rounded-md">
+                        <div className="border-2 inline-block rounded-md">
                             <button className="border-r-2 p-2 w-10 h-full"><span>-</span></button>
                             <button className="border-r-2 p-2 w-16 h-full"><span>{dataFromForm.quantity}</span></button>
                             <button className="p-2 w-10 h-full"><span>+</span></button>
@@ -87,7 +87,7 @@ export default function ProductDetail() {
                         <button className="py-3 px-6 bg-(--button-color) text-(--background) w-64 rounded-md">Thêm vào giỏ hàng</button>
                     </div>
                     <div>
-                        <div className="flex flex-row border border-2 mt-12">
+                        <div className="flex flex-row border-2 mt-12">
                             <div className="py-4 px-6 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width={48} height={48} className="mt-3">
                                     {/*!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.*/}

@@ -13,7 +13,7 @@ import Image from "next/image";
 //     )
 // }
 function Discount({discount}) {
-    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-1/6 text-white">{"-" + discount * 100 + "%"}</p>}
+    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-1/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
     else return null;
 }
 
@@ -87,7 +87,7 @@ export function RatingStars({rating, numOfRating = 0}) {
 
 export default function ProductCard({imageSrc, discount, productName, price, oldPrice, rating}) {
     return (
-        <div className="h-[368px] p-2 bg-[#fff] flex flex-col justify-evenly">
+        <div className="h-[368px] p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg">
             <Discount discount={discount} />
             <Image src={imageSrc} alt={productName + '"s image'} className="h-2/3" />
             <h1 className="text-base font-bold">{productName}</h1>
