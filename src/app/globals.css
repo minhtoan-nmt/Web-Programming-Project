@@ -17,12 +17,12 @@
   --font-mono: var(--font-geist-mono);
 }*/
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --background: var(--background);
     --foreground: var(--foreground);
   }
-}
+} */
 
 @theme {
   --background: #f8f8f8;
