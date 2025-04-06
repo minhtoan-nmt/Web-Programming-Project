@@ -8,6 +8,10 @@
   --background: #edf2f4;
   --foreground: #2b2d42;
   --tertiary: #8d99ae;
+/* :root {
+  --background: #edf2f4;
+  --foreground: #2b2d42;
+  --tertiary: #8d99ae;
 }
 
 @theme inline {
@@ -19,6 +23,8 @@
 
 /* @media (prefers-color-scheme: light) {
   :root {
+    --background: var(--background);
+    --foreground: var(--foreground);
     --background: var(--background);
     --foreground: var(--foreground);
   }
