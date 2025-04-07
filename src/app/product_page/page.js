@@ -1,6 +1,7 @@
 import ProductCard from "../component/product-card";
 import NuocMam from "../../../public/image/productItem/nuocmamnamngu.jpg";
 import Gamepad from "../../../public/image/productItem/game_pad.jpg";
+import Link from "next/link";
 
 export const listItems = [
   {
@@ -143,8 +144,8 @@ export function ItemRelated({ listItemsRelated }) {
     );
   });
   return (
-    <div className="p-30">
-      <h1 className="text-3xl mb-20 font-bold">
+    <div className="xl:p-30 md:p-15 p-10">
+      <h1 className="text-3xl mb-10 md:mb-20 font-bold">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={24}
@@ -157,7 +158,7 @@ export function ItemRelated({ listItemsRelated }) {
         </svg>
         Các sản phẩm liên quan
       </h1>
-      <div className="flex flex-row">{itemsRelated}</div>
+      <div className="flex flex-row overflow-x-scroll">{itemsRelated}</div>
     </div>
   );
 }
@@ -165,6 +166,7 @@ export function ItemRelated({ listItemsRelated }) {
 export default function ProductPage() {
   const items = listItems.map((item) => {
     return (
+      
       <ProductCard
         key={item.id}
         imageSrc={item.imageSrc}
@@ -178,8 +180,8 @@ export default function ProductPage() {
   });
   return (
     <div>
-      <div className="px-30 pt-48 pb-30">
-        <div className="p-18 bg-(--tertiary) grid grid-cols-4 gap-9">
+      <div className="xl:px-30 xl:pt-48 xl:pb-30 lg:px-15 lg:pt-30 lg:pb-15">
+        <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 gap-9">
           {items}
         </div>
       </div>

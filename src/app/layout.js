@@ -7,6 +7,8 @@ import search from '../../public/search.svg';
 import Cart from '../../public/cart.svg';
 // import User from '../../public/user.png';
 import Header from '@/app/comhome/Header';
+import Link from "next/link";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -44,29 +46,33 @@ export const metadata = {
   return (
     <div
       id="navbar"
-      className="flex justify-evenly items-center p-5 bg-gray-100 border-b-2 border-gray-300 h-[125px]"
+      className="flex flex-row justify-evenly items-center md:p-5 bg-gray-100 border-b-2 border-gray-300 h-[125px]"
     >
-      <Image src={logo} alt="logo" width={60} height={61} />
-      <h1 className="text-2xl font-bold">Shop của bạn</h1>
+      <Link href="/home"><Image src={logo} alt="logo" width={60} height={61} /></Link>
+      <h1 className="hidden md:block md:text-2xl font-bold">
+        <Link href="/product_page">Shop của bạn</Link>
+      </h1>
 
       {/* Ô tìm kiếm */}
-      <form className="border-2 flex align-middle rounded-xl w-[500px]">
+      <form className="border-2 flex align-middle rounded-xl md:w-[250px] lg:w-[500px] w-30">
         <button id="search" className="p-3">
           <Image src={search} alt="Search icon" width={20} height={20} />
         </button>
         <input
           type="search"
           placeholder="Search ..."
-          className="w-full h-[42px] p-4 border-none focus:outline-none"
+          className="w-full md:h-[42px] p-4 border-none focus:outline-none"
         />
       </form>
 
       {/* Giỏ hàng */}
       <div className="relative">
-        <Image src={Cart} alt="Cart" width={38} height={34} />
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-          2
-        </span>
+        <Link href="/cart">
+          <Image src={Cart} alt="Cart" width={38} height={34} />
+          <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+            2
+          </span>
+        </Link>
       </div>
 
       {/* Avatar User + Dropdown */}
@@ -80,14 +86,14 @@ export const metadata = {
 function Footer() {
   return (
     <div className="bg-(--foreground) text-(--background)">
-    <div className="grid grid-cols-5 p-10">
-      <div id="footer-col-1">
-        <h1 className="text-2xl mb-4 font-bold">Giới thiệu</h1>
-        <h2 className="text-xl font-bold mb-2">Hỏi đáp</h2>
-        <p className="mb-2">Liên hệ</p>
-        <form className="h-12 mb-2">
-          <input type="email" placeholder="Enter your email" className="border border-white rounded-lg h-full p-2"></input>
-          <button type="submit" className="p-4 border border-white rounded-lg h-full relative top-[2px]"><svg
+    <div className="block md:grid md:grid-cols-5 md:gap-6 xl:p-10 md:p-7 p-10">
+      <div id="footer-col-1" className="mb-8">
+        <h1 className="text-2xl mb-4 font-bold"><Link href="/about">Giới thiệu</Link></h1>
+        <h2 className="text-xl font-bold mb-2"><Link href="/faq">Hỏi đáp</Link></h2>
+        <p className="mb-2"><Link href="/contact">Liên hệ</Link></p>
+        <form className="h-12 mb-2 flex flex-row w-full pr-3">
+          <input type="email" placeholder="Enter your email" className="border border-white rounded-lg h-full w-full p-2"></input>
+          <button type="submit" className="p-4 border border-white rounded-lg h-full"><svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -100,26 +106,26 @@ function Footer() {
           </button>
         </form>
       </div>
-      <div id="footer-col-2">
+      <div id="footer-col-2" className="mb-8">
         <h2 className="text-xl font-bold mb-4">Support</h2>
         <p className="mb-2">Khu phố Tân Lập, Phường Đông Hòa, Dĩ An, Bình Dương</p>
-        <p className="mb-2">nguyenvannhat@gmail.com</p>
+        <p className="mb-2 break-all">nguyenvannhat@gmail.com</p>
         <p>+88015-88888-9999</p>
       </div>
-      <div id="footer-col-3">
+      <div id="footer-col-3" className="mb-8">
         <h2 className="text-xl font-bold mb-4">Account</h2>
         <p className="mb-2">My account</p>
         <p className="mb-2">Login / Register</p>
-        <p className="mb-2">Cart</p>
+        <p className="mb-2"><Link href={"/cart"}>Cart</Link></p>
         <p className="mb-2">Wishlist</p>
         <p>Shop</p>
       </div>
-      <div id="footer-col-4">
+      <div id="footer-col-4" className="mb-8">
         <h2 className="text-xl font-bold mb-4">Quick Link</h2>
         <p className="mb-2">Privacy Policy</p>
         <p className="mb-2">Terms of Use</p>
-        <p className="mb-2">FAQ</p>
-        <p className="mb-2">Contact</p>
+        <p className="mb-2"><Link href={"/faq"}>FAQ</Link></p>
+        <p className="mb-2"><Link href={"/contact"}>Contact</Link></p>
       </div>
       <div id="footer-col-5">
         <h2 className="text-xl font-bold mb-4">Our social</h2>
