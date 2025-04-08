@@ -1,6 +1,23 @@
 import Image from "next/image";
 
 export default function Home() {
+  const itemList = [
+    {
+      itemName: "LCD Monitor",
+      price: 105000,
+      amount: 1,
+      totalPrice: 105000,
+      imagePath: "/image/cart/monitor.webp"
+    },
+    {
+      itemName: "Gamepad",
+      price: 35000,
+      amount: 2,
+      totalPrice: 70000,
+      imagePath: "/image/cart/gamepad.webp"
+    }
+  ];
+
   return (
     <div className="flex flex-col sm:p-6 md:p-12 lg:p-24">
       <p className="mb-10">
@@ -11,7 +28,7 @@ export default function Home() {
         {/* Thông tin mua hàng */}
         <div className="mb-20">
           {/* Tiêu đề từng cột */}
-          <div className="grid grid-cols-4 border border-gray-300 rounded p-4 mb-4 shadow-md">
+          <div className="grid grid-cols-4 border border-gray-300 rounded p-4 font-bold mb-4 shadow-md">
             <div>
               Sản phẩm
             </div>
@@ -26,54 +43,34 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mỗi hàng */}
-          <div className="grid grid-cols-4 border border-gray-300 rounded p-4 mb-4 shadow-md">
-            <div className="">
-              <span>
-                <Image
-                  src="/image/cart/monitor.webp"
-                  alt="LCD Monitor"
-                  width={24}
-                  height={24}
-                  className="inline-block h-full w-auto object-contain mr-2"
-                />
-              </span>
-              LCD Monitor
-            </div>
-            <div>
-              $650
-            </div>
-            <div>
-              01
-            </div>
-            <div>
-              $650
-            </div>
-          </div>
-
-          <div className="grid grid-cols-4 border border-gray-300 rounded p-4 mb-4 shadow-md">
-            <div className="">
-              <span>
-                <Image
-                  src="/image/cart/gamepad.webp"
-                  alt="Gamepad"
-                  width={24}
-                  height={24}
-                  className="inline-block h-full w-auto object-contain mr-2"
-                />
-              </span>
-              Gamepad
-            </div>
-            <div>
-              $100
-            </div>
-            <div>
-              02
-            </div>
-            <div>
-              $200
-            </div>
-          </div>
+          {/* Mỗi item */}
+          {itemList.map((item, index) => {
+            return (
+              <div className="grid grid-cols-4 items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
+                <div className="">
+                  <span>
+                    <Image
+                      src={item.imagePath}
+                      alt={item.itemName}
+                      width={24}
+                      height={24}
+                      className="inline-block h-full w-auto object-contain mr-2"
+                    />
+                  </span>
+                  {item.itemName}
+                </div>
+                <div>
+                  {item.price} VND
+                </div>
+                <div>
+                  <input type="number" className="w-18 border border-gray-600 rounded p-2" defaultValue={item.amount}></input>
+                </div>
+                <div>
+                  {item.totalPrice} VND
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex justify-between items-start">
