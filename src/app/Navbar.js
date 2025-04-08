@@ -8,6 +8,8 @@ import Cart from '../../public/cart.svg';
 
 import Header from '@/app/comhome/Header';
 import Link from "next/link";
+import "./globals.css";
+
 export default function Navbar() {
   const pathname = usePathname();
   const hiddenRoutes = ['/auth/login', '/auth/register'];
