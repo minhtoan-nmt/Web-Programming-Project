@@ -29,17 +29,17 @@ export default function Home() {
       <form className="flex">
         <div className="w-2/5 flex flex-col">
           <label htmlFor="full-name" className="py-2">Họ và tên</label>
-          <input type="text" id="full-name" name="full-name" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="full-name" name="full-name" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="city" className="py-2">Thành phố/ Tỉnh</label>
-          <input type="text" id="city" name="city" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="city" name="city" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="district" className="py-2">Quận/ Huyện</label>
-          <input type="text" id="district" name="district" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="district" name="district" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="address" className="py-2">Tên đường, số nhà</label>
-          <input type="text" id="address" name="address" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="address" name="address" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="phone-number" className="py-2">Số điện thoại</label>
-          <input type="text" id="phone-number" name="phone-number" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="phone-number" name="phone-number" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="email" className="py-2">Email</label>
-          <input type="text" id="email" name="email" className="bg-gray-100 px-4 py-2 mb-2"></input>
+          <input type="text" id="email" name="email" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
         </div>
 
         {/* Thành tiền và đặt hàng */}
@@ -47,8 +47,8 @@ export default function Home() {
           <div className="flex flex-col gap-2 border border-gray-300 rounded font-semibold p-4">
             {itemList.map((item, index) => {
               return (
-                <div className="flex items-center mb-4">
-                  <div className="flex-3/4">
+                <div key={index} className="flex items-center mb-4">
+                  <div className="flex-2/4">
                     <Image
                       src={item.imagePath}
                       alt={item.itemName}
@@ -58,10 +58,10 @@ export default function Home() {
                     />
                     {item.itemName}
                   </div>
-                  <div className="flex-auto font-normal">
+                  <div className="flex-auto flex font-normal justify-end">
                     x{item.amount}
                   </div>
-                  <div className="flex-1/12 flex justify-end">
+                  <div className="flex-1/4 flex justify-end">
                     &#8363;{item.price}
                   </div>
                 </div>
@@ -83,23 +83,36 @@ export default function Home() {
               <p>&#8363;185,000</p>
             </div>
 
-            <div className="flex font-normal">
-              <input type="radio" id="payment-online" name="payment-type" className="inline mr-4"></input>
-              <label>Thanh toán online</label>
-              <div className="">
+            <div className="flex items-center justify-between font-normal">
+              <div className="flex">
+                <input type="radio" id="payment-online" name="payment-type" className="inline mr-4"></input>
+                <label>Thanh toán online</label>
+              </div>
+              <div className="flex h-full items-center gap-2">
                 <Image
                   src="/image/checkout/visa.png"
                   alt="Visa logo"
-                  width={500}
-                  height={500}
-                  className="inline-block h-full w-auto object-contain mr-4"
+                  width={30}
+                  height={30}
+                  className="inline-block h-full w-auto object-contain"
+                />
+                <Image
+                  src="/image/checkout/mastercard.png"
+                  alt="Visa logo"
+                  width={30}
+                  height={30}
+                  className="inline-block h-full w-auto object-contain"
                 />
               </div>
             </div>
-            <div className="font-normal">
-              <input type="radio" id="payment-cod" name="payment-type" className="inline mr-4"></input>
-              <label>Thanh toán khi nhận hàng</label>
+            <div className="flex items-center justify-between font-normal">
+              <div className="flex">
+                <input type="radio" id="payment-cod" name="payment-type" className="inline mr-4"></input>
+                <label>Thanh toán khi nhận hàng</label>
+              </div>
             </div>
+
+            <button type="submit" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end">Thanh toán</button>
           </div>
         </div>
       </form>
