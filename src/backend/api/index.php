@@ -1,13 +1,44 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php'; // Ensure Composer autoloader is included
 
-   require_once __DIR__ . '/../vendor/autoload.php';
+use MongoDB\Driver\ServerApi;
+use MongoDB\Client;
+use Dotenv\Dotenv;
 
-   $client = new MongoDB\Client(
-         "mongodb://tester:4WtnykR69V9Lxoay@ac-geahhhx-shard-00-00.khmwqrr.mongodb.net:27017,ac-geahhhx-shard-00-01.khmwqrr.mongodb.net:27017,ac-geahhhx-shard-00-02.khmwqrr.mongodb.net:27017/?replicaSet=atlas-zy6jks-shard-0&ssl=true&authSource=admin&retryWrites=true&w=majority&appName=ClusterLTW");
+$dotenv = Dotenv::createImmutable(realpath(__DIR__ . '/../../../'), '.env.local');
+$dotenv->load();
 
-   $customers = $client->selectCollection('sample_mflix', 'movies');
-   $document = $customers->findOne(['title' => 'The Italian']);
+header('Content-Type: application/json');
 
-   var_dump($document);
+$uri = $_ENV['MONGODB_URI'];
 
-?>
+// Set the version of the Stable API on the client
+$apiVersion = new ServerApi(ServerApi::V1);
+
+// Create a new client and connect to the server
+$client = new Client($uri, [], ['serverApi' => $apiVersion]);
+
+try {
+    $collection = $client->sample_mflix->movies;
+
+    $cursor = $collection->find(['title' => 'The Italian']);
+    $years = [];
+
+    foreach ($cursor as $movie) {
+        if (isset($movie['year'])) {
+            $years[] = $movie['year']; // Add the year to the array
+        }
+    }
+
+    // Display the list of years
+    echo json_encode([
+        'status' => 200,
+        'result' => $years
+    ]);
+} catch (Exception $e) {
+    printf($e->getMessage());
+    echo json_encode([
+        'status' => 400,
+        'error' => $e->getMessage()
+    ]);
+}
