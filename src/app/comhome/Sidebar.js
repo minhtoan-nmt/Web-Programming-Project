@@ -1,4 +1,6 @@
 "use client";
+
+import { useState } from "react";
 import {
   FaTshirt,
   FaLaptop,
@@ -8,6 +10,8 @@ import {
   FaBook,
   FaAppleAlt,
   FaNewspaper,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 
 const categories = [
@@ -22,31 +26,67 @@ const categories = [
 ];
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setIsOpen(false); 
   };
 
   return (
-    <aside className="hidden md:block w-44 p-4 border-r border-gray-200 bg-gray-50 min-h-screen">
-    <h2 className="text-sm font-semibold text-gray-700 mb-4 leading-tight break-words">
-      Danh mục<br />sản phẩm
-    </h2>
-    <ul className="space-y-2">
-      {categories.map(({ name, icon }) => (
-        <li
-          key={name}
-          className="flex items-center gap-2 p-2 text-gray-700 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer transition"
-          onClick={() => scrollToSection(name)}
-        >
-          <span className="text-lg">{icon}</span>
-          <span className="text-sm font-medium">{name}</span>
-        </li>
-      ))}
-    </ul>
-  </aside>
+    <>
+      {/* Nút mở sidebar trên mobile */}
+      <button
+        className="sm:hidden fixed top-4 right-4 z-50 bg-white p-2 rounded-full shadow-md"
+        onClick={toggleSidebar}
+      >
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+  
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-40 sm:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed top-0 right-0 z-50 h-full w-64 bg-gray-50 p-5
+          transform transition-transform duration-300
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
+          sm:translate-x-0 sm:static sm:block
+          min-h-screen
+        `}
+      >
+        <h2 className="text-base sm:text-lg font-semibold text-gray-700 mb-4 whitespace-nowrap">
+          Danh mục sản phẩm
+        </h2>
+        <ul className="space-y-3">
+          {categories.map(({ name, icon }) => (
+            <li
+              key={name}
+              className="flex items-center gap-3 p-2 rounded-lg text-black hover:text-red-500 transition-all duration-500 cursor-pointer"
+              onClick={() => scrollToSection(name)}
+            >
+              <span className="w-6 h-6 text-lg flex items-center justify-center">
+                {icon}
+              </span>
+              <span className="text-sm sm:text-base font-medium whitespace-nowrap">
+                {name}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </>
   );
 };
 
