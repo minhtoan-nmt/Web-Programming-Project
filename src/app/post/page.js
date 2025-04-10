@@ -1,75 +1,33 @@
+'use client'
+
+import { useState, useEffect } from "react"
 import PageItem from "../component/post-item"
 
 export default function Home() {
-  const mainPostList = [
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item2.webp",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item2.webp",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item2.webp",
-      redirect: "/post/detail"
-    },
-  ];
-  const relatedPostList = [
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item2.webp",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item1.jpg",
-      redirect: "/post/detail"
-    },
-    {
-      postTitle: "Playstation 5 Black and White version of the PS5 coming out on sale.",
-      imgSrc: "/image/post/ps5-item2.webp",
-      redirect: "/post/detail"
-    },
-  ];
+  const [mainPostList, setMainPostList] = useState([]);
+  const [relatedPostList, setRelatedPostList] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const mainResponse = await fetch("http://localhost/api/get-posts");
+
+        if (!mainResponse) {
+          throw new Error("Failed to fetch posts data");
+        }
+
+        const data = await mainResponse.json();
+
+        setMainPostList(data["main_post_list"]);
+        setRelatedPostList(data["related_post_list"]);
+        console.log(mainPostList);
+      } catch (e) {
+        console.error("An error occurred while fetching: ", e);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="flex flex-col justify-center sm:p-6 md:p-12 lg:p-24">
@@ -78,9 +36,9 @@ export default function Home() {
         {mainPostList.map((item, index) => {
           return (
             <PageItem key={index}
-              postTitle={item.postTitle}
+              postTitle={item.post_title}
               imgSrc={item.imgSrc}
-              redirect={item.redirect}
+              redirect="/post/detail"
             />
           );
         })}
