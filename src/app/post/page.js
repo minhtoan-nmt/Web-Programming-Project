@@ -10,17 +10,23 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mainResponse = await fetch("http://localhost/api/get-posts");
+        const response = await fetch("/api/post/get-all-posts", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
 
-        if (!mainResponse) {
+        if (!response) {
           throw new Error("Failed to fetch posts data");
         }
 
-        const data = await mainResponse.json();
+        const responseData = await response.json();
+        const posts = responseData.data.data;
+        console.log(posts);
 
-        setMainPostList(data["main_post_list"]);
-        setRelatedPostList(data["related_post_list"]);
-        console.log(mainPostList);
+        setMainPostList(posts);
+        setRelatedPostList(posts);
       } catch (e) {
         console.error("An error occurred while fetching: ", e);
       }
@@ -36,9 +42,9 @@ export default function Home() {
         {mainPostList.map((item, index) => {
           return (
             <PageItem key={index}
-              postTitle={item.post_title}
-              imgSrc={item.imgSrc}
-              redirect="/post/detail"
+              postTitle={item.title}
+              imgSrc={`/image/post/${item.img_name}`}
+              redirect={`post/detail/${item.id}`}
             />
           );
         })}
@@ -54,9 +60,9 @@ export default function Home() {
           {relatedPostList.map((item, index) => {
             return (
               <PageItem key={index}
-                postTitle={item.postTitle}
-                imgSrc={item.imgSrc}
-                redirect={item.redirect}
+                postTitle={item.title}
+                imgSrc={`/image/post/${item.img_name}`}
+                redirect={`post/detail/${item.id}`}
               />
             );
           })}
