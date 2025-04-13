@@ -22,7 +22,7 @@ export default function Home() {
         }
 
         const responseData = await response.json();
-        const posts = responseData.data.data;
+        const posts = responseData.data;
         console.log(posts);
 
         setMainPostList(posts);

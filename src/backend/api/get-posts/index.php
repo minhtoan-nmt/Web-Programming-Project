@@ -18,10 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode($response);
       return;
     }
+
+    if (isset($_GET["id"])) {
+      $id = $_GET["id"];
+      $sql = "SELECT * FROM Post WHERE id=$id LIMIT 1";
+    } else {
+      $sql = "SELECT * FROM Post";
+    }
   
-    $sql = "SELECT * FROM Post";
-    $result = $conn->query($sql);
     $data = array();
+    $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         $data[] = $row;
@@ -29,10 +35,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else {
       $data[] = "No data found";
     }
+
+    if (isset($_GET["id"])) {
+      $return_data = $data[0];
+    } else {
+      $return_data = $data;
+    }
   
     echo json_encode([
       'status' => 200,
-      'data' => $data
+      'data' => $return_data
     ]);
   
   } catch (Exception $e) {

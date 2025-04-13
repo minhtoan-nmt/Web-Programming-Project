@@ -18,8 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode($response);
       return;
     }
+
+    $sql = "";
+    if (isset($_GET["id"])) {
+      $id = $_GET["id"];
+      $sql = "SELECT * FROM Post WHERE id=$id LIMIT 1";
+    } else {
+      $sql = "SELECT * FROM Post";
+    }
   
-    $sql = "SELECT * FROM Post";
     $result = $conn->query($sql);
     $data = array();
     if ($result->num_rows > 0) {
