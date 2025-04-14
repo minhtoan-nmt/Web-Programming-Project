@@ -3,7 +3,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaMale, FaFemale, FaChild, FaClock, FaPhone, FaLaptop,FaCamera, FaHeadphones, FaHome, FaSpotify, FaHeart, FaPepperHot, FaCookie, FaFish, FaBox  } from "react-icons/fa";
 import { useRouter } from "next/router";
-
+const onAddToCart = (product) => {
+  console.log("Đã thêm vào giỏ hàng:", product);
+};
 const ProductList = () => {
   const categories = [
     { name: "Nam", icon: <FaMale size={32} className="text-blue-500" /> },
@@ -224,82 +226,99 @@ const articles = [
   return (
     <div >
       
-      <section id="Thời trang" className="p-6">
-        <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-          <span className="w-2 h-6 bg-red-500 rounded-full"></span> Thời trang
-        </h2>
+      <section id="Thời trang" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Thời trang
+  </h2>
 
-        {/* Danh mục */}
-        <div className="flex justify-start gap-4 my-6">
-       
-          {categories.map(({ name, icon }) => (
-            <button
-              key={name}
-              onClick={() => {
-                setSelectedCategory(name);
-                setVisibleCount(initialCount);
-              }}
-              className={`flex flex-col items-center p-4 border rounded-lg w-32 hover:bg-gray-100 transition ${
-                selectedCategory === name ? "bg-gray-200" : ""
-              }`}
-            >
-              {icon}
-              <span className="mt-2 text-sm font-semibold">{name}</span>
-            </button>
-          ))}
+  {/* 🔹 Danh mục */}
+  <div className="flex flex-wrap justify-start gap-3 sm:gap-4 my-6">
+    {categories.map(({ name, icon }) => (
+      <button
+        key={name}
+        onClick={() => {
+          setSelectedCategory(name);
+          setVisibleCount(initialCount);
+        }}
+        className={`flex flex-col items-center p-3 sm:p-4 border rounded-lg w-24 sm:w-32 hover:bg-gray-100 transition ${
+          selectedCategory === name ? "bg-gray-200 border-red-500" : ""
+        }`}
+      >
+        <span className="text-xl sm:text-2xl">{icon}</span>
+        <span className="mt-2 text-xs sm:text-sm font-semibold text-center">{name}</span>
+      </button>
+    ))}
+  </div>
+
+  {/* 🔹 Danh sách sản phẩm */}
+  <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+    {filteredProducts.slice(0, visibleCount).map((product) => (
+      <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
+        {/* 🔥 Nhãn giảm giá */}
+        <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">
+          -40%
+        </span>
+
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
+
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
+
+        {/* 💰 Giá và giá gốc */}
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
-        {/* Danh sách sản phẩm */}
-        <div className="grid grid-cols-4 gap-6">
-          {filteredProducts.slice(0, visibleCount).map((product) => (
-            <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
-              <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">
-                -40%
-              </span>
-
-              <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
-
-              <h3 className="text-sm font-bold mt-2">{product.name}</h3>
-              <div className="flex items-center gap-2">
-              <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
-              </div>
-
-              <div className="flex items-center gap-1 mt-1">
-                <span className="text-yellow-400">★★★★★</span>
-                <p className="text-gray-500 text-xs">(88)</p>
-              </div>
-            </div>
-          ))}
+        {/* ⭐ Đánh giá */}
+        <div className="flex items-center gap-1 mt-1">
+          <span className="text-yellow-400 text-sm">★★★★★</span>
+          <p className="text-gray-500 text-xs">(88)</p>
         </div>
 
-        {/* Nút Xem thêm / Thu gọn */}
-        {filteredProducts.length > initialCount && (
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={toggleShowMore}
-              className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
-            >
-              {isExpanded ? "Thu gọn" : "Xem thêm"}
-            </button>
-          </div>
-        )}
-      </section>
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
+      </div>
+    ))}
+  </div>
+
+  {/* 🔹 Nút Xem thêm / Thu gọn */}
+  {filteredProducts.length > initialCount && (
+    <div className="flex justify-center mt-6">
+      <button
+        onClick={toggleShowMore}
+        className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
+      >
+        {isExpanded ? "Thu gọn" : "Xem thêm"}
+      </button>
+    </div>
+  )}
+</section>
+
 
 
 
 {/* 🔹 Điện tử */}
-<section id="Điện tử" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Điện tử
+<section id="Điện tử" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Điện tử
   </h2>
 
   {/* 🔹 Danh mục con điện tử */}
-  <div className="flex justify-start gap-4 my-6">
+  <div className="flex flex-wrap justify-start gap-3 sm:gap-4 my-6">
     {electronicCategories.map(({ name, icon }) => (
       <button
         key={name}
@@ -307,44 +326,57 @@ const articles = [
           setSelectedElectronicCategory(name);
           setElectronicVisibleCount(initialCount);
         }}
-        className={`flex flex-col items-center p-4 border rounded-lg w-32 hover:bg-gray-100 transition ${
+        className={`flex flex-col items-center p-3 sm:p-4 border rounded-lg w-24 sm:w-32 hover:bg-gray-100 transition ${
           selectedElectronicCategory === name ? "bg-gray-200 border-red-500" : ""
         }`}
       >
-        {icon}
-        <span className="mt-2 text-sm font-semibold">{name}</span>
+        <span className="text-xl sm:text-2xl">{icon}</span>
+        <span className="mt-2 text-xs sm:text-sm font-semibold text-center">{name}</span>
       </button>
     ))}
   </div>
 
   {/* 🔹 Danh sách sản phẩm điện tử */}
-  <div className="grid grid-cols-4 gap-6">
+  <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
     {filteredElectronicProducts.slice(0, electronicVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
-        {/* 🔥 Thêm nhãn giảm giá */}
+        {/* 🔥 Nhãn giảm giá */}
         <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">
           -40%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
         {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-red-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(88)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -354,7 +386,9 @@ const articles = [
     <div className="flex justify-center mt-6">
       <button
         onClick={() =>
-          setElectronicVisibleCount(isElectronicExpanded ? initialCount : filteredElectronicProducts.length)
+          setElectronicVisibleCount(
+            isElectronicExpanded ? initialCount : filteredElectronicProducts.length
+          )
         }
         className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
       >
@@ -364,16 +398,17 @@ const articles = [
   )}
 </section>
 
-{/* gia dung */}
+
+
 
 {/* 🔹 Gia dụng */}
-<section id="Gia dụng" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Gia dụng
+<section id="Gia dụng" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Gia dụng
   </h2>
 
   {/* 🔹 Danh sách sản phẩm Gia dụng */}
-  <div className="grid grid-cols-4 gap-6 mt-6">
+  <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
     {filteredHouseholdProducts.slice(0, householdVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
         {/* 🔥 Nhãn giảm giá */}
@@ -381,25 +416,38 @@ const articles = [
           -40%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
         {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-yellow-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(88)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -409,7 +457,9 @@ const articles = [
     <div className="flex justify-center mt-6">
       <button
         onClick={() =>
-          setHouseholdVisibleCount(isHouseholdExpanded ? initialCount : filteredHouseholdProducts.length)
+          setHouseholdVisibleCount(
+            isHouseholdExpanded ? initialCount : filteredHouseholdProducts.length
+          )
         }
         className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
       >
@@ -418,14 +468,16 @@ const articles = [
     </div>
   )}
 </section>
+
+
 {/* the thao */}
-<section id="Thể thao" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Thể thao
+<section id="Thể thao" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Thể thao
   </h2>
 
   {/* 🔹 Danh sách sản phẩm Thể thao */}
-  <div className="grid grid-cols-4 gap-6 mt-6">
+  <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
     {filteredSportProducts.slice(0, sportVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
         {/* 🔥 Nhãn giảm giá */}
@@ -433,25 +485,38 @@ const articles = [
           -30%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
         {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-yellow-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(55)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -461,21 +526,23 @@ const articles = [
     <div className="flex justify-center mt-6">
       <button
         onClick={toggleShowMoreSport}
-        className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-orange-600 transition"
+        className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
       >
         {isSportExpanded ? "Thu gọn" : "Xem thêm"}
       </button>
     </div>
   )}
 </section>
+
+
 {/* suc khoe */}
-<section id="Sức khỏe" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Sức khỏe
+<section id="Sức khỏe" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Sức khỏe
   </h2>
 
   {/* 🔹 Danh sách sản phẩm Sức khỏe */}
-  <div className="grid grid-cols-4 gap-6 mt-6">
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
     {filteredHealthProducts.slice(0, healthVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
         {/* 🔥 Nhãn giảm giá */}
@@ -483,25 +550,38 @@ const articles = [
           -25%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
         {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-yellow-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(70)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -518,14 +598,16 @@ const articles = [
     </div>
   )}
 </section>
+
+
 {/* Hoc tap */}
-<section id="Học tập" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Học tập
+<section id="Học tập" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Học tập
   </h2>
 
-  {/* 🔹 Danh sách sản phẩm Học Tập */}
-  <div className="grid grid-cols-4 gap-6 mt-6">
+  {/* 🔹 Danh sách sản phẩm Học tập */}
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
     {filteredStudyProducts.slice(0, studyVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
         {/* 🔥 Nhãn giảm giá */}
@@ -533,25 +615,38 @@ const articles = [
           -30%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
         {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-yellow-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(120)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -568,14 +663,16 @@ const articles = [
     </div>
   )}
 </section>
+
+
 {/* 🔥 Thực phẩm */}
-<section id="Thực phẩm" className="mt-12 p-6">
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Thực phẩm
+<section id="Thực phẩm" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Thực phẩm
   </h2>
 
   {/* 🔹 Danh mục con thực phẩm */}
-  <div className="flex justify-start gap-4 my-6">
+  <div className="flex flex-wrap gap-4 my-6">
     {foodCategories.map(({ name, icon }) => (
       <button
         key={name}
@@ -583,44 +680,57 @@ const articles = [
           setSelectedFoodCategory(name);
           setFoodVisibleCount(initialCount);
         }}
-        className={`flex flex-col items-center p-4 border rounded-lg w-32 hover:bg-gray-100 transition ${
+        className={`flex flex-col items-center p-3 border rounded-lg w-24 sm:w-28 md:w-32 hover:bg-gray-100 transition ${
           selectedFoodCategory === name ? "bg-gray-200 border-red-500" : ""
         }`}
       >
         {icon}
-        <span className="mt-2 text-sm font-semibold">{name}</span>
+        <span className="mt-2 text-xs sm:text-sm font-semibold text-center">{name}</span>
       </button>
     ))}
   </div>
 
   {/* 🔹 Danh sách sản phẩm thực phẩm */}
-  <div className="grid grid-cols-4 gap-6">
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
     {filteredFoodProducts.slice(0, foodVisibleCount).map((product) => (
       <div key={product.id} className="border rounded-lg p-4 relative bg-white shadow-md">
-        {/* 🔥 Nhãn giảm giá (tuỳ chỉnh theo chương trình khuyến mãi) */}
+        {/* 🔥 Nhãn giảm giá */}
         <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">
           -20%
         </span>
 
-        <Image src={product.image} alt={product.name} width={200} height={200} className="rounded-lg" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="w-full h-[200px] object-contain rounded-lg"
+        />
 
-        <h3 className="text-sm font-bold mt-2 text-center">{product.name}</h3>
+        <h3 className="text-sm font-bold mt-2 text-center line-clamp-2 min-h-[3rem]">{product.name}</h3>
 
         {/* 💰 Giá và giá gốc */}
-        <div className="flex items-center gap-2 justify-center">
-        <p className="text-red-500 font-semibold text-lg">
-          {new Intl.NumberFormat("vi-VN").format(product.price)}₫
-        </p>
-        <p className="text-gray-500 line-through text-sm">
-          {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
-        </p>
+        <div className="flex items-center gap-2 justify-center mt-1">
+          <p className="text-red-500 font-semibold text-base sm:text-lg">
+            {new Intl.NumberFormat("vi-VN").format(product.price)}₫
+          </p>
+          <p className="text-gray-500 line-through text-xs sm:text-sm">
+            {new Intl.NumberFormat("vi-VN").format(product.price * 1.3)}₫
+          </p>
         </div>
 
-        {/* ⭐ Đánh giá (giả định) */}
+        {/* ⭐ Đánh giá */}
         <div className="flex items-center gap-1 justify-center mt-1">
-          <span className="text-yellow-400">★★★★★</span>
+          <span className="text-yellow-400 text-sm">★★★★★</span>
           <p className="text-gray-500 text-xs">(42)</p>
         </div>
+
+        <button
+          onClick={() => onAddToCart(product)}
+          className="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium py-2 rounded-lg transition"
+        >
+          Thêm vào giỏ hàng
+        </button>
       </div>
     ))}
   </div>
@@ -630,7 +740,10 @@ const articles = [
     <div className="flex justify-center mt-6">
       <button
         onClick={() =>
-          setFoodVisibleCount(isFoodExpanded ? initialCount : filteredFoodProducts.length)
+          setIsFoodExpanded((prev) => {
+            setFoodVisibleCount(prev ? initialCount : filteredFoodProducts.length);
+            return !prev;
+          })
         }
         className="bg-red-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition"
       >
@@ -639,31 +752,38 @@ const articles = [
     </div>
   )}
 </section>
+
+
 {/* bai baos */}
-<section id="Bài báo" className="mt-12 p-6">
+<section id="Bài báo" className="mt-12 px-4 sm:px-6 py-6 max-w-[1400px] mx-auto">
   {/* Tiêu đề */}
-  <h2 className="text-2xl font-bold text-red-500 flex items-center gap-2">
-    <span className="w-2 h-6 bg-red-500 rounded-full"></span> Bài báo
+  <h2 className="text-xl sm:text-2xl font-bold text-red-500 flex items-center gap-2">
+    <span className="w-2 h-5 sm:h-6 bg-red-500 rounded-full"></span> Bài báo
   </h2>
 
   {/* Danh sách bài viết */}
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
     {articles.map((article, index) => (
       <div
         key={index}
-        className={`relative rounded-lg overflow-hidden ${
-          index === 0 ? "col-span-2 row-span-2" : "col-span-1"
+        className={`relative rounded-lg overflow-hidden shadow-md group transition duration-300 ${
+          index === 0 ? "sm:col-span-2 sm:row-span-2" : ""
         }`}
       >
         <img
           src={article.image}
           alt={article.title}
-          className="w-full h-full object-cover"
+          className="w-full h-48 sm:h-60 md:h-64 lg:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4">
-          <h3 className="text-lg font-bold">{article.title}</h3>
-          <p className="text-sm">{article.description}</p>
-          <a href={article.link} className="text-white underline mt-2 block">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent text-white p-4">
+          <h3 className="text-sm sm:text-base md:text-lg font-bold line-clamp-2">
+            {article.title}
+          </h3>
+          <p className="text-xs sm:text-sm mt-1 line-clamp-2">{article.description}</p>
+          <a
+            href={article.link}
+            className="text-white underline text-xs sm:text-sm mt-2 inline-block hover:text-rose-400 transition"
+          >
             Xem thêm
           </a>
         </div>
@@ -671,6 +791,8 @@ const articles = [
     ))}
   </div>
 </section>
+
+
     </div>
   );
 };
