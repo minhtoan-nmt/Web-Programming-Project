@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import React from "react"
 
 export default function Page({ params }) {
-  const resolveParams = React.use(params);
+const resolveParams = React.use(params);
   const id = resolveParams.id;
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState([]);
@@ -32,7 +32,7 @@ export default function Page({ params }) {
     fetchData();
     console.log(postTitle);
     console.log(postContent);
-  }, []);
+  }, []);  
   
   return (
     <div className="flex flex-col max-sm:p-6 max-md:p-12 p-24">
