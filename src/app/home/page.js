@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Navigation bar */}
-      <nav className="w-full bg-gray-100 text-black text-sm py-2 px-4 sm:px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
+      {/* <nav className="w-full bg-gray-100 text-black text-sm py-2 px-4 sm:px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
         <div className="max-w-screen-xl mx-auto flex justify-end items-center gap-4 sm:gap-6">
           <Link href="/auth/login" className="hover:text-blue-500 transition">
             Đăng nhập
@@ -18,7 +18,7 @@ export default function Home() {
             Đăng ký
           </Link>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Main content */}
       <main className="pt-14 sm:pt-16">
