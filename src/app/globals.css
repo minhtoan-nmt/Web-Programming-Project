@@ -8,6 +8,10 @@
   --background: #edf2f4;
   --foreground: #2b2d42;
   --tertiary: #8d99ae;
+/* :root {
+  --background: #edf2f4;
+  --foreground: #2b2d42;
+  --tertiary: #8d99ae;
 }
 
 @theme inline {
@@ -17,21 +21,14 @@
   --font-mono: var(--font-geist-mono);
 }*/
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --background: var(--background);
     --foreground: var(--foreground);
     --background: var(--background);
     --foreground: var(--foreground);
   }
-}
-
-@theme {
-  --background: #f8f8f8;
-  --foreground: #2b2d42;
-  --tertiary: #f0f0f0;
-  --button-color: #DB4444;
-}
+} */
 
 @theme {
   --background: #f8f8f8;
@@ -45,4 +42,5 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 

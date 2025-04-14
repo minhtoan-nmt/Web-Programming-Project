@@ -1,3 +1,5 @@
+'use client'
+
 import gamepad1 from "../../../../public/image/productDetail/gamepad1.png";
 import gamepad2 from "../../../../public/image/productDetail/gamepad2.png";
 import gamepad3 from "../../../../public/image/productDetail/gamepad3.png";
@@ -8,6 +10,9 @@ import { RatingStars } from "@/app/component/product-card";
 import green from "../../../../public/image/productDetail/icons8-filled-circle-48.png";
 import red from "../../../../public/image/productDetail/icons8-filled-circle-red.png";
 import { ItemRelated } from "../page";
+import { AddToCartButton } from "@/app/component/product-card";
+import Link from "next/link";
+import { useState } from "react";
 
 const subImage = [
   { id: "sub1", url: gamepad1 },
@@ -29,7 +34,7 @@ function SubImage({ subImage = subImage }) {
       />
     );
   });
-  return <div className="flex flex-col">{listImage}</div>;
+  return <div className="xl:flex xl:flex-col grid grid-cols-4 order-2 xl:order-1">{listImage}</div>;
 }
 
 let dataFromForm = {
@@ -47,17 +52,17 @@ function updateColor(color) {
 export default function ProductDetail() {
   return (
     <>
-      <div className="pt-30 px-30">
+      <div className="xl:pt-30 xl:px-30 p-10">
         <h1 className="mb-12 text-gray-400">
-          Trang chủ / Sản phẩm /{" "}
+          <Link href="/home">Trang chủ</Link> / <Link href="/product_page">Sản phẩm</Link> /{" "}
           <span className="font-bold text-gray-600">Thông tin chi tiết</span>{" "}
         </h1>
-        <div className="grid grid-cols-[5fr_3fr] gap-12">
-          <div className="grid grid-cols-[1fr_4fr] gap-6 ">
-            <div id="detail-col-1" className="flex flex-col justify-between">
+        <div className="lg:grid lg:grid-cols-[5fr_3fr] lg:gap-12">
+          <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col">
+            {/* <div id="detail-col-1" className="flex xl:flex-col md:flex-row md:justify-between"> */}
               <SubImage subImage={subImage} />
-            </div>
-            <div id="detail-col-2">
+            {/* </div> */}
+            <div id="detail-col-2" className="order-1 xl:order-2">
               <Image
                 src={gamepad1}
                 alt="sth for you"
@@ -66,8 +71,8 @@ export default function ProductDetail() {
             </div>
           </div>
           <div id="detail-col-3">
-            <div className="mb-12">
-              <h1 className="text-2xl font-bold mb-4">{product.productName}</h1>
+            <div className="xl:mb-12 mb-6">
+              <h1 className="text-2xl font-bold my-4">{product.productName}</h1>
               <RatingStars rating={product.rating} numOfRating={150} />
             </div>
             <p className="mb-4 border-b-2 border-gray-400 pb-6">
@@ -96,40 +101,38 @@ export default function ProductDetail() {
             </p>
             <div>
               <p className="inline">Size: </p>
-              <button className="m-3 border border-1 p-2 rounded-lg w-12">
+              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
                 XS
               </button>
-              <button className="m-3 border border-1 p-2 rounded-lg w-12">
+              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
                 S
               </button>
-              <button className="m-3 border border-1 p-2 rounded-lg w-12">
+              <button className="m-2 lg:m-3  border-1 p-2 rounded-lg w-12">
                 M
               </button>
-              <button className="m-3 border border-1 p-2 rounded-lg w-12">
+              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
                 L
               </button>
-              <button className="m-3 border border-1 p-2 rounded-lg w-12">
+              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
                 XL
               </button>
             </div>
-            <div className="flex flex-row justify-between">
-              <div className="border border-2 inline-block rounded-md">
-                <button className="border-r-2 p-2 w-10 h-full">
+            <div className="flex flex-row lg:justify-between justify-start my-3 ">
+              <div className="border-2 rounded-md mr-3 flex flex-nowrap">
+                <button className="border-r-2 p-2 md:w-10 w-5 h-full">
                   <span>-</span>
                 </button>
-                <button className="border-r-2 p-2 w-16 h-full">
+                <button className="border-r-2 p-2 md:w-16 w-8 h-full">
                   <span>{dataFromForm.quantity}</span>
                 </button>
-                <button className="p-2 w-10 h-full">
-                  <span>+</span>
+                <button className="p-2 md:w-10 w-5 h-full">
+                  +
                 </button>
               </div>
-              <button className="py-3 px-6 bg-(--button-color) text-(--background) w-64 rounded-md">
-                Thêm vào giỏ hàng
-              </button>
+              <AddToCartButton />
             </div>
             <div>
-              <div className="flex flex-row border border-2 mt-12">
+              <div className="flex flex-row border-2 mt-12">
                 <div className="py-4 px-6 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

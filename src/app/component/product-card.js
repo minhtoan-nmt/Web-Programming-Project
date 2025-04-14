@@ -1,5 +1,6 @@
 import { ST } from "next/dist/shared/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 // const ratingIcons = rating => {
 //     let stars = (
@@ -13,7 +14,7 @@ import Image from "next/image";
 //     )
 // }
 function Discount({discount}) {
-    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-1/6 text-white">{"-" + discount * 100 + "%"}</p>}
+    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
     else return null;
 }
 
@@ -76,7 +77,7 @@ export function RatingStars({rating, numOfRating = 0}) {
         )
     })
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row mb-3">
             <div className="flex flex-row mr-2">
                 {stars}
             </div>
@@ -85,9 +86,17 @@ export function RatingStars({rating, numOfRating = 0}) {
     )
 }
 
+export function AddToCartButton() {
+    return <button className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
+        ease-in-out hover:scale-110">
+    Thêm vào giỏ hàng
+    </button>
+}
+
 export default function ProductCard({imageSrc, discount, productName, price, oldPrice, rating}) {
     return (
-        <div className="h-[368px] p-2 bg-[#fff] flex flex-col justify-evenly">
+        <Link href="/product_page/product_detail">
+        <div className="h-[368px] p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
             <Discount discount={discount} />
             <Image src={imageSrc} alt={productName + '"s image'} className="h-2/3" />
             <h1 className="text-base font-bold">{productName}</h1>
@@ -96,6 +105,8 @@ export default function ProductCard({imageSrc, discount, productName, price, old
             </p>
             {/* Add a rating image here */}
             <RatingStars rating={rating} />
+            <AddToCartButton />
         </div>
+        </Link>
     )
 }
