@@ -12,7 +12,7 @@ import "./globals.css";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const hiddenRoutes = ['/auth/login', '/auth/register'];
+  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin'];
 
   if (hiddenRoutes.includes(pathname)) {
     return null; 
