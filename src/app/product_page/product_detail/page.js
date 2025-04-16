@@ -6,11 +6,11 @@ import gamepad3 from "../../../../public/image/productDetail/gamepad3.png";
 import gamepad4 from "../../../../public/image/productDetail/gamepad4.png";
 import Image from "next/image";
 import { listItemsRelated } from "../page";
-import { RatingStars } from "@/app/component/product-card";
+import { RatingStars } from "@/app/_component/product-card";
 import green from "../../../../public/image/productDetail/icons8-filled-circle-48.png";
 import red from "../../../../public/image/productDetail/icons8-filled-circle-red.png";
 import { ItemRelated } from "../page";
-import { AddToCartButton } from "@/app/component/product-card";
+import { AddToCartButton } from "@/app/_component/product-card";
 import Link from "next/link";
 import { useState } from "react";
 

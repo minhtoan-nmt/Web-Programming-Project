@@ -1,9 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import Sidebar from "@/app/comhome/Sidebar";
-import Banner from "@/app/comhome/Banner";
-import ProductList from "@/app/comhome/ProductList";
+import Sidebar from "@/app/_comhome/Sidebar";
+import Banner from "@/app/_comhome/Banner";
+import ProductList from "@/app/_comhome/ProductList";
 
 export default function Home() {
   return (

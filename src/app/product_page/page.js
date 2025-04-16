@@ -1,4 +1,4 @@
-import ProductCard from "../component/product-card";
+import ProductCard from "../_component/product-card";
 import NuocMam from "../../../public/image/productItem/nuocmamnamngu.jpg";
 import Gamepad from "../../../public/image/productItem/game_pad.jpg";
 import Link from "next/link";

@@ -1,9 +1,7 @@
-import Sidebar from "../admin_components/Sidebar"
-
-export default function Admin() {
+export default function Dashboard() {
     return (
         <div>
-            <Sidebar />
+            <h1 className="text-2xl">Dashboard</h1>
         </div>
     )
 }

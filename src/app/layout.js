@@ -6,7 +6,7 @@ import Image from 'next/image';
 import search from '../../public/search.svg';
 import Cart from '../../public/cart.svg';
 // import User from '../../public/user.png';
-import Header from '@/app/comhome/Header';
+import Header from '@/app/_comhome/Header';
 import Link from "next/link";
 
 import Navbar from "./Navbar";

@@ -6,13 +6,13 @@ import Image from 'next/image';
 import search from '../../public/search.svg';
 import Cart from '../../public/cart.svg';
 
-import Header from '@/app/comhome/Header';
+import Header from '@/app/_comhome/Header';
 import Link from "next/link";
 import "./globals.css";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin'];
+  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin', '/admin/component', '/admin/extra_component'];
 
   if (hiddenRoutes.includes(pathname)) {
     return null; 

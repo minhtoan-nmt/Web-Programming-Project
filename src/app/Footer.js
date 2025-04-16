@@ -6,7 +6,7 @@ import "./globals.css";
 
 export default function Footer() {
   const pathname = usePathname();
-  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin'];
+  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin',  '/admin/component', '/admin/extra_component'];
 
   if (hiddenRoutes.includes(pathname)) {
     return null; 

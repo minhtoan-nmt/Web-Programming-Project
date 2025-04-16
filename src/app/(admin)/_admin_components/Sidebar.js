@@ -1,3 +1,5 @@
+'use client'
+
 import { FaUserAlt } from "react-icons/fa";
 import { CiSun } from "react-icons/ci";
 import { FaToggleOff } from "react-icons/fa6";
@@ -8,6 +10,8 @@ import styles from "./styles.module.css";
 import { BsGridFill } from "react-icons/bs";
 import { BsStack } from "react-icons/bs";
 import { BsCollectionFill } from "react-icons/bs";
+import { useState } from "react";
+import Link from "next/link";
 
 export function HeaderSidebar() {
     return (
@@ -27,37 +31,39 @@ export function HeaderSidebar() {
 }
 
 
-export function Menu({selected = "Dashboard"}) {
+export function Menu() {
+    const [select, setSelect] = useState("Dashboard");
     const menuItems = [
         {  
             itemName: "Dashboard",
             icon: <BsGridFill />,
-            selected: true
+            link: "/admin"
         },
         {
             itemName: "Components",
             icon: <BsStack />,
-            selected: false
+            link: "/admin/component"
         },
         {
             itemName: "Extra Component",
             icon: <BsCollectionFill />,
-            selected: false
+            link: "/admin/extra_component"
         }
     ]
 
     const listMenuItems = menuItems.map((item) => {
         return (
             //list
-            <div 
+            <Link
+                href={item.link} 
                 key={item.itemName} 
                 className={"px-5 py-3 flex items-center gap-5 rounded-xl my-2 " 
-                + (item.selected ? "bg-[#435ebe] text-white" : "")}
-                // onClick={handleSelection}
+                + (select==item.itemName ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                onClick={() => setSelect(item.itemName)}
             >
                 {item.icon}
                 <span>{item.itemName}</span>
-            </div>
+            </Link>
         )
     })
     return (
@@ -70,11 +76,11 @@ export function Menu({selected = "Dashboard"}) {
     )
 }
 
-export default function Sidebar() {
+export default function Sidebar({select = "Dashboard"}) {
     return (
         <div className="md: w-[300px]">
             <HeaderSidebar />
-            <Menu />
+            <Menu selected={select}/>
         </div>
     )
 }
