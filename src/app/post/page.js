@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/post/get-all-posts", {
+        const response = await fetch("/api/post/get-home-posts", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -25,8 +25,8 @@ export default function Home() {
         const posts = responseData.data;
         console.log(posts);
 
-        setMainPostList(posts);
-        setRelatedPostList(posts);
+        setMainPostList(posts.main_posts);
+        setRelatedPostList(posts.related_posts);
       } catch (e) {
         console.error("An error occurred while fetching: ", e);
       }

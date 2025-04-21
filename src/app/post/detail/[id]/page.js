@@ -23,15 +23,15 @@ const resolveParams = React.use(params);
       }
       
       const responseData = await response.json();
-      const post = responseData.data;
+      const post = responseData.data[0];
       
       setPostTitle(post.title);
       setPostContent(JSON.parse(post.content));
+      console.log(postTitle);
+      console.log(JSON.parse(post.content));
     }
     
     fetchData();
-    console.log(postTitle);
-    console.log(postContent);
   }, []);  
   
   return (
@@ -59,7 +59,15 @@ const resolveParams = React.use(params);
                   alt={`Image ${index + 1}`}
                   className="mx-auto mb-6"
                 />
-              )
+              );
+            } else {
+              return (
+                <div key={index}>
+                  <p>Not found this element type</p>
+                  <br></br>
+                  <p>{item.content}</p>
+                </div>
+              );
             }
           })}
         </div>

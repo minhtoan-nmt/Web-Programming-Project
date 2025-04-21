@@ -79,13 +79,13 @@ const [householdVisibleCount, setHouseholdVisibleCount] = useState(initialCount)
   { id: 37, category: "Tai nghe", name: "Sony WH-1000XM5", price: 400000, image: "/image/hom/banner/tai2.webp" },
   { id: 38, category: "Tai nghe", name: "Bose QuietComfort", price: 350000, image: "/image/hom/banner/tai3.webp" },
   { id: 39, category: "Tai nghe", name: "JBL Tune 760NC", price: 180000, image: "/image/hom/banner/tai4.webp" },
-// gai dung
+// gia dung
 { id: 40, category: "Gia dụng", name: "Máy Hút Bụi", price: 300000, image: "/image/hom/banner/gd1.webp" },
 { id: 41, category: "Gia dụng", name: "Nồi Chiên Không Dầu", price: 250000, image: "/image/hom/banner/gd2.webp" },
 { id: 42, category: "Gia dụng", name: "Máy Lọc Nước", price: 400000, image: "/image/hom/banner/gd3.webp" },
 { id: 43, category: "Gia dụng", name: "Máy Giặt", price: 700000, image: "/image/hom/banner/gd4.webp" },
 { id: 44, category: "Gia dụng", name: "Máy Giặt", price: 700000, image: "/image/hom/banner/gd5.webp" },
-// the tha
+// the thao
 { id: 45, category: "Thể thao", name: "Giày chạy bộ Nike", price: 200000, image: "/image/hom/banner/sport1.webp" },
 { id: 46, category: "Thể thao", name: "Áo bóng đá Adidas", price: 80000, image: "/image/hom/banner/sport2.webp" },
 { id: 47, category: "Thể thao", name: "Vợt cầu lông Yonex", price: 150000, image: "/image/hom/banner/sport3.webp" },

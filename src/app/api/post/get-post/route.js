@@ -2,7 +2,7 @@ export async function GET(request) {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.searchParams);
   const id = searchParams.get("id");
-  const res = await fetch(`http://localhost/api/get-posts?id=${id}`, {
+  const res = await fetch(`http://localhost/api/post/get-post?id=${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

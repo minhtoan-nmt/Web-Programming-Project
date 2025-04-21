@@ -1,5 +1,5 @@
 export async function GET(request) {
-  const res = await fetch("http://localhost/api/get-posts/", {
+  const res = await fetch("http://localhost/api/post/get-home-posts", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
