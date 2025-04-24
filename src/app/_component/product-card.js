@@ -14,7 +14,7 @@ import Link from "next/link";
 //     )
 // }
 function Discount({discount}) {
-    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
+    if (discount > 0) {return <p className="p-1 mb-3 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
     else return null;
 }
 
@@ -96,9 +96,9 @@ export function AddToCartButton() {
 export default function ProductCard({imageSrc, discount, productName, price, oldPrice, rating}) {
     return (
         <Link href="/product_page/product_detail">
-        <div className="h-[368px] p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
+        <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
             <Discount discount={discount} />
-            <Image src={imageSrc} alt={productName + '"s image'} className="h-2/3" />
+            <img src={imageSrc} alt={productName + '"s image'} className="h-2/3 w-full" />
             <h1 className="text-base font-bold">{productName}</h1>
             <p className="text-red-500">{price + "VND "} 
                 <DeleteOldPrice oldPrice={oldPrice} discount={discount} />

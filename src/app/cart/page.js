@@ -46,7 +46,7 @@ export default function Home() {
           {/* Mỗi item */}
           {itemList.map((item, index) => {
             return (
-              <div className="grid grid-cols-4 items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
+              <div key={item.itemName} className="grid grid-cols-4 items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
                 <div className="">
                   <span>
                     <Image

@@ -1,90 +1,93 @@
+'use client'
+
 import ProductCard from "../_component/product-card";
 import NuocMam from "../../../public/image/productItem/nuocmamnamngu.jpg";
 import Gamepad from "../../../public/image/productItem/game_pad.jpg";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
-export const listItems = [
-  {
-    id: 1,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 2,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 3,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 4,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 5,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 6,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 7,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 8,
-    productName: "Nước mắm nam ngư",
-    price: 12000,
-    discount: 0.4,
-    rating: 4,
-    imageSrc: NuocMam,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-];
+// export const listItems = [
+//   {
+//     id: 1,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 2,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 3,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 4,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 5,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 6,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 7,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 8,
+//     productName: "Nước mắm nam ngư",
+//     price: 12000,
+//     discount: 0.4,
+//     rating: 4,
+//     imageSrc: NuocMam,
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+// ];
 
 export const listItemsRelated = [
   {
@@ -164,17 +167,36 @@ export function ItemRelated({ listItemsRelated }) {
 }
 
 export default function ProductPage() {
-  const items = listItems.map((item) => {
+  const [products, setProducts] = useState(null);
+  useEffect(() => {
+    async function fetchItems() {
+      const res = await fetch('/api/products/get_items', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (!res.ok) console.log(res.status);
+      const data = await res.json();
+      setProducts(data);
+    }
+    fetchItems()
+  }, [])
+
+
+  if (!products) return <div>Loading...</div>
+  // console.log(products.data);
+
+  const items = products.data.map((item) => {
     return (
-      
       <ProductCard
-        key={item.id}
-        imageSrc={item.imageSrc}
-        discount={item.discount}
-        productName={item.productName}
-        price={item.price * (1 - item.discount)}
-        oldPrice={item.price}
-        rating={item.rating}
+        key={item["ID"]}
+        imageSrc={item["Image Src"]}
+        discount={item["Discount"]}
+        productName={item["Product Name"]}
+        price={item["Price"] * (1 - item["Discount"])}
+        oldPrice={item["Price"]}
+        rating={item["Rating"]}
       />
     );
   });

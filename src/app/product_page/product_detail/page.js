@@ -37,19 +37,25 @@ function SubImage({ subImage = subImage }) {
   return <div className="xl:flex xl:flex-col grid grid-cols-4 order-2 xl:order-1">{listImage}</div>;
 }
 
-let dataFromForm = {
-  color: "red",
-  size: "M",
-  quantity: 0,
-  isAddedToCart: false,
-};
 
-function updateColor(color) {
-  dataFromForm.color = color;
-  console.log(dataFromForm.color);
-}
+
+// function updateColor(color) {
+//   dataFromForm.color = color;
+//   console.log(dataFromForm.color);
+// }
 
 export default function ProductDetail() {
+  const [color, setColor] = useState("red");
+  const [size, setSize] = useState("M");
+  const [quantity, setQuantity] = useState(0);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  let dataFromForm = {
+    color: color,
+    size: size,
+    quantity: quantity,
+    isAddedToCart: isAddedToCart,
+    price: 1800000
+  };
   return (
     <>
       <div className="xl:pt-30 xl:px-30 p-10">
@@ -80,52 +86,67 @@ export default function ProductDetail() {
             </p>
             <p>
               Màu:
-              <button type="button">
+              <button type="button" onClick={() => { setColor("green") }}>
                 <Image
                   src={green}
                   alt="green"
                   width={16}
                   height={16}
-                  className="inline ml-2 mr-1"
+                  className={"inline ml-2 mr-1 hover:border hover:border-gray-50" + (color=="green" && "border border-2 rounded-3xl border-black")}
                 />
               </button>
-              <button type="button">
+              <button type="button" onClick={() => {setColor("red")}}>
                 <Image
                   src={red}
                   alt="red"
                   width={16}
                   height={16}
-                  className="inline"
+                  className={"inline hover:border hover:border-gray-500 hover:rounded-3xl" + (color=="red" && "border border-2 rounded-3xl border-black")}
                 />
               </button>
             </p>
             <div>
               <p className="inline">Size: </p>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("XS");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XS" && "bg-orange-600 text-white")} >
                 XS
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("S");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="S" && "bg-orange-600 text-white")}>
                 S
               </button>
-              <button className="m-2 lg:m-3  border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("M");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="M" && "bg-orange-600 text-white")}>
                 M
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" 
+                onClick={()=> setSize("L")} 
+                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="L" && "bg-orange-600 text-white")}
+              >
                 L
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" 
+                onClick={()=> setSize("XL")} 
+                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XL" && "bg-orange-600 text-white")}
+              >
                 XL
               </button>
             </div>
+            <div>
+              <p className="text-xl"><span className="font-bold">Giá:</span> {dataFromForm.price * dataFromForm.quantity} VND</p>
+            </div>
             <div className="flex flex-row lg:justify-between justify-start my-3 ">
               <div className="border-2 rounded-md mr-3 flex flex-nowrap">
-                <button className="border-r-2 p-2 md:w-10 w-5 h-full">
+                <button className="border-r-2 p-2 md:w-10 w-5 h-full" onClick={() => quantity-1 > 0 && setQuantity(quantity - 1)}>
                   <span>-</span>
                 </button>
                 <button className="border-r-2 p-2 md:w-16 w-8 h-full">
                   <span>{dataFromForm.quantity}</span>
                 </button>
-                <button className="p-2 md:w-10 w-5 h-full">
+                <button className="p-2 md:w-10 w-5 h-full" onClick={() => setQuantity(quantity+1)}>
                   +
                 </button>
               </div>
