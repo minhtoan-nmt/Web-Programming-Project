@@ -184,7 +184,9 @@ export default function ProductPage() {
   }, [])
 
 
-  if (!products) return <div>Loading...</div>
+  if (!products) return <div className="text-2xl p-14">
+    Loading...
+  </div>
   // console.log(products.data);
 
   const items = products.data.map((item) => {
