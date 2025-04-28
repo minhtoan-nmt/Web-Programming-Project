@@ -620,6 +620,7 @@ const ProductList = () => {
     },
   ];
 
+
   // Lọc sản phẩm theo danh mục
   const filteredProducts = allProducts.filter(
     (product) => product.category === selectedCategory
