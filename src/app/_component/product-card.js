@@ -99,7 +99,7 @@ export default function ProductCard({imageSrc, discount, productName, price, old
         <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
             <Discount discount={discount} />
             <img src={imageSrc} alt={productName + '"s image'} className="h-2/3 w-full" />
-            <h1 className="text-base font-bold">{productName}</h1>
+            <h1 className="text-base font-bold mt-2">{productName}</h1>
             <p className="text-red-500">{price + "VND "} 
                 <DeleteOldPrice oldPrice={oldPrice} discount={discount} />
             </p>

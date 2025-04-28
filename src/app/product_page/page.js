@@ -1,93 +1,8 @@
 'use client'
 
 import ProductCard from "../_component/product-card";
-import NuocMam from "../../../public/image/productItem/nuocmamnamngu.jpg";
 import Gamepad from "../../../public/image/productItem/game_pad.jpg";
-import Link from "next/link";
 import { useState, useEffect } from "react";
-
-// export const listItems = [
-//   {
-//     id: 1,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 2,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 3,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 4,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 5,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 6,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 7,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-//   {
-//     id: 8,
-//     productName: "Nước mắm nam ngư",
-//     price: 12000,
-//     discount: 0.4,
-//     rating: 4,
-//     imageSrc: NuocMam,
-//     description:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-//   },
-// ];
 
 export const listItemsRelated = [
   {
@@ -166,49 +81,64 @@ export function ItemRelated({ listItemsRelated }) {
   );
 }
 
+function ItemSection({itemType, items}) {
+  const lists = items.map((item) => {
+      return (
+        <ProductCard
+          key={item["ID"]}
+          imageSrc={item["Image Src"]}
+          discount={item["Discount"]}
+          productName={item["Product Name"]}
+          price={item["Price"] * (1 - item["Discount"])}
+          oldPrice={item["Price"]}
+          rating={item["Rating"]}
+        />
+      );
+    });
+  return (
+    <div className="xl:px-30 xl:py-15 lg:px-15 lg:pt-30 lg:pb-15">
+      <h1 className="my-6 font-bold text-4xl">{itemType}</h1>
+      <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 gap-9">
+        {lists}
+      </div>
+    </div>
+  )
+}
+
 export default function ProductPage() {
   const [products, setProducts] = useState(null);
+
   useEffect(() => {
-    async function fetchItems() {
-      const res = await fetch('/api/products/get_items', {
+    async function getData() {
+      const res = await fetch("/api/products/get_item_type", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type" : "application/json"
         }
-      });
-      if (!res.ok) console.log(res.status);
+      })
+      if (!res.ok) {
+        console.log("Response status: ", res.status);
+      }
       const data = await res.json();
-      setProducts(data);
+      setProducts(data.result);
     }
-    fetchItems()
+    getData();
   }, [])
 
-
-  if (!products) return <div className="text-2xl p-14">
-    Loading...
-  </div>
-  // console.log(products.data);
-
-  const items = products.data.map((item) => {
-    return (
-      <ProductCard
-        key={item["ID"]}
-        imageSrc={item["Image Src"]}
-        discount={item["Discount"]}
-        productName={item["Product Name"]}
-        price={item["Price"] * (1 - item["Discount"])}
-        oldPrice={item["Price"]}
-        rating={item["Rating"]}
-      />
-    );
-  });
+  if (!products) {
+    return <div>Loading...</div>
+  }
+  if (products) {
+    console.log(products);
+  }
+  const sections = products.map((section) => {
+    const header = section[0];
+    const items = section[1];
+    return <ItemSection itemType={header} items={items} />
+  })
   return (
     <div>
-      <div className="xl:px-30 xl:pt-48 xl:pb-30 lg:px-15 lg:pt-30 lg:pb-15">
-        <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 gap-9">
-          {items}
-        </div>
-      </div>
+      {sections}
       <ItemRelated listItemsRelated={listItemsRelated} />
     </div>
   );
