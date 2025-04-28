@@ -86,16 +86,16 @@ export function RatingStars({rating, numOfRating = 0}) {
     )
 }
 
-export function AddToCartButton() {
+export function AddToCartButton({id}) {
     return <button className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
         ease-in-out hover:scale-110">
     Thêm vào giỏ hàng
     </button>
 }
 
-export default function ProductCard({imageSrc, discount, productName, price, oldPrice, rating}) {
+export default function ProductCard({productID, imageSrc, discount, productName, price, oldPrice, rating}) {
     return (
-        <Link href="/product_page/product_detail">
+        <Link href={`/product_page/product_detail?id=${productID}`}>
         <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
             <Discount discount={discount} />
             <img src={imageSrc} alt={productName + '"s image'} className="h-2/3 w-full" />
@@ -105,7 +105,7 @@ export default function ProductCard({imageSrc, discount, productName, price, old
             </p>
             {/* Add a rating image here */}
             <RatingStars rating={rating} />
-            <AddToCartButton />
+            <AddToCartButton id={productID} />
         </div>
         </Link>
     )

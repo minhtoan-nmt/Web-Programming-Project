@@ -1,5 +1,5 @@
 'use client';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams, redirect } from 'next/navigation';
 
 import logo from "../../public/logo.png";
 import Image from 'next/image';
@@ -13,13 +13,25 @@ import "./globals.css";
 export default function Navbar() {
   const pathname = usePathname();
   const hiddenRoutes = ['/auth/login', '/auth/register', '/admin', '/admin/component', '/admin/extra_component'];
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
 
   if (hiddenRoutes.includes(pathname)) {
     return null; 
   }
 
+  function handleSearch(data) {
+    const params = new URLSearchParams(searchParams);
+    const query = data.get("query");
+    if (query) {
+      params.set('query', query);
+    } else {
+      params.delete('query');
+    }
+    redirect(`/product_page?${params.toString()}`)
+  }
+
   return (
-   
      <div
       id="navbar"
       className="flex flex-row justify-evenly items-center md:p-5 bg-gray-100 border-b-2 border-gray-300 h-[125px]"
@@ -30,12 +42,13 @@ export default function Navbar() {
       </h1>
 
       {/* Ô tìm kiếm */}
-      <form className="border-2 flex align-middle rounded-xl md:w-[250px] lg:w-[500px] w-30">
-        <button id="search" className="p-3">
+      <form action={handleSearch} className="border-2 flex align-middle rounded-xl md:w-[250px] lg:w-[500px] w-30">
+        <button id="search" type='submit' className="p-3">
           <Image src={search} alt="Search icon" width={20} height={20} />
         </button>
         <input
           type="search"
+          name='query'
           placeholder="Search ..."
           className="w-full md:h-[42px] p-4 border-none focus:outline-none"
         />

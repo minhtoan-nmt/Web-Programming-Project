@@ -3,6 +3,7 @@
 import ProductCard from "../_component/product-card";
 import Gamepad from "../../../public/image/productItem/game_pad.jpg";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export const listItemsRelated = [
   {
@@ -81,11 +82,12 @@ export function ItemRelated({ listItemsRelated }) {
   );
 }
 
-function ItemSection({itemType, items}) {
+export function ItemSection({itemType, items}) {
   const lists = items.map((item) => {
       return (
         <ProductCard
           key={item["ID"]}
+          productID={item["ID"]}
           imageSrc={item["Image Src"]}
           discount={item["Discount"]}
           productName={item["Product Name"]}
@@ -96,9 +98,69 @@ function ItemSection({itemType, items}) {
       );
     });
   return (
-    <div className="xl:px-30 xl:py-15 lg:px-15 lg:pt-30 lg:pb-15">
+    <div className="xl:px-30 xl:py-15 lg:px-15 px-10 lg:pt-30 lg:pb-15">
       <h1 className="my-6 font-bold text-4xl">{itemType}</h1>
-      <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 gap-9">
+      <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 flex flex-col gap-9">
+        {lists}
+      </div>
+    </div>
+  )
+}
+
+export function SearchItems({search}) {
+  const [qItems, setQItems] = useState(null);
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch(`/api/products/get_items/${search}`, {
+        method: "GET",
+        headers: {
+          "Content-Type" : "application/json"
+        }
+      })
+      if (!res.ok) {
+        return (
+          <div className="p-25 h-screen">
+            <h1 className="text-3xl">You find items that don't exist</h1>
+          </div>
+        )
+      }
+      console.log(res);
+      const data = await res.json();
+      setQItems(data.data);
+    }
+    getData();
+  }, [])
+
+  if (!qItems) {
+    return <div className="p-25 h-screen">
+      <h1 className="text-3xl">Loading...</h1>
+    </div>
+  }
+
+  if (qItems=="No data returned") {
+    return <div className="p-25 h-screen">
+      <h1 className="text-3xl">You find items that don't exist</h1>
+    </div>
+  }
+
+  const lists = qItems.map((item) => {
+    return (
+      <ProductCard
+        key={item["ID"]}
+        productID={item["ID"]}
+        imageSrc={item["Image Src"]}
+        discount={item["Discount"]}
+        productName={item["Product Name"]}
+        price={item["Price"] * (1 - item["Discount"])}
+        oldPrice={item["Price"]}
+        rating={item["Rating"]}
+      />
+    );
+  });
+  return (
+    <div className="xl:px-30 xl:py-15 lg:px-15 px-10 lg:pt-30 lg:pb-15">
+      <h1 className="my-6 font-bold text-4xl">Products</h1>
+      <div className="p-10 bg-(--tertiary) md:grid md:grid-cols-2 lg:grid-cols-4 flex flex-col gap-9">
         {lists}
       </div>
     </div>
@@ -106,6 +168,8 @@ function ItemSection({itemType, items}) {
 }
 
 export default function ProductPage() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get('query');
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
@@ -125,21 +189,31 @@ export default function ProductPage() {
     getData();
   }, [])
 
-  if (!products) {
-    return <div>Loading...</div>
+  if (!search) {
+    if (!products) {
+      return <div className="p-25 h-screen">
+        <h1 className="text-3xl">Loading...</h1>
+      </div>
+    }
+    // if (!search) {
+      const sections = products.map((section) => {
+        const header = section[0];
+        const items = section[1];
+        return <ItemSection key={section[0]} itemType={header} items={items} />
+      })
+      return (
+        <div>
+          {sections}
+          <ItemRelated listItemsRelated={listItemsRelated} />
+        </div>
+      );
+    // }
   }
-  if (products) {
-    console.log(products);
+
+  else {
+    return (
+      <SearchItems search={search} />
+    )
   }
-  const sections = products.map((section) => {
-    const header = section[0];
-    const items = section[1];
-    return <ItemSection itemType={header} items={items} />
-  })
-  return (
-    <div>
-      {sections}
-      <ItemRelated listItemsRelated={listItemsRelated} />
-    </div>
-  );
+
 }

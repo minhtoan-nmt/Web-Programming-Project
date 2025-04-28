@@ -1,18 +1,19 @@
 'use client'
 
-import gamepad1 from "../../../../public/image/productDetail/gamepad1.png";
-import gamepad2 from "../../../../public/image/productDetail/gamepad2.png";
-import gamepad3 from "../../../../public/image/productDetail/gamepad3.png";
-import gamepad4 from "../../../../public/image/productDetail/gamepad4.png";
+import gamepad1 from "@/../public/image/productDetail/gamepad1.png";
+import gamepad2 from "@/../public/image/productDetail/gamepad2.png";
+import gamepad3 from "@/../public/image/productDetail/gamepad3.png";
+import gamepad4 from "@/../public/image/productDetail/gamepad4.png";
 import Image from "next/image";
-import { listItemsRelated } from "../page";
+import { listItemsRelated } from "@/app/product_page/page";
 import { RatingStars } from "@/app/_component/product-card";
-import green from "../../../../public/image/productDetail/icons8-filled-circle-48.png";
-import red from "../../../../public/image/productDetail/icons8-filled-circle-red.png";
+import green from "@/../public/image/productDetail/icons8-filled-circle-48.png";
+import red from "@/../public/image/productDetail/icons8-filled-circle-red.png";
 import { ItemRelated } from "../page";
 import { AddToCartButton } from "@/app/_component/product-card";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 const subImage = [
   { id: "sub1", url: gamepad1 },
@@ -45,10 +46,44 @@ function SubImage({ subImage = subImage }) {
 // }
 
 export default function ProductDetail() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get('id');
+  const [item, setItem] = useState(null);
+  console.log(search);
+  useEffect(() => {
+      async function getData() {
+        const res = await fetch(`/api/products/get_item_by_id/${search}`, {
+          method: "GET",
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+        if (!res.ok) {
+          return (
+            <div className="p-25 h-screen">
+              <h1 className="text-3xl">You find items that don't exist</h1>
+            </div>
+          )
+        }
+        console.log(res);
+        const data = await res.json();
+        setItem(data.data);
+      }
+      getData();
+    }, [])
+  
   const [color, setColor] = useState("red");
   const [size, setSize] = useState("M");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+  if (!item) {
+    return <div className="p-25 h-screen">
+      <h1 className="text-3xl">Loading...</h1>
+    </div>
+  }
+  console.log(item);
+
   let dataFromForm = {
     color: color,
     size: size,
@@ -69,8 +104,8 @@ export default function ProductDetail() {
               <SubImage subImage={subImage} />
             {/* </div> */}
             <div id="detail-col-2" className="order-1 xl:order-2">
-              <Image
-                src={gamepad1}
+              <img
+                src={item["Image Src"]}
                 alt="sth for you"
                 className="h-full w-full"
               />
@@ -78,13 +113,13 @@ export default function ProductDetail() {
           </div>
           <div id="detail-col-3">
             <div className="xl:mb-12 mb-6">
-              <h1 className="text-2xl font-bold my-4">{product.productName}</h1>
-              <RatingStars rating={product.rating} numOfRating={150} />
+              <h1 className="text-2xl font-bold my-4">{item["Product Name"]}</h1>
+              <RatingStars rating={item["Rating"]} numOfRating={150} />
             </div>
             <p className="mb-4 border-b-2 border-gray-400 pb-6">
-              {product.description}
+              {item["Description"]}
             </p>
-            <p>
+            {/* <p>
               Màu:
               <button type="button" onClick={() => { setColor("green") }}>
                 <Image
@@ -134,9 +169,9 @@ export default function ProductDetail() {
               >
                 XL
               </button>
-            </div>
+            </div> */}
             <div>
-              <p className="text-xl"><span className="font-bold">Giá:</span> {dataFromForm.price * dataFromForm.quantity} VND</p>
+              <p className="text-xl"><span className="font-bold">Giá:</span> {item["Price"] * (1 - item["Discount"])} VND {item["Discount"]!=0 && <del className="text-gray-500">{item["Price"] + "VND"}</del>}</p>
             </div>
             <div className="flex flex-row lg:justify-between justify-start my-3 ">
               <div className="border-2 rounded-md mr-3 flex flex-nowrap">
