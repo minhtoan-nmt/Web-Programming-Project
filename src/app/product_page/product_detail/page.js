@@ -76,6 +76,7 @@ export default function ProductDetail() {
   const [size, setSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+  
 
   if (!item) {
     return <div className="p-25 h-screen">
@@ -181,7 +182,7 @@ export default function ProductDetail() {
                 <button className="border-r-2 p-2 md:w-16 w-8 h-full">
                   <span>{dataFromForm.quantity}</span>
                 </button>
-                <button className="p-2 md:w-10 w-5 h-full" onClick={() => setQuantity(quantity+1)}>
+                <button className="p-2 md:w-10 w-5 h-full" onClick={() => quantity+1 <= item["Quantity"] && setQuantity(quantity+1)}>
                   +
                 </button>
               </div>

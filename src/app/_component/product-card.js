@@ -98,7 +98,7 @@ export default function ProductCard({productID, imageSrc, discount, productName,
         <Link href={`/product_page/product_detail?id=${productID}`}>
         <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
             <Discount discount={discount} />
-            <img src={imageSrc} alt={productName + '"s image'} className="h-2/3 w-full" />
+            <Image src={imageSrc} width={500} height={1500} alt={productName + '"s image'} className="h-64" />
             <h1 className="text-base font-bold mt-2">{productName}</h1>
             <p className="text-red-500">{price + "VND "} 
                 <DeleteOldPrice oldPrice={oldPrice} discount={discount} />
