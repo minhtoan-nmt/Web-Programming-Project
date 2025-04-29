@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $password = "";
     $dbname = "LTW";
   
-    // 
     $conn = new mysqli($servername, $username, $password, $dbname);
   
     if ($conn->connect_error) {

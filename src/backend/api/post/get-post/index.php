@@ -1,5 +1,4 @@
 <?php
-
 $response = array();
 header('Content-Type: application/json');
 
@@ -21,30 +20,29 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if (isset($_GET["id"])) {
       $id = $_GET["id"];
-      $sql = "SELECT * FROM Post WHERE id=$id LIMIT 1";
     } else {
-      $sql = "SELECT * FROM Post";
+      echo json_encode([
+        "status" => 400,
+        "error" => "Id is required"
+      ]);
+      return;
     }
+
+    $sql = "SELECT * FROM Post WHERE id='$id' LIMIT 1";
   
     $data = array();
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-      }
+      $row = $result->fetch_assoc();
+      $data[] = $row;
     } else {
       $data[] = "No data found";
     }
 
-    if (isset($_GET["id"])) {
-      $return_data = $data[0];
-    } else {
-      $return_data = $data;
-    }
   
     echo json_encode([
       'status' => 200,
-      'data' => $return_data
+      'data' => $data
     ]);
   
   } catch (Exception $e) {
