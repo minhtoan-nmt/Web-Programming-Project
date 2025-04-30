@@ -5,10 +5,12 @@ import logo from "../../public/logo.png";
 import Image from 'next/image';
 import search from '../../public/search.svg';
 import Cart from '../../public/cart.svg';
+import NavCart from './_component/nav-cart';
 
 import Header from '@/app/_comhome/Header';
 import Link from "next/link";
 import "./globals.css";
+import { Suspense } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -55,14 +57,19 @@ export default function Navbar() {
       </form>
 
       {/* Giỏ hàng */}
-      <div className="relative hover:scale-115 transition duration-150 ease-in-out">
+      {/* <div className="relative hover:scale-115 transition duration-150 ease-in-out">
         <Link href="/cart">
           <Image src={Cart} alt="Cart" width={38} height={34} />
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
             2
           </span>
         </Link>
-      </div>
+      </div> */}
+
+      
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+        <NavCart />
+      {/* </Suspense> */}
 
       <Header />
  

@@ -194,7 +194,7 @@ export default function ProductDetail() {
                   +
                 </button>
               </div>
-              <AddToCartButton />
+              <AddToCartButton id={item["ID"]} productName={item["Product Name"]} quantity={quantity}/>
             </div>
             <p>Còn lại: {item["Quantity"]}</p>
             <div>
