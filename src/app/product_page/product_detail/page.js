@@ -49,7 +49,7 @@ export default function ProductDetail() {
   const searchParams = useSearchParams();
   const search = searchParams.get('id');
   const [item, setItem] = useState(null);
-  console.log(search);
+  // console.log(search);
   useEffect(() => {
       async function getData() {
         const res = await fetch(`/api/products/get_item_by_id/${search}`, {
@@ -65,7 +65,7 @@ export default function ProductDetail() {
             </div>
           )
         }
-        console.log(res);
+        // console.log(res);
         const data = await res.json();
         setItem(data.data);
       }
@@ -83,14 +83,14 @@ export default function ProductDetail() {
       <h1 className="text-3xl">Loading...</h1>
     </div>
   }
-  console.log(item);
+  // console.log(item);
 
   let dataFromForm = {
     color: color,
     size: size,
     quantity: quantity,
     isAddedToCart: isAddedToCart,
-    price: 1800000
+    price: 1800000,
   };
   return (
     <>
@@ -99,18 +99,20 @@ export default function ProductDetail() {
           <Link href="/home">Trang chủ</Link> / <Link href="/product_page">Sản phẩm</Link> /{" "}
           <span className="font-bold text-gray-600">Thông tin chi tiết</span>{" "}
         </h1>
-        <div className="lg:grid lg:grid-cols-[5fr_3fr] lg:gap-12">
-          <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col">
+        <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-12">
+          {/* <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col"> */}
             {/* <div id="detail-col-1" className="flex xl:flex-col md:flex-row md:justify-between"> */}
-              <SubImage subImage={subImage} />
+              {/* <SubImage subImage={subImage} /> */}
             {/* </div> */}
-            <div id="detail-col-2" className="order-1 xl:order-2">
-              <img
+            <div id="detail-col-2" >
+              <Image
                 src={item["Image Src"]}
+                width={500}
+                height={1000}
                 alt="sth for you"
                 className="h-full w-full"
               />
-            </div>
+            {/* </div> */}
           </div>
           <div id="detail-col-3">
             <div className="xl:mb-12 mb-6">
@@ -172,22 +174,29 @@ export default function ProductDetail() {
               </button>
             </div> */}
             <div>
-              <p className="text-xl"><span className="font-bold">Giá:</span> {item["Price"] * (1 - item["Discount"])} VND {item["Discount"]!=0 && <del className="text-gray-500">{item["Price"] + "VND"}</del>}</p>
+              <p className="text-xl">
+                <span className="font-bold">Giá: </span>
+                {(item["Price"] * (1 - item["Discount"]))*quantity} VND {item["Discount"]!=0 && <del className="text-gray-500">{item["Price"] + "VND"}</del>}
+              </p>
             </div>
-            <div className="flex flex-row lg:justify-between justify-start my-3 ">
+            <div className="flex flex-row justify-between my-3 ">
               <div className="border-2 rounded-md mr-3 flex flex-nowrap">
-                <button className="border-r-2 p-2 md:w-10 w-5 h-full" onClick={() => quantity-1 > 0 && setQuantity(quantity - 1)}>
+                <button className="border-r-2 p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" onClick={() => quantity-1 > 0 && setQuantity(quantity - 1)}>
                   <span>-</span>
                 </button>
-                <button className="border-r-2 p-2 md:w-16 w-8 h-full">
+                <button className="border-r-2 p-2 md:w-16 w-12 h-full">
                   <span>{dataFromForm.quantity}</span>
                 </button>
-                <button className="p-2 md:w-10 w-5 h-full" onClick={() => quantity+1 <= item["Quantity"] && setQuantity(quantity+1)}>
+                <button 
+                  className="p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" 
+                  onClick={() => quantity+1 <= item["Quantity"] ? setQuantity(quantity+1) : alert("Số lượng bạn chọn vượt quá số lượng hiện có")}
+                >
                   +
                 </button>
               </div>
               <AddToCartButton />
             </div>
+            <p>Còn lại: {item["Quantity"]}</p>
             <div>
               <div className="flex flex-row border-2 mt-12">
                 <div className="py-4 px-6 ">

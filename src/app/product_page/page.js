@@ -124,7 +124,6 @@ export function SearchItems({search}) {
           </div>
         )
       }
-      console.log(res);
       const data = await res.json();
       setQItems(data.data);
     }
@@ -204,7 +203,7 @@ export default function ProductPage() {
       return (
         <div>
           {sections}
-          <ItemRelated listItemsRelated={listItemsRelated} />
+          {/* <ItemRelated listItemsRelated={listItemsRelated} /> */}
         </div>
       );
     // }

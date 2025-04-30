@@ -86,9 +86,23 @@ export function RatingStars({rating, numOfRating = 0}) {
     )
 }
 
-export function AddToCartButton({id}) {
-    return <button className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
-        ease-in-out hover:scale-110">
+async function addToCart(id, productName, quantity = 1) {
+    const response = await fetch(`http://localhost/clients_api/addToCart.php?id=${id}&quantity=${quantity}`, {
+        method: "POST",
+        mode: "cors"
+    })
+    if (!response.ok) {
+        alert("Fetch not oke. Status: ", response.status);
+    }
+    const result = await response.json();
+    if (result) {
+        alert(`Đã thêm sản phẩm ${productName} vào giỏ hàng`)
+    }
+}
+
+export function AddToCartButton({id, productName, quantity = 1}) {
+    return <button type="button" className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
+        ease-in-out hover:scale-110" onClick={() => addToCart(id, productName, quantity)}>
     Thêm vào giỏ hàng
     </button>
 }
@@ -105,7 +119,7 @@ export default function ProductCard({productID, imageSrc, discount, productName,
             </p>
             {/* Add a rating image here */}
             <RatingStars rating={rating} />
-            <AddToCartButton id={productID} />
+            <AddToCartButton id={productID} productName={productName} />
         </div>
         </Link>
     )
