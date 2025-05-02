@@ -4,7 +4,7 @@ export default function Admin({children}) {
     return (
         <div className="flex flex-row">
             <Sidebar />
-            {children}
+            <div className="block w-full h-full min-h-screen  bg-[#f2f7ff]">{children}</div>
         </div>
     )
 }

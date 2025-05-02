@@ -40,14 +40,14 @@ export function Menu() {
             link: "/admin"
         },
         {
-            itemName: "Components",
+            itemName: "Products",
             icon: <BsStack />,
-            link: "/admin/component"
+            link: "/admin/products"
         },
         {
-            itemName: "Extra Component",
+            itemName: "Invoices",
             icon: <BsCollectionFill />,
-            link: "/admin/extra_component"
+            link: "/admin/invoices"
         }
     ]
 
@@ -78,7 +78,7 @@ export function Menu() {
 
 export default function Sidebar({select = "Dashboard"}) {
     return (
-        <div className="md: w-[300px]">
+        <div className="w-1/5 min-w-[300px]">
             <HeaderSidebar />
             <Menu selected={select}/>
         </div>

@@ -1,10 +1,11 @@
 'use client'
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { removeFromCart } from "./removeFromCart";
+import { createInvoice } from "./createInvoice";
 
 function NumberOfItem({quantity, numLeft}) {
   const [numItems, setNumItems] = useState(quantity);
@@ -157,9 +158,13 @@ export default function Home() {
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between">
               <p>Thanh toán:</p>
-              <p>{sum + 10000} VND</p>
+              <p>{sum = sum + 10000} VND</p>
             </div>
-            <button type="submit" className="rounded text-white bg-red-400 px-4 py-2 mt-6 self-end">Thanh toán</button>
+            <button type="button" className="rounded text-white bg-red-400 px-4 py-2 mt-6 self-end"
+            onClick={() => {
+              if (createInvoice(itemList.length, sum))
+                redirect("/cart/checkout");
+            }}>Thanh toán</button>
           </form>
         </div>
       </div>

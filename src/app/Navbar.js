@@ -14,11 +14,11 @@ import { Suspense } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin', '/admin/component', '/admin/extra_component'];
+  const hiddenRoutes = ['/auth/login', '/auth/register', '/admin/'];
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  if (hiddenRoutes.includes(pathname)) {
+  if (hiddenRoutes.includes(pathname) || pathname.startsWith('/admin')) {
     return null; 
   }
 

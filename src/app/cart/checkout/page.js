@@ -1,22 +1,58 @@
+'use client'
+
+import { redirect } from "next/navigation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const itemList = [
-    {
-      itemName: "LCD Monitor",
-      price: 105000,
-      amount: 1,
-      totalPrice: 105000,
-      imagePath: "/image/cart/monitor.webp"
-    },
-    {
-      itemName: "Gamepad",
-      price: 35000,
-      amount: 2,
-      totalPrice: 70000,
-      imagePath: "/image/cart/gamepad.webp"
+  const [itemList, setitemList] = useState(null);
+  const [cart, setCart] = useState(null);
+    useEffect(() => {
+      async function getCart() {
+        const res = await fetch("/api/get_cart");
+        if (!res.ok) {
+          console.log(res.status);
+        }
+        const data = await res.json();
+        setCart(data.data)
+      }
+      async function getitemList() {
+        const res = await fetch("/api/get_cart_data");
+        if (!res.ok) {
+          console.log(res.status);
+        }
+        const data = await res.json();
+        setitemList(data.data);
+      }
+      getitemList();
+      getCart();
+    }, [])
+  
+    if (!itemList || !cart) {
+      return (
+        <div className="p-25 h-screen">
+          <h1 className="text-3xl">Loading...</h1>
+        </div>
+      )
     }
-  ];
+    console.log(cart);
+
+  // const itemList = [
+  //   {
+  //     itemName: "LCD Monitor",
+  //     price: 105000,
+  //     amount: 1,
+  //     totalPrice: 105000,
+  //     imagePath: "/image/cart/monitor.webp"
+  //   },
+  //   {
+  //     itemName: "Gamepad",
+  //     price: 35000,
+  //     amount: 2,
+  //     totalPrice: 70000,
+  //     imagePath: "/image/cart/gamepad.webp"
+  //   }
+  // ];
 
   return (
     <div className="flex flex-col sm:p-6 md:p-12 lg:p-24">
@@ -26,7 +62,7 @@ export default function Home() {
 
       <p className="font-bold text-3xl mb-6">Thông tin đơn hàng</p>
       {/* Form thông tin đơn hàng */}
-      <form className="flex">
+      <form action={"/product_page"} className="flex" method="post"> {/*Temporarily set to this function in action*/}
         <div className="w-2/5 flex flex-col">
           <label htmlFor="full-name" className="py-2">Họ và tên</label>
           <input type="text" id="full-name" name="full-name" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
@@ -50,19 +86,19 @@ export default function Home() {
                 <div key={index} className="flex items-center mb-4">
                   <div className="flex-2/4">
                     <Image
-                      src={item.imagePath}
-                      alt={item.itemName}
+                      src={item["Image Src"]}
+                      alt={item["Product Name"]}
                       width={24}
                       height={24}
                       className="inline-block h-full w-auto object-contain mr-4"
                     />
-                    {item.itemName}
+                    {item["Product Name"]}
                   </div>
                   <div className="flex-auto flex font-normal justify-end">
-                    x{item.amount}
+                    x{item["Quantity"]}
                   </div>
                   <div className="flex-1/4 flex justify-end">
-                    &#8363;{item.price}
+                    &#8363;{item["Price"]}
                   </div>
                 </div>
               );
@@ -70,7 +106,7 @@ export default function Home() {
 
             <div className="flex justify-between">
               <p>Tổng:</p>
-              <p>&#8363;175,000</p>
+              <p>&#8363;{cart[0]["Total price"] - 10000}</p>
             </div>
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between">
@@ -80,7 +116,7 @@ export default function Home() {
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between mb-2">
               <p>Thành tiền:</p>
-              <p>&#8363;185,000</p>
+              <p>&#8363;{cart[0]["Total price"]}</p>
             </div>
 
             <div className="flex items-center justify-between font-normal">
@@ -112,7 +148,12 @@ export default function Home() {
               </div>
             </div>
 
-            <button type="submit" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end">Thanh toán</button>
+            <button type="button" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end"
+            onClick={() => {
+              alert("Thanh toán thành công. Bạn hãy tiếp tục mua sắm nhé!");
+              redirect("/product_page")
+            }}
+            >Thanh toán</button>
           </div>
         </div>
       </form>
