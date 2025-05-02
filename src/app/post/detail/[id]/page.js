@@ -4,15 +4,18 @@ import { useState, useEffect } from "react"
 import React from "react"
 import CreateComment from "./CreateComment";
 import CommentSection from "./ComnentSection";
+import Image from "next/image";
 
 export default function Page({ params }) {
   const resolveParams = React.use(params);
   const id = resolveParams.id;
+  const [postId, setPostId] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState([]);
+  const [comments, setComments] = useState([]);
   
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPostData = async () => {
       const response = await fetch(`/api/post/get-post?id=${id}`, {
         method: "GET",
         headers: {
@@ -27,22 +30,37 @@ export default function Page({ params }) {
       const responseData = await response.json();
       const post = responseData.data[0];
       
+      setPostId(post.id);
       setPostTitle(post.title);
       setPostContent(JSON.parse(post.content));
       console.log(postTitle);
       console.log(JSON.parse(post.content));
     }
     
-    fetchData();
+    fetchPostData();
   }, []);
 
-  const comments = [
-    { id: 1, user_id: 1, username: "Toan", content: "Quá hay! Cảm ơn bạn đã chia sẻ", date_posted: new Date(), like_count: 7 },
-    { id: 2, user_id: 2, username: "Lan", content: "Bài viết rất hữu ích!", date_posted: new Date(new Date().setDate(new Date().getDate() - 1)), like_count: 3 },
-    { id: 3, user_id: 3, username: "Hung", content: "Mình đã áp dụng và thành công, cảm ơn!", date_posted: new Date(new Date().setHours(new Date().getHours() - 12)), like_count: 12 },
-    { id: 4, user_id: 1, username: "Toan", content: "Cho mình hỏi thêm về phần này được không?", date_posted: new Date(new Date().setMinutes(new Date().getMinutes() - 30)), like_count: 2 },
-    { id: 5, user_id: 4, username: "Mai", content: "Cảm ơn bạn nhiều!", date_posted: new Date(), like_count: 5 }
-  ];
+  useEffect(() => {
+    const fetchCommentsFromPost = async () => {
+      const response = await fetch(`/api/comment/get-comment-from-post?query=${postId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!response) {
+        throw new Error("Failed to fetch posts data");
+      }
+
+      const responseData = await response.json();
+
+      setComments(responseData.data);
+      console.log(comments);
+    }
+
+    fetchCommentsFromPost();
+  }, [postId]);
   
   return (
     <div className="flex flex-col max-sm:p-6 max-md:p-12 p-24">
