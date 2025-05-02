@@ -134,7 +134,7 @@ export default function ProductCard({productID, imageSrc, discount, productName,
             <Discount discount={discount} />
             <Image src={imageSrc} width={500} height={1500} alt={productName + '"s image'} className="h-64" />
             <h1 className="text-base font-bold mt-2">{productName}</h1>
-            <p className="text-red-500">{price + "VND "} 
+            <p className="text-red-500">{Math.round(price) + "VND "} 
                 <DeleteOldPrice oldPrice={oldPrice} discount={discount} />
             </p>
             {/* Add a rating image here */}

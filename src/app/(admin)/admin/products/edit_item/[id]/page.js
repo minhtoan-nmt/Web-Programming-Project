@@ -6,6 +6,7 @@ function InputTypeText({label, name, defaultValue, placeholder, type = "text"}) 
             <label htmlFor={name} className="font-bold">{label}</label>
             <input
                 type={type}
+                step={"any"}
                 name={name}
                 defaultValue={defaultValue}
                 placeholder={placeholder}

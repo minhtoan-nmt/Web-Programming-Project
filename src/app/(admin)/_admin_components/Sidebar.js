@@ -12,6 +12,7 @@ import { BsStack } from "react-icons/bs";
 import { BsCollectionFill } from "react-icons/bs";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function HeaderSidebar() {
     return (
@@ -32,7 +33,7 @@ export function HeaderSidebar() {
 
 
 export function Menu() {
-    const [select, setSelect] = useState("Dashboard");
+    const pathname = usePathname();
     const menuItems = [
         {  
             itemName: "Dashboard",
@@ -50,8 +51,11 @@ export function Menu() {
             link: "/admin/invoices"
         }
     ]
-
+    let select = "";
     const listMenuItems = menuItems.map((item) => {
+        if (pathname === item.link) {
+            select = item.itemName;
+        }
         return (
             //list
             <Link
@@ -59,7 +63,6 @@ export function Menu() {
                 key={item.itemName} 
                 className={"px-5 py-3 flex items-center gap-5 rounded-xl my-2 " 
                 + (select==item.itemName ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
-                onClick={() => setSelect(item.itemName)}
             >
                 {item.icon}
                 <span>{item.itemName}</span>
@@ -76,7 +79,7 @@ export function Menu() {
     )
 }
 
-export default function Sidebar({select = "Dashboard"}) {
+export default function Sidebar({select}) {
     return (
         <div className="w-1/5 min-w-[300px]">
             <HeaderSidebar />
