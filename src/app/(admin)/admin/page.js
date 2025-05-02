@@ -1,7 +1,7 @@
-export default function Dashboard() {
+export default function Page() {
     return (
-        <div>
-            <h1 className="text-2xl">Dashboard</h1>
+        <div className="p-10 text-3xl">
+            Admin Page
         </div>
     )
 }

@@ -38,7 +38,7 @@ export function Menu() {
         {  
             itemName: "Dashboard",
             icon: <BsGridFill />,
-            link: "/admin"
+            link: "/admin/dashboard"
         },
         {
             itemName: "Products",
@@ -53,7 +53,7 @@ export function Menu() {
     ]
     let select = "";
     const listMenuItems = menuItems.map((item) => {
-        if (pathname === item.link) {
+        if (pathname.includes(item.link)) {
             select = item.itemName;
         }
         return (
@@ -62,7 +62,7 @@ export function Menu() {
                 href={item.link} 
                 key={item.itemName} 
                 className={"px-5 py-3 flex items-center gap-5 rounded-xl my-2 " 
-                + (select==item.itemName ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                + ((select==item.itemName) ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
             >
                 {item.icon}
                 <span>{item.itemName}</span>
