@@ -37,7 +37,9 @@ export function ProductTable({items}) {
                                         <Link href={`/admin/products/edit_item/${item["ID"]}`}>
                                             <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaPen /></button>
                                         </Link>
-                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
+                                        <Link href={`/admin/confirmation/${item["ID"]}`}>
+                                            <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
+                                        </Link>
                                     </td>
                                 </tr>
                             )
