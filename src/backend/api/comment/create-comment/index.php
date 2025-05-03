@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $data["user_id"];
     $post_id = $data["post_id"];
     $content = $data["content"];
-    $date_posted = $data["date_posted"];
+    $date_posted = date("Y-m-d H:i:s");
 
     $sql = "INSERT INTO comment (user_id, post_id, content, date_posted, like_count)
             VALUES (?, ?, ?, ?, 0);";

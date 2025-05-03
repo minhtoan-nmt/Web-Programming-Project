@@ -7,7 +7,7 @@ export default function CommentSection({ className, comments }) {
       comments.map((item, index) => (
         <Comment
           key={index}
-          username={item.username}
+          username={item.user_id}
           content={item.content}
           like_count={item.like_count}
         />
