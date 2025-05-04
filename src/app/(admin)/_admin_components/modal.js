@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useRef } from "react";
 
-export default function Modal({children}) {
+export default function Modal({children, func}) {
     const router = useRouter();
     const dialogRef = useRef(null);
     useEffect(() => {
@@ -22,6 +22,12 @@ export default function Modal({children}) {
                 <button 
                     type="button" 
                     className="py-2 px-3 bg-[#435ebe] text-white rounded-lg hover:scale-110 ease-in duration-75 cursor-pointer"
+                    onClick={() => {
+                        func;
+                        alert("Thực hiện thành công");
+                        router.back();
+                        router.refresh();
+                    }}
                 >
                     Có
                 </button>

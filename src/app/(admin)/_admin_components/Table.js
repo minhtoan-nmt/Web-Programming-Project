@@ -5,7 +5,17 @@ import Link from "next/link";
 export function ProductTable({items}) {
     return (
         <div className="bg-white rounded-lg p-3">
-            <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách sản phẩm</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách sản phẩm</h1>
+                <Link href="/admin/products/add_item">
+                    <button 
+                        type="button" 
+                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
+                    >
+                        Thêm sản phẩm
+                    </button>
+                </Link>
+            </div>
             <table className="m-2">
                 <thead>
                     <tr className="border-b-2 border-gray-300">
