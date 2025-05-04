@@ -1,6 +1,6 @@
 import { FetchTypes } from "../../page";
 
-function InputTypeText({label, name, defaultValue, placeholder, type = "text"}) {
+export function InputTypeText({label, name, defaultValue, placeholder, type = "text"}) {
     return (
         <div className="my-3">
             <label htmlFor={name} className="font-bold">{label}</label>
