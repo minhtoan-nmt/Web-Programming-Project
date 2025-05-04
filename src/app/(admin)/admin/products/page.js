@@ -27,7 +27,6 @@ export default async function Page() {
     const typedata = await FetchTypes();
     const items = data.data;
     const types = typedata.data;
-    console.log(types);
     return (
         <div className="p-10 block">
             <h1 className="text-3xl my-10 ">Trang quản lý sản phẩm</h1>
