@@ -83,6 +83,9 @@ export function ItemRelated({ listItemsRelated }) {
 }
 
 export function ItemSection({itemType, items}) {
+  if (items.length===0) {
+    return null;
+  }
   const lists = items.map((item) => {
       return (
         <ProductCard
