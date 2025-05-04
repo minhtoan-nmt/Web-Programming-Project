@@ -14,7 +14,7 @@ import Link from "next/link";
 //     )
 // }
 function Discount({discount}) {
-    if (discount > 0) {return <p className="p-1 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
+    if (discount > 0) {return <p className="p-1 mb-3 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
     else return null;
 }
 
@@ -86,27 +86,62 @@ export function RatingStars({rating, numOfRating = 0}) {
     )
 }
 
-export function AddToCartButton() {
-    return <button className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
-        ease-in-out hover:scale-110">
+// async function addToCart(id, productName, quantity = 1) {
+//     const response = await fetch(`http://localhost/clients_api/addToCart.php?id=${id}&quantity=${quantity}`, {
+//         method: "POST",
+//         mode: "cors",
+//         headers: {
+//             "Content-Type" : "application/json"
+//         }
+//     })
+//     if (!response.ok) {
+//         alert("Fetch not oke. Status: ", response.status);
+//     }
+//     const result = await response.json();
+//     if (result) {
+//         alert(`Đã thêm sản phẩm ${productName} vào giỏ hàng`)
+//     }
+// }
+
+async function addToCart(id, productName, quantity) {
+    
+    const response = await fetch(`/api/add_item_to_cart/${id}/${quantity}`, {
+        method: "POST"
+    });
+    if (!response.ok) {
+        console.log(response.status);
+    }
+    const result = await response.json();
+    if (result) {
+        alert(`Thêm thành công '${productName}' vào giỏ hàng`);
+    }
+}
+
+export function AddToCartButton({id, productName, quantity = 1}) {
+    return <button type="button" className="py-2 px-4 bg-(--button-color) text-(--background) rounded-md transition delay-100 duration-300
+        ease-in-out hover:scale-110" onClick={() => {
+            addToCart(id, productName, quantity);
+        }}>
     Thêm vào giỏ hàng
     </button>
 }
 
-export default function ProductCard({imageSrc, discount, productName, price, oldPrice, rating}) {
+export default function ProductCard({productID, imageSrc, discount, productName, price, oldPrice, rating}) {
     return (
-        <Link href="/product_page/product_detail">
-        <div className="h-[368px] p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
+        <>
+        <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
+            <Link href={`/product_page/product_detail?id=${productID}`}>
             <Discount discount={discount} />
-            <Image src={imageSrc} alt={productName + '"s image'} className="h-2/3" />
-            <h1 className="text-base font-bold">{productName}</h1>
-            <p className="text-red-500">{price + "VND "} 
+            <Image src={imageSrc} width={500} height={1500} alt={productName + '"s image'} className="h-64" />
+            <h1 className="text-base font-bold mt-2">{productName}</h1>
+            <p className="text-red-500">{Math.round(price) + "VND "} 
                 <DeleteOldPrice oldPrice={oldPrice} discount={discount} />
             </p>
             {/* Add a rating image here */}
             <RatingStars rating={rating} />
-            <AddToCartButton />
+            </Link>
+            <AddToCartButton id={productID} productName={productName} />
         </div>
-        </Link>
+        </>
     )
 }

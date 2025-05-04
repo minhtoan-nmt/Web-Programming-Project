@@ -1,18 +1,19 @@
 'use client'
 
-import gamepad1 from "../../../../public/image/productDetail/gamepad1.png";
-import gamepad2 from "../../../../public/image/productDetail/gamepad2.png";
-import gamepad3 from "../../../../public/image/productDetail/gamepad3.png";
-import gamepad4 from "../../../../public/image/productDetail/gamepad4.png";
+import gamepad1 from "@/../public/image/productDetail/gamepad1.png";
+import gamepad2 from "@/../public/image/productDetail/gamepad2.png";
+import gamepad3 from "@/../public/image/productDetail/gamepad3.png";
+import gamepad4 from "@/../public/image/productDetail/gamepad4.png";
 import Image from "next/image";
-import { listItemsRelated } from "../page";
-import { RatingStars } from "@/app/component/product-card";
-import green from "../../../../public/image/productDetail/icons8-filled-circle-48.png";
-import red from "../../../../public/image/productDetail/icons8-filled-circle-red.png";
+import { listItemsRelated } from "@/app/product_page/page";
+import { RatingStars } from "@/app/_component/product-card";
+import green from "@/../public/image/productDetail/icons8-filled-circle-48.png";
+import red from "@/../public/image/productDetail/icons8-filled-circle-red.png";
 import { ItemRelated } from "../page";
-import { AddToCartButton } from "@/app/component/product-card";
+import { AddToCartButton } from "@/app/_component/product-card";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 const subImage = [
   { id: "sub1", url: gamepad1 },
@@ -37,19 +38,60 @@ function SubImage({ subImage = subImage }) {
   return <div className="xl:flex xl:flex-col grid grid-cols-4 order-2 xl:order-1">{listImage}</div>;
 }
 
-let dataFromForm = {
-  color: "red",
-  size: "M",
-  quantity: 0,
-  isAddedToCart: false,
-};
 
-function updateColor(color) {
-  dataFromForm.color = color;
-  console.log(dataFromForm.color);
-}
+
+// function updateColor(color) {
+//   dataFromForm.color = color;
+//   console.log(dataFromForm.color);
+// }
 
 export default function ProductDetail() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get('id');
+  const [item, setItem] = useState(null);
+  // console.log(search);
+  useEffect(() => {
+      async function getData() {
+        const res = await fetch(`/api/products/get_item_by_id/${search}`, {
+          method: "GET",
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+        if (!res.ok) {
+          return (
+            <div className="p-25 h-screen">
+              <h1 className="text-3xl">You find items that don't exist</h1>
+            </div>
+          )
+        }
+        // console.log(res);
+        const data = await res.json();
+        setItem(data.data);
+      }
+      getData();
+    }, [])
+  
+  const [color, setColor] = useState("red");
+  const [size, setSize] = useState("M");
+  const [quantity, setQuantity] = useState(1);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  
+
+  if (!item) {
+    return <div className="p-25 h-screen">
+      <h1 className="text-3xl">Loading...</h1>
+    </div>
+  }
+  // console.log(item);
+
+  let dataFromForm = {
+    color: color,
+    size: size,
+    quantity: quantity,
+    isAddedToCart: isAddedToCart,
+    price: 1800000,
+  };
   return (
     <>
       <div className="xl:pt-30 xl:px-30 p-10">
@@ -57,80 +99,104 @@ export default function ProductDetail() {
           <Link href="/home">Trang chủ</Link> / <Link href="/product_page">Sản phẩm</Link> /{" "}
           <span className="font-bold text-gray-600">Thông tin chi tiết</span>{" "}
         </h1>
-        <div className="lg:grid lg:grid-cols-[5fr_3fr] lg:gap-12">
-          <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col">
+        <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-12">
+          {/* <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col"> */}
             {/* <div id="detail-col-1" className="flex xl:flex-col md:flex-row md:justify-between"> */}
-              <SubImage subImage={subImage} />
+              {/* <SubImage subImage={subImage} /> */}
             {/* </div> */}
-            <div id="detail-col-2" className="order-1 xl:order-2">
+            <div id="detail-col-2" >
               <Image
-                src={gamepad1}
+                src={item["Image Src"]}
+                width={500}
+                height={1000}
                 alt="sth for you"
                 className="h-full w-full"
               />
-            </div>
+            {/* </div> */}
           </div>
           <div id="detail-col-3">
             <div className="xl:mb-12 mb-6">
-              <h1 className="text-2xl font-bold my-4">{product.productName}</h1>
-              <RatingStars rating={product.rating} numOfRating={150} />
+              <h1 className="text-2xl font-bold my-4">{item["Product Name"]}</h1>
+              <RatingStars rating={item["Rating"]} numOfRating={150} />
             </div>
             <p className="mb-4 border-b-2 border-gray-400 pb-6">
-              {product.description}
+              {item["Description"]}
             </p>
-            <p>
+            {/* <p>
               Màu:
-              <button type="button">
+              <button type="button" onClick={() => { setColor("green") }}>
                 <Image
                   src={green}
                   alt="green"
                   width={16}
                   height={16}
-                  className="inline ml-2 mr-1"
+                  className={"inline ml-2 mr-1 hover:border hover:border-gray-50" + (color=="green" && "border border-2 rounded-3xl border-black")}
                 />
               </button>
-              <button type="button">
+              <button type="button" onClick={() => {setColor("red")}}>
                 <Image
                   src={red}
                   alt="red"
                   width={16}
                   height={16}
-                  className="inline"
+                  className={"inline hover:border hover:border-gray-500 hover:rounded-3xl" + (color=="red" && "border border-2 rounded-3xl border-black")}
                 />
               </button>
             </p>
             <div>
               <p className="inline">Size: </p>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("XS");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XS" && "bg-orange-600 text-white")} >
                 XS
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("S");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="S" && "bg-orange-600 text-white")}>
                 S
               </button>
-              <button className="m-2 lg:m-3  border-1 p-2 rounded-lg w-12">
+              <button type="button" onClick={() => {
+                setSize("M");
+              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="M" && "bg-orange-600 text-white")}>
                 M
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" 
+                onClick={()=> setSize("L")} 
+                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="L" && "bg-orange-600 text-white")}
+              >
                 L
               </button>
-              <button className="m-2 lg:m-3 border-1 p-2 rounded-lg w-12">
+              <button type="button" 
+                onClick={()=> setSize("XL")} 
+                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XL" && "bg-orange-600 text-white")}
+              >
                 XL
               </button>
+            </div> */}
+            <div>
+              <p className="text-xl">
+                <span className="font-bold">Giá: </span>
+                {(item["Price"] * (1 - item["Discount"]))*quantity} VND {item["Discount"]!=0 && <del className="text-gray-500">{item["Price"] + "VND"}</del>}
+              </p>
             </div>
-            <div className="flex flex-row lg:justify-between justify-start my-3 ">
+            <div className="flex flex-row justify-between my-3 ">
               <div className="border-2 rounded-md mr-3 flex flex-nowrap">
-                <button className="border-r-2 p-2 md:w-10 w-5 h-full">
+                <button className="border-r-2 p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" onClick={() => quantity-1 > 0 && setQuantity(quantity - 1)}>
                   <span>-</span>
                 </button>
-                <button className="border-r-2 p-2 md:w-16 w-8 h-full">
+                <button className="border-r-2 p-2 md:w-16 w-12 h-full">
                   <span>{dataFromForm.quantity}</span>
                 </button>
-                <button className="p-2 md:w-10 w-5 h-full">
+                <button 
+                  className="p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" 
+                  onClick={() => quantity+1 <= item["Quantity"] ? setQuantity(quantity+1) : alert("Số lượng bạn chọn vượt quá số lượng hiện có")}
+                >
                   +
                 </button>
               </div>
-              <AddToCartButton />
+              <AddToCartButton id={item["ID"]} productName={item["Product Name"]} quantity={quantity}/>
             </div>
+            <p>Còn lại: {item["Quantity"]}</p>
             <div>
               <div className="flex flex-row border-2 mt-12">
                 <div className="py-4 px-6 ">

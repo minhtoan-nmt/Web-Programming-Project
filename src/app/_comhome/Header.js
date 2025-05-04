@@ -12,7 +12,7 @@ export default function Header({ userIcon }) {
       {/* Nút Avatar User */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 focus:outline-none"
+        className="flex items-center gap-2 focus:outline-none hover:scale-115 transition duration-150 ease-in-out"
       >
         <Image
           src="/image/hom/banner/user.png"

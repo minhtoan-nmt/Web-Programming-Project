@@ -1,22 +1,80 @@
+'use client'
+
 import Image from "next/image";
+import { redirect, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { FaTrashAlt } from "react-icons/fa";
+import { removeFromCart } from "./removeFromCart";
+import { createInvoice } from "./createInvoice";
+
+function NumberOfItem({quantity, numLeft}) {
+  const [numItems, setNumItems] = useState(quantity);
+  return (
+    <div className="border-2 rounded-md mr-3 flex flex-nowrap w-fit">
+      <button className="border-r-2 p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" onClick={() => numItems-1 > 0 && setNumItems(numItems - 1)}>
+        <span>-</span>
+      </button>
+      <button className="border-r-2 p-2 md:w-16 w-12 h-full">
+        <span>{numItems}</span>
+      </button>
+      <button 
+        className="p-2 md:w-10 w-7 h-full hover:bg-gray-300 transition delay-75" 
+        onClick={() => numItems+1 <= numLeft ? setNumItems(numItems+1) : alert("Số lượng bạn chọn vượt quá số lượng hiện có")}
+      >
+        +
+      </button>
+    </div>
+  )
+}
 
 export default function Home() {
-  const itemList = [
-    {
-      itemName: "LCD Monitor",
-      price: 105000,
-      amount: 1,
-      totalPrice: 105000,
-      imagePath: "/image/cart/monitor.webp"
-    },
-    {
-      itemName: "Gamepad",
-      price: 35000,
-      amount: 2,
-      totalPrice: 70000,
-      imagePath: "/image/cart/gamepad.webp"
+  const [itemList, setitemList] = useState(null);
+  useEffect(() => {
+    async function getitemList() {
+      const res = await fetch("/api/get_cart_data");
+      if (!res.ok) {
+        console.log(res.status);
+      }
+      const data = await res.json();
+      setitemList(data.data);
     }
-  ];
+    getitemList();
+  }, [])
+
+  if (!itemList) {
+    return (
+      <div className="p-25 h-screen">
+        <h1 className="text-3xl">Loading...</h1>
+      </div>
+    )
+  }
+
+  if (itemList.length==0) {
+    return (
+      <div className="p-25 h-screen flex justify-center items-center">
+        <h1 className="text-3xl">Không có mặt hàng nào trong giỏ hàng. Vui lòng quay lại!</h1>
+      </div>
+    )
+  }
+
+  // const itemList = [
+  //   {
+  //     itemName: "LCD Monitor",
+  //     price: 105000,
+  //     amount: 1,
+  //     totalPrice: 105000,
+  //     imagePath: "/image/cart/monitor.webp"
+  //   },
+  //   {
+  //     itemName: "Gamepad",
+  //     price: 35000,
+  //     amount: 2,
+  //     totalPrice: 70000,
+  //     imagePath: "/image/cart/gamepad.webp"
+  //   }
+  // ];
+
+  let sum = 0;
 
   return (
     <div className="flex flex-col sm:p-6 md:p-12 lg:p-24">
@@ -28,7 +86,7 @@ export default function Home() {
         {/* Thông tin mua hàng */}
         <div className="mb-20">
           {/* Tiêu đề từng cột */}
-          <div className="grid grid-cols-4 border border-gray-300 rounded p-4 font-bold mb-4 shadow-md">
+          <div className="grid grid-cols-[2fr_2fr_2fr_2fr_1fr] border border-gray-300 rounded p-4 font-bold mb-4 shadow-md">
             <div>
               Sản phẩm
             </div>
@@ -41,33 +99,38 @@ export default function Home() {
             <div>
               Tổng tiền
             </div>
+            <div>
+            </div>
           </div>
 
           {/* Mỗi item */}
           {itemList.map((item, index) => {
+            let totalPrice = item["Price"]*(1-item["Discount"])*item["Quantity"];
+            sum += totalPrice;
             return (
-              <div key={index} className="grid grid-cols-4 items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
+              <div key={item["Product Name"]} className="grid grid grid-cols-[2fr_2fr_2fr_2fr_1fr] items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
                 <div className="">
                   <span>
                     <Image
-                      src={item.imagePath}
-                      alt={item.itemName}
+                      src={item["Image Src"]}
+                      alt={item["Product Name"] + " 's Image"}
                       width={24}
                       height={24}
                       className="inline-block h-full w-auto object-contain mr-2"
                     />
                   </span>
-                  {item.itemName}
+                  {item["Product Name"]}
                 </div>
                 <div>
-                  {item.price} VND
+                  {item["Price"]*(1-item["Discount"])} VND
                 </div>
+                <div className="px-10">{item["Quantity"]}</div>
                 <div>
-                  <input type="number" className="w-18 border border-gray-600 rounded p-2" defaultValue={item.amount}></input>
+                  {totalPrice} VND
                 </div>
-                <div>
-                  {item.totalPrice} VND
-                </div>
+                <button onClick={() => removeFromCart(item["ID"])}>
+                  <FaTrashAlt />
+                </button>
               </div>
             );
           })}
@@ -85,7 +148,7 @@ export default function Home() {
             <p className="font-bold text-lg mb-4">Chi tiết thanh toán</p>
             <div className="flex justify-between">
               <p>Tổng:</p>
-              <p>175,000 VND</p>
+              <p>{sum} VND</p>
             </div>
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between">
@@ -95,9 +158,13 @@ export default function Home() {
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between">
               <p>Thanh toán:</p>
-              <p>185,000 VND</p>
+              <p>{sum = sum + 10000} VND</p>
             </div>
-            <button type="submit" className="rounded text-white bg-red-400 px-4 py-2 mt-6 self-end">Thanh toán</button>
+            <button type="button" className="rounded text-white bg-red-400 px-4 py-2 mt-6 self-end"
+            onClick={() => {
+              if (createInvoice(itemList.length, sum))
+                redirect("/cart/checkout");
+            }}>Thanh toán</button>
           </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import PageItem from "../component/post-item"
+import PageItem from "../_component/post-item"
 
 export default function Home() {
   const [mainPostList, setMainPostList] = useState([]);
