@@ -1,5 +1,5 @@
 export async function GET() {
-    const res = await fetch("http://localhost/clients_api/getItemTypeData.php");
+    const res = await fetch("http://localhost/clients_api/getItemtype.php");
     if (!res.ok) {
         console.log(res.status);
     }

@@ -10,6 +10,7 @@ import styles from "./styles.module.css";
 import { BsGridFill } from "react-icons/bs";
 import { BsStack } from "react-icons/bs";
 import { BsCollectionFill } from "react-icons/bs";
+import { BsFilePost } from "react-icons/bs";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,6 +50,11 @@ export function Menu() {
             itemName: "Invoices",
             icon: <BsCollectionFill />,
             link: "/admin/invoices"
+        },
+        {
+            itemName: "Posts",
+            icon: <BsFilePost />,
+            link: "/admin/posts"
         }
     ]
     let select = "";
