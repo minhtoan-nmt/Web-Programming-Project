@@ -7,18 +7,17 @@ async function deleteItem(id) {
         console.error(res.status);
     }
     alert("Thực hiện thành công");
-    redirect("/admin/products")
-    return true;
+    redirect("/admin/products");
 }
 
-export function ConfirmDeleteButton({id, router, closeDialog}) {
+export function ConfirmDeleteButton({id, router}) {
     return (
         <button 
             type="button" 
             className="py-2 px-3 bg-[#435ebe] text-white rounded-lg hover:scale-110 ease-in duration-75 cursor-pointer"
             onClick={() => {
                 deleteItem(id);
-                closeDialog();
+                router.back();
             }}
         >
             Có

@@ -16,12 +16,6 @@ export default function Modal({children, id}) {
         }
     }, []);
 
-    const closeDialog = () => {
-        if (dialogRef.current.open) {
-            dialogRef.current.close();// optional, since `onClose` is also calling this
-        }
-    };
-
     return (
         <dialog
             ref={dialogRef}
@@ -30,7 +24,7 @@ export default function Modal({children, id}) {
         >
             {children}
             <div className="p-5 flex justify-end gap-3">
-                <ConfirmDeleteButton id={id} router={router} closeDialog={closeDialog}/>
+                <ConfirmDeleteButton id={id} router={router} />
                 <GoBackButton router={router}/>
             </div>  
         </dialog>
