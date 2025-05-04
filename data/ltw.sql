@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2025 at 12:06 PM
+-- Generation Time: May 04, 2025 at 06:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,7 +57,16 @@ INSERT INTO `comment` (`id`, `user_id`, `content`, `date_posted`, `like_count`, 
 ('', 'CUS0001', 'Quá hay! Cảm ơn bạn đã chia sẻ', '0000-00-00 00:00:00', 0, 'POS0001'),
 ('', 'CUS0001', 'Quá hay! Cảm ơn bạn đã chia sẻ', '2025-04-29 12:35:00', 0, 'POS0001'),
 ('COM0001', 'CUS0002', 'Quá hay! Cảm ơn bạn đã chia sẻ', '2025-04-29 12:35:00', 0, NULL),
-('COM0002', 'CUS0002', 'Quá hay! Cảm ơn bạn đã chia sẻ', '2025-04-29 12:35:00', 0, 'POS0002');
+('COM0002', 'CUS0002', 'Quá hay! Cảm ơn bạn đã chia sẻ', '2025-04-29 12:35:00', 0, 'POS0002'),
+('COM0003', 'CUS0001', 'Một bình luận mới', '2025-05-03 06:44:38', 0, NULL),
+('COM0004', 'CUS0001', 'Một bình luận mới', '2025-05-03 06:45:05', 0, 'POS0001'),
+('COM0005', 'CUS0001', 'Array', '2025-05-03 06:55:29', 0, 'Array'),
+('COM0006', 'CUS0001', 'Array', '2025-05-03 06:58:07', 0, 'Array'),
+('COM0007', 'CUS0001', 'Một bình luận từ web', '2025-05-03 07:00:39', 0, 'POS0001'),
+('COM0008', 'CUS0001', 'abcd', '2025-05-03 07:06:04', 0, 'POS0001'),
+('COM0009', 'CUS0001', 'abcde', '2025-05-03 07:06:12', 0, 'POS0001'),
+('COM0010', 'CUS0001', '1', '2025-05-03 07:06:29', 0, 'POS0001'),
+('COM0011', 'CUS0001', '2', '2025-05-03 07:06:31', 0, 'POS0001');
 
 --
 -- Triggers `comment`
