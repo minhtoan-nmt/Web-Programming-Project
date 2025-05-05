@@ -62,7 +62,7 @@ export default function Home() {
 
       <p className="font-bold text-3xl mb-6">Thông tin đơn hàng</p>
       {/* Form thông tin đơn hàng */}
-      <form action={"/product_page"} className="flex" method="post"> {/*Temporarily set to this function in action*/}
+      <form action={"http://localhost/clients_api/createInvoice.php"} className="flex" method="post"> {/*Temporarily set to this function in action*/}
         <div className="w-2/5 flex flex-col">
           <label htmlFor="full-name" className="py-2">Họ và tên</label>
           <input type="text" id="full-name" name="full-name" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
@@ -100,7 +100,7 @@ export default function Home() {
                     x{item["Quantity"]}
                   </div>
                   <div className="flex-1/4 flex justify-end">
-                    &#8363;{item["Price"]}
+                    &#8363;{item["Price"]*(1-item["Discount"])}
                   </div>
                 </div>
               );
@@ -123,7 +123,7 @@ export default function Home() {
 
             <div className="flex items-center justify-between font-normal">
               <div className="flex">
-                <input type="radio" id="payment-online" name="payment-type" className="inline mr-4"></input>
+                <input type="radio" id="payment-online" name="payment-type" value={"card"} className="inline mr-4"></input>
                 <label>Thanh toán online</label>
               </div>
               <div className="flex h-full items-center gap-2">
@@ -145,12 +145,12 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-between font-normal">
               <div className="flex">
-                <input type="radio" id="payment-cod" name="payment-type" className="inline mr-4"></input>
+                <input type="radio" id="payment-cod" name="payment-type" value={"cash"} defaultChecked className="inline mr-4"></input>
                 <label>Thanh toán khi nhận hàng</label>
               </div>
             </div>
 
-            <button type="button" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end"
+            <button type="submit" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end"
             onClick={() => {
               alert("Thanh toán thành công. Bạn hãy tiếp tục mua sắm nhé!");
               redirect("/product_page")
