@@ -70,7 +70,9 @@ export default function Home() {
           <input type="text" id="city" name="city" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="district" className="py-2">Quận/ Huyện</label>
           <input type="text" id="district" name="district" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="address" className="py-2">Tên đường, số nhà</label>
+          <label htmlFor="ward" className="py-2">Phường/ Xã</label>
+          <input type="text" id="ward" name="ward" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
+          <label htmlFor="address" className="py-2">Số nhà, tên đường, ấp</label>
           <input type="text" id="address" name="address" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
           <label htmlFor="phone-number" className="py-2">Số điện thoại</label>
           <input type="text" id="phone-number" name="phone-number" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>

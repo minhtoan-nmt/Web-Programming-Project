@@ -78,7 +78,7 @@ export function ProductTable({items}) {
                 {pageNum.map(p => 
                     <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
                         onClick={() => setPage(p)}>{p}</button>)}
-                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page< numPages-1 && setPage(page + 1)}><GrNext /></button>
+                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
                 <label htmlFor="itemsPerPage" className="p-3">Số hàng mỗi trang</label>
                     <select 
                     name="itemsPerPage" 
@@ -106,7 +106,17 @@ export function ProductTable({items}) {
 export function ItemTypeTable({item_types}) {
     return (
         <div className="my-5 bg-white rounded-lg p-3 w-fit">
-            <h1 className="p-4 text-2xl font-bold text-gray-500">Loại sản phẩm</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="p-4 text-2xl font-bold text-gray-500">Loại sản phẩm</h1>
+                <Link href="/admin/products/add_item_type">
+                    <button 
+                        type="button" 
+                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
+                    >
+                        Thêm loại sản phẩm
+                    </button>
+                </Link>
+            </div>
             <table className="m-2">
                 <thead>
                     <tr className="border-b-2 border-gray-300">
@@ -124,8 +134,9 @@ export function ItemTypeTable({item_types}) {
                                 <td className="p-3">{itemType["Item_type_name"]}</td>
                                 <td className="p-3">{itemType["Num_products"]}</td>
                                 <td>
-                                    
-                                    <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaPen /></button>
+                                    <Link href={`/admin/products/edit_type/${itemType["Item_type_id"]}`} >
+                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaPen /></button>
+                                    </Link>
                                     <Link href={`/admin/confirm_type/${itemType["Item_type_id"]}`} >
                                         <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
                                     </Link>
