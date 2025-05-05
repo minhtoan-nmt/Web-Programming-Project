@@ -10,6 +10,16 @@ async function deleteItem(id) {
     redirect("/admin/products");
 }
 
+async function deleteType(id) {
+    console.log(id);
+    const res = await fetch(`/api/remove_item_type/${id}`);
+    if (!res.ok) {
+        console.error(res.status);
+    }
+    alert("Thực hiện thành công");
+    redirect("/admin/products");
+}
+
 export function ConfirmDeleteButton({id, router}) {
     return (
         <button 
@@ -17,6 +27,21 @@ export function ConfirmDeleteButton({id, router}) {
             className="py-2 px-3 bg-[#435ebe] text-white rounded-lg hover:scale-110 ease-in duration-75 cursor-pointer"
             onClick={() => {
                 deleteItem(id);
+                router.back();
+            }}
+        >
+            Có
+        </button>
+    )
+}
+
+export function ConfirmDeleteTypeButton({id, router}) {
+    return (
+        <button 
+            type="button" 
+            className="py-2 px-3 bg-[#435ebe] text-white rounded-lg hover:scale-110 ease-in duration-75 cursor-pointer"
+            onClick={() => {
+                deleteType(id);
                 router.back();
             }}
         >

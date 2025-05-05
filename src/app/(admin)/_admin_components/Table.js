@@ -124,8 +124,11 @@ export function ItemTypeTable({item_types}) {
                                 <td className="p-3">{itemType["Item_type_name"]}</td>
                                 <td className="p-3">{itemType["Num_products"]}</td>
                                 <td>
+                                    
                                     <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaPen /></button>
-                                    <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
+                                    <Link href={`/admin/confirm_type/${itemType["Item_type_id"]}`} >
+                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
+                                    </Link>
                                 </td>
                             </tr>
                         )
