@@ -5,6 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
+import { CgDetailsMore } from "react-icons/cg";
 
 
 export function ProductTable({items}) {
@@ -146,6 +147,90 @@ export function ItemTypeTable({item_types}) {
                     })}
                 </tbody>
             </table>
+        </div>
+    )
+}
+
+export function InvoiceTable({invoices}) {
+    return (
+        <div className="bg-white rounded-lg p-3">
+            <div className="flex justify-between items-center">
+                <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách hóa đơn</h1>
+                {/* <Link href="/admin/products/add_item">
+                    <button 
+                        type="button" 
+                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
+                    >
+                        Thêm sản phẩm
+                    </button>
+                </Link> */}
+            </div>
+            <table className="m-2">
+                <thead>
+                    <tr className="border-b-2 border-gray-300">
+                        <th className="p-3">ID hóa đơn</th>
+                        <th className="p-3">ID giỏ hàng</th>
+                        <th className="p-3">Ngày đặt hàng</th>
+                        <th className="p-3">Họ và tên khách hàng</th>
+                        <th className="p-3">Tỉnh/Thành phố</th>
+                        <th className="p-3">Quận/Huyện</th>
+                        <th className="p-3">Phường</th>
+                        <th className="p-3">Địa chỉ giao hàng</th>
+                        <th className="p-3">Email</th>
+                        <th className="p-3">Số điện thoại</th>
+                        <th className="p-3">Phương thức giao hàng</th>
+                        <th className="p-3"></th>
+                    </tr>
+                </thead>
+                <tbody className="text-gray-700">
+                    {
+                        invoices.map(invoice => {
+                            return (
+                                <tr key={invoice["ID"]} className="border-b-2 border-gray-300 hover:bg-gray-200 cursor-pointer">
+                                    <td className="p-3">{invoice["ID"]}</td>
+                                    <td className="p-3">{invoice["Cart ID"]}</td>
+                                    <td className="p-3">{invoice["Time_order"]}</td>
+                                    <td className="p-3">{invoice["Full Name"]}</td>
+                                    <td className="p-3">{invoice["City/Province"]}</td>
+                                    <td className="p-3">{invoice["District"]}</td>
+                                    <td className="p-3">{invoice["Ward"]}</td>
+                                    <td className="p-3">{invoice["Address"]}</td>
+                                    <td className="p-3">{invoice["Email"]}</td>
+                                    <td className="p-3">{invoice["Phone number"]}</td>
+                                    <td className="p-3">{invoice["Pay_method"]}</td>
+                                    <td className="p-3"><CgDetailsMore /></td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+            {/* <div className="mt-3 flex flex-row justify-end p-5">
+                <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
+                {pageNum.map(p => 
+                    <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                        onClick={() => setPage(p)}>{p}</button>)}
+                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
+                <label htmlFor="itemsPerPage" className="p-3">Số hàng mỗi trang</label>
+                    <select 
+                    name="itemsPerPage" 
+                    id="itemsPerPage"
+                    defaultValue={8}
+                    className="border rounded-md"
+                    onChange={(e) => setItemPerPage(Number(e.target.value))}
+                    >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value={8}>8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    </select>
+            </div> */}
         </div>
     )
 }
