@@ -67,7 +67,7 @@ export function PostTable({ items }) {
                 <td className="p-3">{item["img_src"]}</td>
                 <td className="p-3">{item["date_posted"]}</td>
                 <td>
-                  <Link href={`/admin/post/update/${item["id"]}`}>
+                  <Link href={`/admin/posts/update/${item["id"]}`}>
                     <button
                       type="button"
                       className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"
