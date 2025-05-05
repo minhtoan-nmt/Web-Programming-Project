@@ -1,8 +1,24 @@
+'use client'
+
 import { FaPen } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
+import { useState } from "react";
+import { GrPrevious, GrNext } from "react-icons/gr";
+
 
 export function ProductTable({items}) {
+    const [page, setPage] = useState(1);
+    const [itemPerPage, setItemPerPage] = useState(8);
+    let lastIndex = itemPerPage * page;
+    let firstIndex = lastIndex - itemPerPage;
+    const newItems = items.slice(firstIndex, lastIndex);
+    const numPages = items.length % itemPerPage === 0 ? items.length / itemPerPage : items.length / itemPerPage + 1;
+
+    let pageNum = [];
+    for (let i=1; i<=numPages; i++) {
+        pageNum.push(i);
+    }
     return (
         <div className="bg-white rounded-lg p-3">
             <div className="flex justify-between items-center">
@@ -32,7 +48,7 @@ export function ProductTable({items}) {
                 </thead>
                 <tbody className="text-gray-700">
                     {
-                        items.map(item => {
+                        newItems.map(item => {
                             return (
                                 <tr key={item["ID"]} className="border-b-2 border-gray-300">
                                     <td className="p-3">{item["ID"]}</td>
@@ -57,6 +73,32 @@ export function ProductTable({items}) {
                     }
                 </tbody>
             </table>
+            <div className="mt-3 flex flex-row justify-end p-5">
+                <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
+                {pageNum.map(p => 
+                    <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                        onClick={() => setPage(p)}>{p}</button>)}
+                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page< numPages-1 && setPage(page + 1)}><GrNext /></button>
+                <label htmlFor="itemsPerPage" className="p-3">Số hàng mỗi trang</label>
+                    <select 
+                    name="itemsPerPage" 
+                    id="itemsPerPage"
+                    defaultValue={8}
+                    className="border rounded-md"
+                    onChange={(e) => setItemPerPage(Number(e.target.value))}
+                    >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value={8}>8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    </select>
+            </div>
         </div>
     )
 }
