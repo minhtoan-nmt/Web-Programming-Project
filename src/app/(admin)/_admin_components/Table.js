@@ -41,7 +41,6 @@ export function ProductTable({items}) {
                         <th className="p-3">Tên sản phẩm</th>
                         <th className="p-3">Giá</th>
                         <th className="p-3">Khuyến mãi</th>
-                        <th className="p-3">Link sản phẩm</th>
                         <th className="p-3">ID Loại sản phẩm</th>
                         <th className="p-3">Thương hiệu</th>
                         <th className="p-3">Số lượng</th>
@@ -57,7 +56,6 @@ export function ProductTable({items}) {
                                     <td className="p-3">{item["Product Name"]}</td>
                                     <td className="p-3">{item["Price"]}</td>
                                     <td className="p-3">{item["Discount"]}</td>
-                                    <td className="p-3 break-words max-w-[250px]">{item["Image Src"]}</td>
                                     <td className="p-3">{item["Item_type_id"]}</td>
                                     <td className="p-3">{item["Brand"]}</td>
                                     <td className="p-3">{item["Quantity"]}</td>
@@ -153,18 +151,37 @@ export function ItemTypeTable({item_types}) {
 }
 
 export function InvoiceTable({invoices}) {
+    const [page, setPage] = useState(1);
+    const [rowPerPage, setRowPerPage] = useState(8);
+    const [filterStatus, setfilterStatus] = useState("all");
+    const lastIndex = page * rowPerPage;
+    const firstIndex = lastIndex - rowPerPage;
+    const numPages = invoices.length % rowPerPage === 0 ? invoices.length / rowPerPage : invoices.length / rowPerPage + 1;
+    const invoiceList = invoices.slice(firstIndex, lastIndex).filter(i => {
+        if (filterStatus == "all") {
+            return true;
+        }
+        return i["Status"] == filterStatus;
+    });
+    let pageNum = [];
+    for (let i=1; i<=numPages; i++) {
+        pageNum.push(i);
+    }
     return (
         <div className="bg-white rounded-lg p-3">
             <div className="flex justify-between items-center">
                 <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách hóa đơn</h1>
-                {/* <Link href="/admin/products/add_item">
-                    <button 
-                        type="button" 
-                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
-                    >
-                        Thêm sản phẩm
-                    </button>
-                </Link> */}
+                <form>
+                <label htmlFor="filter" className="mx-2">Lọc theo:</label>
+                <select name="filter" className="border border-gray-400 p-3 rounded-md" onChange={e => setfilterStatus(e.target.value)}>
+                    <option value={"all"} className="p-2">Tất cả</option>
+                    <option value={"pending"} className="p-2">Đang đợi</option>
+                    <option value={"received"} className="p-2">Đã tiếp nhận</option>
+                    <option value={"processing"} className="p-2">Đang xử lý</option>
+                    <option value={"delivering"} className="p-2">Đang giao hàng</option>
+                    <option value={"done"} className="p-2">Đã nhận hàng</option>
+                </select>
+                </form>
             </div>
             <table className="m-2">
                 <thead>
@@ -182,7 +199,7 @@ export function InvoiceTable({invoices}) {
                 </thead>
                 <tbody className="text-gray-700">
                     {
-                        invoices.map(invoice => {
+                        invoiceList.map(invoice => {
                             return (
                                 <tr key={invoice["ID"]} className="border-b-2 border-gray-300 hover:bg-gray-200 cursor-pointer">
                                     <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`} className="w-full h-full">{invoice["ID"]}</Link></td>
@@ -212,7 +229,7 @@ export function InvoiceTable({invoices}) {
                     }
                 </tbody>
             </table>
-            {/* <div className="mt-3 flex flex-row justify-end p-5">
+            <div className="mt-3 flex flex-row justify-end p-5">
                 <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
                 {pageNum.map(p => 
                     <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
@@ -224,7 +241,7 @@ export function InvoiceTable({invoices}) {
                     id="itemsPerPage"
                     defaultValue={8}
                     className="border rounded-md"
-                    onChange={(e) => setItemPerPage(Number(e.target.value))}
+                    onChange={(e) => setRowPerPage(Number(e.target.value))}
                     >
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -237,7 +254,7 @@ export function InvoiceTable({invoices}) {
                     <option value="9">9</option>
                     <option value="10">10</option>
                     </select>
-            </div> */}
+            </div>
         </div>
     )
 }

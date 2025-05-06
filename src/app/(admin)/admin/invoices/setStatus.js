@@ -4,5 +4,8 @@ export async function setStatus(status, id, cartid) {
         console.log(res.status);
     }
     const result = res.json();
+    if (result) {
+        window.location.reload();
+    }
     return result;
 }
