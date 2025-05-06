@@ -22,27 +22,27 @@ export function ProductTable({items}) {
         pageNum.push(i);
     }
     return (
-        <div className="bg-white rounded-lg p-3">
+        <div className="bg-white rounded-lg p-1 md:p-3 w-fit">
             <div className="flex justify-between items-center">
-                <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách sản phẩm</h1>
+                <h1 className="p-4 text-sm md:text-2xl font-bold text-gray-500">Danh sách sản phẩm</h1>
                 <Link href="/admin/products/add_item">
                     <button 
                         type="button" 
-                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg cursor-pointer hover:bg-blue-700 transition duration-75"
+                        className="text-xs md:text-base h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg cursor-pointer hover:bg-blue-700 transition duration-75"
                     >
                         Thêm sản phẩm
                     </button>
                 </Link>
             </div>
-            <table className="m-2">
+            <table className="m-2 text-xs md:text-base">
                 <thead>
                     <tr className="border-b-2 border-gray-300">
                         <th className="p-3">ID Sản phẩm</th>
                         <th className="p-3">Tên sản phẩm</th>
-                        <th className="p-3">Giá</th>
-                        <th className="p-3">Khuyến mãi</th>
-                        <th className="p-3">ID Loại sản phẩm</th>
-                        <th className="p-3">Thương hiệu</th>
+                        <th className="p-3">Giá gốc</th>
+                        <th className="p-3 hidden md:table-cell">Khuyến mãi</th>
+                        <th className="p-3 hidden md:table-cell">ID Loại sản phẩm</th>
+                        <th className="p-3 hidden md:table-cell">Thương hiệu</th>
                         <th className="p-3">Số lượng</th>
                         <th className="p-3">Sửa/Xóa</th>
                     </tr>
@@ -55,9 +55,9 @@ export function ProductTable({items}) {
                                     <td className="p-3">{item["ID"]}</td>
                                     <td className="p-3">{item["Product Name"]}</td>
                                     <td className="p-3">{item["Price"]}</td>
-                                    <td className="p-3">{item["Discount"]}</td>
-                                    <td className="p-3">{item["Item_type_id"]}</td>
-                                    <td className="p-3">{item["Brand"]}</td>
+                                    <td className="p-3 hidden md:table-cell">{item["Discount"]}</td>
+                                    <td className="p-3 hidden md:table-cell">{item["Item_type_id"]}</td>
+                                    <td className="p-3 hidden md:table-cell">{item["Brand"]}</td>
                                     <td className="p-3">{item["Quantity"]}</td>
                                     <td>
                                         <Link href={`/admin/products/edit_item/${item["ID"]}`}>
@@ -168,12 +168,12 @@ export function InvoiceTable({invoices}) {
         pageNum.push(i);
     }
     return (
-        <div className="bg-white rounded-lg p-3">
-            <div className="flex justify-between items-center">
-                <h1 className="p-4 text-2xl font-bold text-gray-500">Danh sách hóa đơn</h1>
+        <div className="bg-white rounded-lg md:p-3 w-fit">
+            <div className="md:flex md:justify-between items-center">
+                <h1 className="md:p-4 p-2 text-base md:text-2xl font-bold text-gray-500">Danh sách hóa đơn</h1>
                 <form>
-                <label htmlFor="filter" className="mx-2">Lọc theo:</label>
-                <select name="filter" className="border border-gray-400 p-3 rounded-md" onChange={e => setfilterStatus(e.target.value)}>
+                <label htmlFor="filter" className="mx-2 text-xs md:text-base">Lọc theo:</label>
+                <select name="filter" className="border border-gray-400 md:p-3 p-1 rounded-md md:text-base text-xs" onChange={e => setfilterStatus(e.target.value)}>
                     <option value={"all"} className="p-2">Tất cả</option>
                     <option value={"pending"} className="p-2">Đang đợi</option>
                     <option value={"received"} className="p-2">Đã tiếp nhận</option>
@@ -183,18 +183,18 @@ export function InvoiceTable({invoices}) {
                 </select>
                 </form>
             </div>
-            <table className="m-2">
+            <table className="m-2 md:text-base text-xs">
                 <thead>
                     <tr className="border-b-2 border-gray-300">
-                        <th className="p-3">ID hóa đơn</th>
-                        <th className="p-3">ID giỏ hàng</th>
-                        <th className="p-3">Ngày đặt hàng</th>
-                        <th className="p-3">Họ và tên khách hàng</th>
-                        <th className="p-3">Email</th>
-                        <th className="p-3">Số điện thoại</th>
-                        <th className="p-3">Phương thức giao hàng</th>
-                        <th className="p-3">Trạng thái</th>
-                        <th className="p-3"></th>
+                        <th className="p-3 hidden lg:table-cell">ID hóa đơn</th>
+                        <th className="p-3 hidden lg:table-cell">ID giỏ hàng</th>
+                        <th className="md:p-3 p-1">Ngày đặt hàng</th>
+                        <th className="md:p-3 p-1">Họ và tên khách hàng</th>
+                        <th className="p-3 hidden lg:table-cell">Email</th>
+                        <th className="md:p-3 p-1">Số điện thoại</th>
+                        <th className="md:p-3 p-1">Phương thức giao hàng</th>
+                        <th className="md:p-3 p-1">Trạng thái</th>
+                        <th className="md:p-3 p-1"></th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-700">
@@ -202,16 +202,16 @@ export function InvoiceTable({invoices}) {
                         invoiceList.map(invoice => {
                             return (
                                 <tr key={invoice["ID"]} className="border-b-2 border-gray-300 hover:bg-gray-200 cursor-pointer">
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`} className="w-full h-full">{invoice["ID"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Cart ID"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Time_order"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Full Name"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Email"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Phone number"]}</Link></td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Pay_method"]}</Link></td>
-                                    <td className="p-3">
+                                    <td className="p-3 hidden lg:table-cell"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`} className="w-full h-full">{invoice["ID"]}</Link></td>
+                                    <td className="p-3 hidden lg:table-cell"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Cart ID"]}</Link></td>
+                                    <td className="md:p-3 p-1"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Time_order"]}</Link></td>
+                                    <td className="md:p-3 p-1"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Full Name"]}</Link></td>
+                                    <td className="p-3 hidden lg:table-cell"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Email"]}</Link></td>
+                                    <td className="md:p-3 p-1"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Phone number"]}</Link></td>
+                                    <td className="md:p-3 p-1"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Pay_method"]}</Link></td>
+                                    <td className="md:p-3 p-1">
                                         <form>
-                                            <select name="status" className="border border-gray-200 p-2 hover:bg-amber-50"
+                                            <select name="status" className="border border-gray-200 md:p-2 p-1 hover:bg-amber-50"
                                                 defaultValue={invoice["Status"]}
                                                 onChange={(e) => setStatus(e.target.value, invoice["ID"], invoice["Cart ID"])}>
                                                 <option value={"pending"} className="p-2">Đang đợi</option>
@@ -222,7 +222,7 @@ export function InvoiceTable({invoices}) {
                                             </select>
                                         </form>
                                     </td>
-                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}><CgDetailsMore /></Link></td>
+                                    <td className="md:p-3 p-1"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}><CgDetailsMore /></Link></td>
                                 </tr>
                             )
                         })
@@ -230,12 +230,12 @@ export function InvoiceTable({invoices}) {
                 </tbody>
             </table>
             <div className="mt-3 flex flex-row justify-end p-5">
-                <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
+                <button type="button" className="md:p-3 p-1 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
                 {pageNum.map(p => 
-                    <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                    <button key={p} type="button" className={"md:p-3 p-1 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
                         onClick={() => setPage(p)}>{p}</button>)}
-                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
-                <label htmlFor="itemsPerPage" className="p-3">Số hàng mỗi trang</label>
+                <button type="button" className="md:p-3 p-1 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
+                <label htmlFor="itemsPerPage" className="md:p-3 p-1">Số hàng mỗi trang</label>
                     <select 
                     name="itemsPerPage" 
                     id="itemsPerPage"

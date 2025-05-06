@@ -75,7 +75,7 @@ function DetailPage({detail}) {
 
 function ProductsInInvoice({ items, invoice }) {
     return (
-        <div className="bg-white rounded-lg p-3 w-fit">
+        <div className="bg-white rounded-lg md:p-3 p-1 w-fit">
             <h1 className="p-4 text-2xl font-bold text-gray-500">Sản phẩm đã mua</h1>
             <div className="">
             <table className="m-2">
@@ -114,7 +114,7 @@ function ProductsInInvoice({ items, invoice }) {
                 <p className="font-bold text-lg">Tổng giá trị đơn hàng:</p>
                 <p className="font-bold text-2xl">{invoice["Total_price"]}&#8363;</p>
             </div>
-            <span className="text-sm font-normal relative left-100">(Bao gồm phí giao hàng 10,000đ)</span>
+            <span className="text-sm font-normal relative md:left-100">(Bao gồm phí giao hàng 10,000đ)</span>
             </div>
         </div>
     )
@@ -130,7 +130,7 @@ export default async function Page({params}) {
     const data = await res.json();
     console.log(data);
     return (
-        <div className="p-10 block">
+        <div className="md:p-10 p-3 block">
             <h1 className="text-3xl my-10">Thông tin đơn hàng</h1>
             <div className="">
             <DetailPage detail={data[0]}/>

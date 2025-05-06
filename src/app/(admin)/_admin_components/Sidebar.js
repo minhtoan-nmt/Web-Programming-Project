@@ -61,7 +61,7 @@ export function Menu() {
             <Link
                 href={item.link} 
                 key={item.itemName} 
-                className={"px-5 py-3 flex items-center gap-5 rounded-xl my-2 " 
+                className={"px-5 py-3 w-full flex items-center gap-5 rounded-xl my-2 " 
                 + ((select==item.itemName) ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
             >
                 {item.icon}
@@ -81,7 +81,7 @@ export function Menu() {
 
 export default function Sidebar({select}) {
     return (
-        <div className="w-1/5 none lg:min-w-[300px]">
+        <div className="lg:block lg:w-[300px]">
             <HeaderSidebar />
             <Menu selected={select}/>
         </div>

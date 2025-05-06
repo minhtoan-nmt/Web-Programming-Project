@@ -7,8 +7,8 @@ export default async function ExtraComponent() {
     }
     const data = await res.json();
     return (
-        <div className="p-10 block">
-            <h1 className="text-3xl my-10">Trang hóa đơn</h1>
+        <div className="md:p-10 p-3 block">
+            <h1 className="text-3xl md:my-10 my-4">Trang hóa đơn</h1>
             <div>
                 <InvoiceTable invoices={data}/>
             </div>
