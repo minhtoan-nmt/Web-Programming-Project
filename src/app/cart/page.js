@@ -108,7 +108,7 @@ export default function Home() {
             let totalPrice = item["Price"]*(1-item["Discount"])*item["Quantity"];
             sum += totalPrice;
             return (
-              <div key={item["Product Name"]} className="grid grid grid-cols-[2fr_2fr_2fr_2fr_1fr] items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
+              <div key={item["Product Name"]} className="grid grid-cols-[2fr_2fr_2fr_2fr_1fr] items-center border border-gray-300 rounded p-4 mb-4 shadow-md">
                 <div className="">
                   <span>
                     <Image
