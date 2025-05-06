@@ -63,7 +63,7 @@ export function UserTable({ items }) {
                 <td className="p-3">{item["address"]}</td>
                 <td className="p-3">{item["birth_date"]}</td>
                 <td>
-                  <Link href={`/admin/posts/update/${item["id"]}`}>
+                  <Link href={`/admin/user/update/${item["id"]}`}>
                     <button
                       type="button"
                       className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"

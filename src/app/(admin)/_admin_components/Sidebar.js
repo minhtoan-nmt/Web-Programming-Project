@@ -2,15 +2,11 @@
 
 import { FaUserAlt } from "react-icons/fa";
 import { CiSun } from "react-icons/ci";
-import { FaToggleOff } from "react-icons/fa6";
-import { BsMoonStars } from "react-icons/bs";
+import { FaToggleOff, FaUsers } from "react-icons/fa6";
 import Image from "next/image";
 import logo from "@/../public/image/admin/logo.svg";
 import styles from "./styles.module.css";
-import { BsGridFill } from "react-icons/bs";
-import { BsStack } from "react-icons/bs";
-import { BsCollectionFill } from "react-icons/bs";
-import { BsFilePost } from "react-icons/bs";
+import { BsMoonStars, BsGridFill, BsStack, BsCollectionFill, BsFilePost } from "react-icons/bs";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -55,6 +51,11 @@ export function Menu() {
             itemName: "Posts",
             icon: <BsFilePost />,
             link: "/admin/posts"
+        },
+        {
+            itemName: "Users",
+            icon: <FaUsers />,
+            link: "/admin/user"
         }
     ]
     let select = "";

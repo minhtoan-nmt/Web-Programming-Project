@@ -9,7 +9,7 @@ export default function Page() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("/api/post/get-all-posts", {
+        const response = await fetch("/api/post/get-all", {
           method: "GET",
           header: "Content-Type: application/json"
         });
