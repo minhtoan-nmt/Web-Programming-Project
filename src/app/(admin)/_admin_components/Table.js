@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { CgDetailsMore } from "react-icons/cg";
+import { setStatus } from "../admin/invoices/setStatus";
 
 
 export function ProductTable({items}) {
@@ -27,7 +28,7 @@ export function ProductTable({items}) {
                 <Link href="/admin/products/add_item">
                     <button 
                         type="button" 
-                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
+                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg cursor-pointer hover:bg-blue-700 transition duration-75"
                     >
                         Thêm sản phẩm
                     </button>
@@ -75,17 +76,17 @@ export function ProductTable({items}) {
                 </tbody>
             </table>
             <div className="mt-3 flex flex-row justify-end p-5">
-                <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
+                <button type="button" className="p-3 mr-2 rounded-md border border-gray-200 hover:bg-gray-200 cursor-pointer" onClick={() => page>1 && setPage(page - 1)}><GrPrevious /></button>
                 {pageNum.map(p => 
-                    <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
+                    <button key={p} type="button" className={"p-3 w-12 rounded-md border border-gray-200 cursor-pointer " + (p===page ? "bg-[#435ebe] text-white" : "hover:bg-gray-200")}
                         onClick={() => setPage(p)}>{p}</button>)}
-                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
+                <button type="button" className="p-3 ml-2 mrounded-md border border-gray-200 hover:bg-gray-200 cursor-pointer" onClick={() => page + 1 <= numPages && setPage(page + 1)}><GrNext /></button>
                 <label htmlFor="itemsPerPage" className="p-3">Số hàng mỗi trang</label>
                     <select 
                     name="itemsPerPage" 
                     id="itemsPerPage"
                     defaultValue={8}
-                    className="border rounded-md"
+                    className="border rounded-md border-gray-200 hover:bg-gray-200 cursor-pointer p-3"
                     onChange={(e) => setItemPerPage(Number(e.target.value))}
                     >
                     <option value="1">1</option>
@@ -112,7 +113,7 @@ export function ItemTypeTable({item_types}) {
                 <Link href="/admin/products/add_item_type">
                     <button 
                         type="button" 
-                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg"
+                        className=" h-fit py-2 px-3 bg-[#435ebe] text-white rounded-lg cursor-pointer hover:bg-blue-700 transition duration-75"
                     >
                         Thêm loại sản phẩm
                     </button>
@@ -136,10 +137,10 @@ export function ItemTypeTable({item_types}) {
                                 <td className="p-3">{itemType["Num_products"]}</td>
                                 <td>
                                     <Link href={`/admin/products/edit_type/${itemType["Item_type_id"]}`} >
-                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaPen /></button>
+                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125 cursor-pointer"><FaPen /></button>
                                     </Link>
                                     <Link href={`/admin/confirm_type/${itemType["Item_type_id"]}`} >
-                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125"><FaTrashAlt /></button>
+                                        <button type="button" className="p-2 rounded-full hover:bg-gray-300 ease-in duration-125 cursor-pointer"><FaTrashAlt /></button>
                                     </Link>
                                 </td>
                             </tr>
@@ -172,13 +173,10 @@ export function InvoiceTable({invoices}) {
                         <th className="p-3">ID giỏ hàng</th>
                         <th className="p-3">Ngày đặt hàng</th>
                         <th className="p-3">Họ và tên khách hàng</th>
-                        <th className="p-3">Tỉnh/Thành phố</th>
-                        <th className="p-3">Quận/Huyện</th>
-                        <th className="p-3">Phường</th>
-                        <th className="p-3">Địa chỉ giao hàng</th>
                         <th className="p-3">Email</th>
                         <th className="p-3">Số điện thoại</th>
                         <th className="p-3">Phương thức giao hàng</th>
+                        <th className="p-3">Trạng thái</th>
                         <th className="p-3"></th>
                     </tr>
                 </thead>
@@ -187,18 +185,27 @@ export function InvoiceTable({invoices}) {
                         invoices.map(invoice => {
                             return (
                                 <tr key={invoice["ID"]} className="border-b-2 border-gray-300 hover:bg-gray-200 cursor-pointer">
-                                    <td className="p-3">{invoice["ID"]}</td>
-                                    <td className="p-3">{invoice["Cart ID"]}</td>
-                                    <td className="p-3">{invoice["Time_order"]}</td>
-                                    <td className="p-3">{invoice["Full Name"]}</td>
-                                    <td className="p-3">{invoice["City/Province"]}</td>
-                                    <td className="p-3">{invoice["District"]}</td>
-                                    <td className="p-3">{invoice["Ward"]}</td>
-                                    <td className="p-3">{invoice["Address"]}</td>
-                                    <td className="p-3">{invoice["Email"]}</td>
-                                    <td className="p-3">{invoice["Phone number"]}</td>
-                                    <td className="p-3">{invoice["Pay_method"]}</td>
-                                    <td className="p-3"><CgDetailsMore /></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`} className="w-full h-full">{invoice["ID"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Cart ID"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Time_order"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Full Name"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Email"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Phone number"]}</Link></td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}>{invoice["Pay_method"]}</Link></td>
+                                    <td className="p-3">
+                                        <form>
+                                            <select name="status" className="border border-gray-200 p-2 hover:bg-amber-50"
+                                                defaultValue={invoice["Status"]}
+                                                onChange={(e) => setStatus(e.target.value, invoice["ID"], invoice["Cart ID"])}>
+                                                <option value={"pending"} className="p-2">Đang đợi</option>
+                                                <option value={"received"} className="p-2">Đã tiếp nhận</option>
+                                                <option value={"processing"} className="p-2">Đang xử lý</option>
+                                                <option value={"delivering"} className="p-2">Đang giao hàng</option>
+                                                <option value={"done"} className="p-2">Đã nhận hàng</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td className="p-3"><Link href={`/admin/invoices/invoice_detail/${invoice["ID"]}/${invoice["Cart ID"]}`}><CgDetailsMore /></Link></td>
                                 </tr>
                             )
                         })

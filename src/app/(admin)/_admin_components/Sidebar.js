@@ -81,7 +81,7 @@ export function Menu() {
 
 export default function Sidebar({select}) {
     return (
-        <div className="w-1/5 min-w-[300px]">
+        <div className="w-1/5 none lg:min-w-[300px]">
             <HeaderSidebar />
             <Menu selected={select}/>
         </div>

@@ -6,7 +6,6 @@ export default async function ExtraComponent() {
         console.log(res.status);
     }
     const data = await res.json();
-    console.log(data);
     return (
         <div className="p-10 block">
             <h1 className="text-3xl my-10">Trang hóa đơn</h1>
