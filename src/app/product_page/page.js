@@ -5,62 +5,87 @@ import Gamepad from "/public/image/productItem/game_pad.jpg";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
-export const listItemsRelated = [
-  {
-    id: 9,
-    productName: "HAVIT HV-G92 Gamepad",
-    price: 1000000,
-    discount: 0.4,
-    rating: 3,
-    imageSrc: "/image/productItem/game_pad.jpg",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 10,
-    productName: "HAVIT HV-G92 Gamepad",
-    price: 1000000,
-    discount: 0.12,
-    rating: 3,
-    imageSrc: "/image/productItem/game_pad.jpg",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 11,
-    productName: "HAVIT HV-G92 Gamepad",
-    price: 1000000,
-    discount: 0.4,
-    rating: 3,
-    imageSrc: "/image/productItem/game_pad.jpg",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-  {
-    id: 12,
-    productName: "HAVIT HV-G92 Gamepad",
-    price: 1000000,
-    discount: 0.4,
-    rating: 3,
-    imageSrc: "/image/productItem/game_pad.jpg",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
-  },
-];
+// export const listItemsRelated = [
+//   {
+//     id: 9,
+//     productName: "HAVIT HV-G92 Gamepad",
+//     price: 1000000,
+//     discount: 0.4,
+//     rating: 3,
+//     imageSrc: "/image/productItem/game_pad.jpg",
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 10,
+//     productName: "HAVIT HV-G92 Gamepad",
+//     price: 1000000,
+//     discount: 0.12,
+//     rating: 3,
+//     imageSrc: "/image/productItem/game_pad.jpg",
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 11,
+//     productName: "HAVIT HV-G92 Gamepad",
+//     price: 1000000,
+//     discount: 0.4,
+//     rating: 3,
+//     imageSrc: "/image/productItem/game_pad.jpg",
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+//   {
+//     id: 12,
+//     productName: "HAVIT HV-G92 Gamepad",
+//     price: 1000000,
+//     discount: 0.4,
+//     rating: 3,
+//     imageSrc: "/image/productItem/game_pad.jpg",
+//     description:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
+//   },
+// ];
 
-export function ItemRelated({ listItemsRelated }) {
-  const itemsRelated = listItemsRelated.map((item) => {
-    return (
+export function ItemRelated({ itemType, currentID }) {
+  const [listItemsRelated, setListItemsRelated] = useState(null);
+  useEffect(() => {
+    async function getItem() {
+      const res = await fetch(`/api/products/get_items_by_type/${itemType}`);
+      if (!res.ok) {
+        console.log(res.status);
+      }
+      const data = await res.json();
+      console.log(data);
+      setListItemsRelated(data.data);
+    }
+    getItem();
+  }, []);
+  if (!listItemsRelated) return (
+    <div>Loading...</div>
+  )
+  const itemsRelated = listItemsRelated.slice(0,4).map((item) => {
+    if (item["ID"] != currentID) return (
       <ProductCard
-        key={item.id}
-        imageSrc={item.imageSrc}
-        discount={item.discount}
-        productName={item.productName}
-        price={item.price * (1 - item.discount)}
-        oldPrice={item.price}
-        rating={item.rating}
+        key={item["ID"]}
+        imageSrc={item["Image Src"]}
+        discount={item["Discount"]}
+        productName={item["Product Name"]}
+        price={item["Price"] * (1 - item["Discount"])}
+        oldPrice={item["Price"]}
+        rating={item["Rating"]}
       />
     );
+    return listItemsRelated.slice(5,6).map(item => <ProductCard
+      key={item["ID"]}
+      imageSrc={item["Image Src"]}
+      discount={item["Discount"]}
+      productName={item["Product Name"]}
+      price={item["Price"] * (1 - item["Discount"])}
+      oldPrice={item["Price"]}
+      rating={item["Rating"]}
+    />)
   });
   return (
     <div className="xl:p-30 md:p-15 p-10">

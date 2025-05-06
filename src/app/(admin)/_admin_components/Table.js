@@ -52,12 +52,12 @@ export function ProductTable({items}) {
                     {
                         newItems.map(item => {
                             return (
-                                <tr key={item["ID"]} className="border-b-2 border-gray-300">
+                                <tr key={item["ID"]} className="border-b-2 border-gray-300 w-full max-w-full">
                                     <td className="p-3">{item["ID"]}</td>
                                     <td className="p-3">{item["Product Name"]}</td>
                                     <td className="p-3">{item["Price"]}</td>
                                     <td className="p-3">{item["Discount"]}</td>
-                                    <td className="p-3">{item["Image Src"]}</td>
+                                    <td className="p-3 break-words max-w-[250px]">{item["Image Src"]}</td>
                                     <td className="p-3">{item["Item_type_id"]}</td>
                                     <td className="p-3">{item["Brand"]}</td>
                                     <td className="p-3">{item["Quantity"]}</td>

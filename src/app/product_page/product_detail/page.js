@@ -22,8 +22,6 @@ const subImage = [
   { id: "sub4", url: gamepad4 },
 ];
 
-const product = listItemsRelated.find((item) => item.id == 9);
-
 function SubImage({ subImage = subImage }) {
   const listImage = subImage.map((image) => {
     return (
@@ -37,13 +35,6 @@ function SubImage({ subImage = subImage }) {
   });
   return <div className="xl:flex xl:flex-col grid grid-cols-4 order-2 xl:order-1">{listImage}</div>;
 }
-
-
-
-// function updateColor(color) {
-//   dataFromForm.color = color;
-//   console.log(dataFromForm.color);
-// }
 
 export default function ProductDetail() {
   const searchParams = useSearchParams();
@@ -100,10 +91,6 @@ export default function ProductDetail() {
           <span className="font-bold text-gray-600">Thông tin chi tiết</span>{" "}
         </h1>
         <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-12">
-          {/* <div className="xl:grid xl:grid-cols-[1fr_4fr] xl:gap-6 flex flex-col"> */}
-            {/* <div id="detail-col-1" className="flex xl:flex-col md:flex-row md:justify-between"> */}
-              {/* <SubImage subImage={subImage} /> */}
-            {/* </div> */}
             <div id="detail-col-2" >
               <Image
                 src={item["Image Src"]}
@@ -116,63 +103,13 @@ export default function ProductDetail() {
           </div>
           <div id="detail-col-3">
             <div className="xl:mb-12 mb-6">
-              <h1 className="text-2xl font-bold my-4">{item["Product Name"]}</h1>
+              <p className="text-sm">Thương hiệu: {item["Brand"]}</p>
+              <h1 className="text-2xl font-bold mb-4">{item["Product Name"]}</h1>
               <RatingStars rating={item["Rating"]} numOfRating={150} />
             </div>
             <p className="mb-4 border-b-2 border-gray-400 pb-6">
               {item["Description"]}
             </p>
-            {/* <p>
-              Màu:
-              <button type="button" onClick={() => { setColor("green") }}>
-                <Image
-                  src={green}
-                  alt="green"
-                  width={16}
-                  height={16}
-                  className={"inline ml-2 mr-1 hover:border hover:border-gray-50" + (color=="green" && "border border-2 rounded-3xl border-black")}
-                />
-              </button>
-              <button type="button" onClick={() => {setColor("red")}}>
-                <Image
-                  src={red}
-                  alt="red"
-                  width={16}
-                  height={16}
-                  className={"inline hover:border hover:border-gray-500 hover:rounded-3xl" + (color=="red" && "border border-2 rounded-3xl border-black")}
-                />
-              </button>
-            </p>
-            <div>
-              <p className="inline">Size: </p>
-              <button type="button" onClick={() => {
-                setSize("XS");
-              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XS" && "bg-orange-600 text-white")} >
-                XS
-              </button>
-              <button type="button" onClick={() => {
-                setSize("S");
-              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="S" && "bg-orange-600 text-white")}>
-                S
-              </button>
-              <button type="button" onClick={() => {
-                setSize("M");
-              }} className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="M" && "bg-orange-600 text-white")}>
-                M
-              </button>
-              <button type="button" 
-                onClick={()=> setSize("L")} 
-                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="L" && "bg-orange-600 text-white")}
-              >
-                L
-              </button>
-              <button type="button" 
-                onClick={()=> setSize("XL")} 
-                className={"m-2 lg:m-3 border-1 p-2 rounded-lg w-12 " + (size=="XL" && "bg-orange-600 text-white")}
-              >
-                XL
-              </button>
-            </div> */}
             <div>
               <p className="text-xl">
                 <span className="font-bold">Giá: </span>
@@ -244,7 +181,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-      <ItemRelated listItemsRelated={listItemsRelated} />
+      <ItemRelated itemType={item["Item_type_id"]} currentID={item["ID"]} />
     </>
   );
 }
