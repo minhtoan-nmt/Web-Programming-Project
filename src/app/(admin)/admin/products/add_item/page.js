@@ -7,7 +7,7 @@ export default async function AddItem() {
     return (
         <div className="p-10">
             <h1 className="text-3xl my-10 ">Thêm sản phẩm</h1>
-            <form action={"http://localhost/admin_api/addItem.php"} method="post" className="p-8 bg-white text-gray-500 rounded-2xl">
+            <form action={"http://localhost/admin_api/addItem.php"} method="post" encType="multipart/form-data" className="p-8 bg-white text-gray-500 rounded-2xl">
                 <InputTypeText 
                     label={"ID Sản phẩm"} 
                     name={"item-id"}
@@ -53,11 +53,14 @@ export default async function AddItem() {
                     type={"number"}              
                 />
                 </div>
-                <InputTypeText
-                    label={"Hình ảnh sản phẩm: "}
-                    name={"image-link"}
-                    placeholder={"Nhập đường liên kết đến hình ảnh của sản phẩm ..."}
-                />
+                <div className="my-3">
+                    <label htmlFor={"image-link"} className="font-bold">Hình ảnh sản phẩm:</label>
+                    <input
+                        type="file"
+                        name="image-link"
+                        className="p-2 w-full rounded-lg border-2 border-gray-300 focus:outline-3 focus:outline-gray-300 duration-75"
+                    ></input>
+                </div>
                 <div className="my-3">
                     <label htmlFor="item-type" className="font-bold">Loại sản phẩm</label>
                     <select 

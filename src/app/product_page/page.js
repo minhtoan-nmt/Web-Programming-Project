@@ -12,7 +12,7 @@ export const listItemsRelated = [
     price: 1000000,
     discount: 0.4,
     rating: 3,
-    imageSrc: Gamepad,
+    imageSrc: "/image/productItem/game_pad.jpg",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
   },
@@ -22,7 +22,7 @@ export const listItemsRelated = [
     price: 1000000,
     discount: 0.12,
     rating: 3,
-    imageSrc: Gamepad,
+    imageSrc: "/image/productItem/game_pad.jpg",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
   },
@@ -32,7 +32,7 @@ export const listItemsRelated = [
     price: 1000000,
     discount: 0.4,
     rating: 3,
-    imageSrc: Gamepad,
+    imageSrc: "/image/productItem/game_pad.jpg",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
   },
@@ -42,7 +42,7 @@ export const listItemsRelated = [
     price: 1000000,
     discount: 0.4,
     rating: 3,
-    imageSrc: Gamepad,
+    imageSrc: "/image/productItem/game_pad.jpg",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet est vel urna lobortis, ac volutpat arcu feugiat. Ut ut accumsan velit. Nunc laoreet libero.",
   },
