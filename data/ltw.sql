@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2025 at 11:56 AM
+-- Generation Time: May 06, 2025 at 12:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,23 +99,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `citizen_id` varchar(12) NOT NULL,
-  `phone_num` varchar(12) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `birth_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `itemincart`
 --
 
@@ -160,7 +143,7 @@ INSERT INTO `post` (`id`, `title`, `star_rate`, `img_src`, `date_posted`, `conte
 ('POS0013', 'PlayStation 5 Black and White version of the PS5 coming out on sale.', 4, 'https://i.postimg.cc/8C1hsqDg/ps5-item2.webp', '2025-04-12 18:36:56', 'Chính sự phát triển của ngành công nghệ thông tin đã đánh dấu một giai đoạn phát triển mới cho con người. Cuộc sống trở nên hiện đại hơn, thông minh hơn và tiện ích hơn. Tuy nhiên, bên cạnh những tiện ích mà công nghệ mang lại, cũng tồn tại những tác động tiêu cực đối với cuộc sống của chúng ta. Vậy công nghệ ảnh hưởng thế nào đến cuộc sống con người? Hãy cùng chúng tôi khám phá điều này thông qua bài viết dưới đây.\nSự xuất hiện của khoa học công nghệ cùng với những phát minh khoa học tiên tiến đã hoàn toàn thay đổi bản chất cuộc sống của con người. Điện thoại thông minh, máy tính, điều hòa, robot, thanh toán bằng thẻ, và cả ô tô tự lái, máy bay tự lái,... đều là những sáng chế tiên tiến, thông minh của con người, đánh dấu một kỷ nguyên phát triển mới trong lịch sử nhân loại.\nSự xuất hiện của các thiết bị công nghệ tiên tiến đã thúc đẩy sự phát triển kinh tế và xã hội. Những thiết bị này giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả, mà không cần phải tốn nhiều sức lao động.\nĐiện thoại không chỉ giúp chúng ta duy trì liên lạc với nhau, mà còn hỗ trợ giải trí, kinh doanh, và thanh toán. Điện thoại thông minh đã trở thành một phần không thể thiếu trong cuộc sống hàng ngày của chúng ta. Máy tính cũng đã giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả. Hơn nữa, máy tính là công cụ giúp con người tìm kiếm thông tin hiệu quả, và không thể thiếu kết nối internet để hoàn thành nhiều nhiệm vụ. Điện thoại, máy tính và internet đều liên quan chặt chẽ và cùng nhau tạo nên cuộc sống hiện đại.\nNhững phát minh hiện đại như máy bay, ô tô tự lái, và cửa hàng tự động mà không cần người bán cũng mang lại nhiều lợi ích. Chúng đã đánh dấu một bước tiến mới trong sự phát triển của con người. Các thiết bị công nghệ tiên tiến, từ việc thay thế con người trong nhiều tác vụ, đến việc làm nhà bằng robot và hệ thống tự động trong gia đình, đều đã thay đổi cách chúng ta sống và làm việc.\nTuy nhiên, bên cạnh những lợi ích rõ ràng, không thể phủ nhận rằng còn tồn tại những hệ lụy của công nghệ. Công nghệ có thể làm cho chúng ta trở nên lười biếng hơn và đôi khi tạo ra sự ích kỷ và tình trạng căng thẳng. Chúng ta có thể thay thế công việc nhà bằng robot trong khi chỉ ngồi nghe nhạc hoặc xem phim. Khi điện thoại hoặc máy tính gặp sự cố, chúng ta có thể trở nên cáu kỉnh và tức giận.'),
 ('POS0014', 'PlayStation 5 Black and White version of the PS5 coming out on sale.', 4.6, 'https://i.postimg.cc/rpQ54QF0/ps5-item1.jpg', '2025-04-12 18:36:56', 'Chính sự phát triển của ngành công nghệ thông tin đã đánh dấu một giai đoạn phát triển mới cho con người. Cuộc sống trở nên hiện đại hơn, thông minh hơn và tiện ích hơn. Tuy nhiên, bên cạnh những tiện ích mà công nghệ mang lại, cũng tồn tại những tác động tiêu cực đối với cuộc sống của chúng ta. Vậy công nghệ ảnh hưởng thế nào đến cuộc sống con người? Hãy cùng chúng tôi khám phá điều này thông qua bài viết dưới đây.\nSự xuất hiện của khoa học công nghệ cùng với những phát minh khoa học tiên tiến đã hoàn toàn thay đổi bản chất cuộc sống của con người. Điện thoại thông minh, máy tính, điều hòa, robot, thanh toán bằng thẻ, và cả ô tô tự lái, máy bay tự lái,... đều là những sáng chế tiên tiến, thông minh của con người, đánh dấu một kỷ nguyên phát triển mới trong lịch sử nhân loại.\nSự xuất hiện của các thiết bị công nghệ tiên tiến đã thúc đẩy sự phát triển kinh tế và xã hội. Những thiết bị này giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả, mà không cần phải tốn nhiều sức lao động.\nĐiện thoại không chỉ giúp chúng ta duy trì liên lạc với nhau, mà còn hỗ trợ giải trí, kinh doanh, và thanh toán. Điện thoại thông minh đã trở thành một phần không thể thiếu trong cuộc sống hàng ngày của chúng ta. Máy tính cũng đã giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả. Hơn nữa, máy tính là công cụ giúp con người tìm kiếm thông tin hiệu quả, và không thể thiếu kết nối internet để hoàn thành nhiều nhiệm vụ. Điện thoại, máy tính và internet đều liên quan chặt chẽ và cùng nhau tạo nên cuộc sống hiện đại.\nNhững phát minh hiện đại như máy bay, ô tô tự lái, và cửa hàng tự động mà không cần người bán cũng mang lại nhiều lợi ích. Chúng đã đánh dấu một bước tiến mới trong sự phát triển của con người. Các thiết bị công nghệ tiên tiến, từ việc thay thế con người trong nhiều tác vụ, đến việc làm nhà bằng robot và hệ thống tự động trong gia đình, đều đã thay đổi cách chúng ta sống và làm việc.\nTuy nhiên, bên cạnh những lợi ích rõ ràng, không thể phủ nhận rằng còn tồn tại những hệ lụy của công nghệ. Công nghệ có thể làm cho chúng ta trở nên lười biếng hơn và đôi khi tạo ra sự ích kỷ và tình trạng căng thẳng. Chúng ta có thể thay thế công việc nhà bằng robot trong khi chỉ ngồi nghe nhạc hoặc xem phim. Khi điện thoại hoặc máy tính gặp sự cố, chúng ta có thể trở nên cáu kỉnh và tức giận.'),
 ('POS0015', 'PlayStation 5 Black and White version of the PS5 coming out on sale.', 4.4, 'https://i.postimg.cc/rpQ54QF0/ps5-item1.jpg', '2025-04-12 18:36:56', 'Chính sự phát triển của ngành công nghệ thông tin đã đánh dấu một giai đoạn phát triển mới cho con người. Cuộc sống trở nên hiện đại hơn, thông minh hơn và tiện ích hơn. Tuy nhiên, bên cạnh những tiện ích mà công nghệ mang lại, cũng tồn tại những tác động tiêu cực đối với cuộc sống của chúng ta. Vậy công nghệ ảnh hưởng thế nào đến cuộc sống con người? Hãy cùng chúng tôi khám phá điều này thông qua bài viết dưới đây.\nSự xuất hiện của khoa học công nghệ cùng với những phát minh khoa học tiên tiến đã hoàn toàn thay đổi bản chất cuộc sống của con người. Điện thoại thông minh, máy tính, điều hòa, robot, thanh toán bằng thẻ, và cả ô tô tự lái, máy bay tự lái,... đều là những sáng chế tiên tiến, thông minh của con người, đánh dấu một kỷ nguyên phát triển mới trong lịch sử nhân loại.\nSự xuất hiện của các thiết bị công nghệ tiên tiến đã thúc đẩy sự phát triển kinh tế và xã hội. Những thiết bị này giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả, mà không cần phải tốn nhiều sức lao động.\nĐiện thoại không chỉ giúp chúng ta duy trì liên lạc với nhau, mà còn hỗ trợ giải trí, kinh doanh, và thanh toán. Điện thoại thông minh đã trở thành một phần không thể thiếu trong cuộc sống hàng ngày của chúng ta. Máy tính cũng đã giúp con người giải quyết công việc một cách nhanh chóng và hiệu quả. Hơn nữa, máy tính là công cụ giúp con người tìm kiếm thông tin hiệu quả, và không thể thiếu kết nối internet để hoàn thành nhiều nhiệm vụ. Điện thoại, máy tính và internet đều liên quan chặt chẽ và cùng nhau tạo nên cuộc sống hiện đại.\nNhững phát minh hiện đại như máy bay, ô tô tự lái, và cửa hàng tự động mà không cần người bán cũng mang lại nhiều lợi ích. Chúng đã đánh dấu một bước tiến mới trong sự phát triển của con người. Các thiết bị công nghệ tiên tiến, từ việc thay thế con người trong nhiều tác vụ, đến việc làm nhà bằng robot và hệ thống tự động trong gia đình, đều đã thay đổi cách chúng ta sống và làm việc.\nTuy nhiên, bên cạnh những lợi ích rõ ràng, không thể phủ nhận rằng còn tồn tại những hệ lụy của công nghệ. Công nghệ có thể làm cho chúng ta trở nên lười biếng hơn và đôi khi tạo ra sự ích kỷ và tình trạng căng thẳng. Chúng ta có thể thay thế công việc nhà bằng robot trong khi chỉ ngồi nghe nhạc hoặc xem phim. Khi điện thoại hoặc máy tính gặp sự cố, chúng ta có thể trở nên cáu kỉnh và tức giận.'),
-('POS0016', 'Đăng post mới với link hình ảnh', 0, 'https://i.postimg.cc/8C1hsqDg/ps5-item2.webp', '2025-05-05 09:46:08', 'something');
+('POS0016', 'Chỉnh sửa lại title bằng update post', 0, 'https://i.postimg.cc/8C1hsqDg/ps5-item2.webp', '2025-05-05 09:46:08', 'something');
 
 --
 -- Triggers `post`
@@ -292,6 +275,67 @@ INSERT INTO `product` (`id`, `name`, `category`, `price`, `discount`, `descripti
 (76, 'Sữa đặc', 'Đóng hộp', 40000, 30, 'some description', 0, 0, '/image/hom/banner/p3.webp', '2025-04-27 19:25:02'),
 (77, 'Trái cây đóng hộp', 'Đóng hộp', 60000, 30, 'some description', 0, 0, '/image/hom/banner/p4.webp', '2025-04-27 19:25:02');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` varchar(7) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `citizen_id` varchar(12) NOT NULL,
+  `phone_num` varchar(12) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `birth_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `first_name`, `last_name`, `citizen_id`, `phone_num`, `address`, `birth_date`) VALUES
+('CUS0001', 'customer01', 'A', 'Nguyen Van', '079097079907', '0901020304', '1 Huynh Tinh Cua, P.19, Q.Binh Thanh', '2004-12-01'),
+('CUS0002', 'buyer22', 'B', 'Tran Thi', '081102012345', '0987654321', '5 Nguyen Hue, P.Ben Nghe, Q.1', '2002-05-15'),
+('CUS0003', 'onlineuser', 'C', 'Le Minh', '093088056789', '0333444555', '10 Vo Van Tan, P.6, Q.3', '1999-11-20'),
+('CUS0004', 'happyclient', 'D', 'Pham Hoang', '077105098765', '0777888999', '2 Bach Dang, P.2, Q.Tan Binh', '2005-03-10'),
+('CUS0005', 'shopaholic', 'E', 'Hoang Thu', '086099023456', '0912345678', '15 Le Loi, P.Ben Thanh, Q.1', '2001-08-25'),
+('CUS0006', 'digitalguy', 'F', 'Vu Duc', '095096067890', '0369874123', '8 Dien Bien Phu, P.11, Q.10', '2003-01-05'),
+('CUS0007', 'fashionista', 'G', 'Do Thuy', '089101034567', '0935789123', '3 Hai Ba Trung, P.Da Kao, Q.1', '2000-07-18'),
+('CUS0008', 'techlover', 'H', 'Bui Anh', '091094045678', '0791234567', '20 Truong Chinh, P.15, Q.Tan Binh', '1998-09-30'),
+('CUS0009', 'bookworm', 'I', 'Cao Thanh', '075103089012', '0963214789', '7 Nguyen Trai, P.Ben Thanh, Q.1', '2006-04-22'),
+('CUS0010', 'traveler', 'K', 'Ly Diem', '083100090123', '0398765432', '12 Phan Xich Long, P.3, Q.Phu Nhuan', '2002-12-10');
+
+--
+-- Triggers `user`
+--
+DELIMITER $$
+CREATE TRIGGER `userGenerateNewId` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
+    DECLARE next_id INT DEFAULT 0;
+    DECLARE formatted_id VARCHAR(7);
+
+    -- 1. Find the highest existing numeric part of COM IDs
+    SELECT
+        IFNULL(MAX(CAST(SUBSTRING(id, 4) AS UNSIGNED)), 0) INTO next_id
+    FROM
+        user
+    WHERE
+        id LIKE 'CUS%';
+
+    -- 2. Increment the numeric part
+    SET next_id = next_id + 1;
+
+    -- 3. Format the ID
+    SET formatted_id = CONCAT('CUS', LPAD(next_id, 4, '0'));
+
+    -- 4. Assign the new ID to the 'id' column of the new row
+    SET NEW.id = formatted_id;
+END
+$$
+DELIMITER ;
+
 --
 -- Indexes for dumped tables
 --
@@ -301,12 +345,6 @@ INSERT INTO `product` (`id`, `name`, `category`, `price`, `discount`, `descripti
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `post`
@@ -321,30 +359,20 @@ ALTER TABLE `product`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `user`
 --
+ALTER TABLE `user`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `customer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `fk_cart_customer` FOREIGN KEY (`id`) REFERENCES `customer` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
