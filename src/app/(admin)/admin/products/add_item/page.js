@@ -1,45 +1,21 @@
-import { FetchTypes } from "../../page";
+import { InputTypeText } from "./../edit_item/[id]/page"
+import { FetchTypes } from "../page"
 
-export function InputTypeText({label, name, defaultValue, placeholder, type = "text"}) {
-    return (
-        <div className="my-3">
-            <label htmlFor={name} className="font-bold">{label}</label>
-            <input
-                type={type}
-                step={"any"}
-                name={name}
-                defaultValue={defaultValue}
-                placeholder={placeholder}
-                className="p-2 w-full rounded-lg border-2 border-gray-300 focus:outline-3 focus:outline-gray-300 duration-75"
-            ></input>
-        </div>
-    )
-}
-
-export default async function Page({params}) {
-    const { id } = await params;
-    const res = await fetch(process.env.URL + `/api/products/get_item_by_id/${id}`);
+export default async function AddItem() {
     const types = await FetchTypes();
-    if (!res.ok) {
-        console.log(res.status);
-    }
-    const data = await res.json();
-    const item = data.data;
     const typelist = types.data;
     return (
         <div className="p-10">
-            <h1 className="text-3xl my-10 ">Chỉnh sửa thông tin sản phẩm</h1>
-            <form action={`http://localhost/admin_api/editItem.php?id=${id}`} method="post" className="p-8 bg-white text-gray-500 rounded-2xl">
+            <h1 className="text-3xl my-10 ">Thêm sản phẩm</h1>
+            <form action={"http://localhost/admin_api/addItem.php"} method="post" className="p-8 bg-white text-gray-500 rounded-2xl">
                 <InputTypeText 
                     label={"ID Sản phẩm"} 
-                    name={"item-id"} 
-                    defaultValue={item["ID"]} 
+                    name={"item-id"}
                     placeholder={"Nhập ID sản phẩm"} 
                 />
                 <InputTypeText 
                     label={"Tên sản phẩm: "} 
                     name={"product-name"} 
-                    defaultValue={item["Product Name"]} 
                     placeholder={"Nhập tên của sản phẩm"} 
                 />
                 <div className="my-3">
@@ -47,7 +23,6 @@ export default async function Page({params}) {
                     <textarea
                         rows={4}
                         name="description"
-                        defaultValue={item["Description"]}
                         placeholder="Nhập mô tả chi tiết về sản phẩm ..."
                         className="p-2 w-full rounded-lg border-2 border-gray-300 focus:outline-3 focus:outline-gray-300 duration-75"
                     ></textarea>
@@ -56,36 +31,37 @@ export default async function Page({params}) {
                 <InputTypeText 
                     label={"Giá: "}
                     name={"price"}
-                    defaultValue={item["Price"]}
                     placeholder={"Nhập giá tiền (VND) ..."}
                     type={"number"}
                 />
                 <InputTypeText
                     label={"Giảm giá: "}
                     name={"discount"}
-                    defaultValue={item["Discount"]}
                     placeholder={"Nhập tỉ lệ giảm giá..."}
                     type={"number"}
                 />
                 <InputTypeText
                     label={"Số lượng: "}
                     name={"quantity"}
-                    defaultValue={item["Quantity"]}
                     placeholder={"Nhập số lượng còn lại của sản phẩm ..."}
+                    type={"number"}              
+                />
+                <InputTypeText
+                    label={"Đánh giá: "}
+                    name={"rating"}
+                    placeholder={"Nhập đánh giá (số sao) ..."}
                     type={"number"}              
                 />
                 </div>
                 <InputTypeText
                     label={"Hình ảnh sản phẩm: "}
                     name={"image-link"}
-                    defaultValue={item["Image Src"]}
                     placeholder={"Nhập đường liên kết đến hình ảnh của sản phẩm ..."}
                 />
                 <div className="my-3">
                     <label htmlFor="item-type" className="font-bold">Loại sản phẩm</label>
                     <select 
                         name="item-type"
-                        defaultValue={item["Item_type_id"]} 
                         className="p-2 w-full rounded-lg border-2 border-gray-300 focus:outline-3 focus:outline-gray-300 duration-75"
                     >
                         {typelist.map(type => {
@@ -100,7 +76,6 @@ export default async function Page({params}) {
                 <InputTypeText
                     label={"Thương hiệu"}
                     name={"brand"}
-                    defaultValue={item["Brand"]}
                     placeholder={"Nhập thương hiệu ..."}
                 />
                 <div className="flex justify-end gap-2 mt-6">

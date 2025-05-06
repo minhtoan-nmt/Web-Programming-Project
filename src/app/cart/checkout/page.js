@@ -62,20 +62,57 @@ export default function Home() {
 
       <p className="font-bold text-3xl mb-6">Thông tin đơn hàng</p>
       {/* Form thông tin đơn hàng */}
-      <form action={"/product_page"} className="flex" method="post"> {/*Temporarily set to this function in action*/}
+      <form action={"http://localhost/clients_api/createInvoice.php"} className="flex" method="post"> {/*Temporarily set to this function in action*/}
         <div className="w-2/5 flex flex-col">
-          <label htmlFor="full-name" className="py-2">Họ và tên</label>
-          <input type="text" id="full-name" name="full-name" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="city" className="py-2">Thành phố/ Tỉnh</label>
-          <input type="text" id="city" name="city" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="district" className="py-2">Quận/ Huyện</label>
-          <input type="text" id="district" name="district" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="address" className="py-2">Tên đường, số nhà</label>
-          <input type="text" id="address" name="address" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="phone-number" className="py-2">Số điện thoại</label>
-          <input type="text" id="phone-number" name="phone-number" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
-          <label htmlFor="email" className="py-2">Email</label>
-          <input type="text" id="email" name="email" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"></input>
+          <label htmlFor="full-name" className="py-2">Họ và tên: <span className="text-red-600">*</span></label>
+          <input type="text" id="full-name" name="full-name" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+            onChange={(e) => {
+              if (e.target.value.length === 0) {
+                e.target.placeholder = "Không được để trống";
+              }
+            }}></input>
+          <label htmlFor="city" className="py-2">Thành phố/ Tỉnh: <span className="text-red-600">*</span></label>
+          <input type="text" id="city" name="city" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
+          <label htmlFor="district" className="py-2">Quận/ Huyện: <span className="text-red-600">*</span></label>
+          <input type="text" id="district" name="district" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
+          <label htmlFor="ward" className="py-2">Phường/ Xã: <span className="text-red-600">*</span></label>
+          <input type="text" id="ward" name="ward" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
+          <label htmlFor="address" className="py-2">Số nhà, tên đường, ấp: <span className="text-red-600">*</span></label>
+          <input type="text" id="address" name="address" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
+          <label htmlFor="phone-number" className="py-2">Số điện thoại: <span className="text-red-600">*</span></label>
+          <input type="text" id="phone-number" name="phone-number" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
+          <label htmlFor="email" className="py-2">Email: <span className="text-red-600">*</span></label>
+          <input type="text" id="email" name="email" className="bg-gray-100 border border-gray-200 rounded px-4 py-2 mb-2"
+          onChange={(e) => {
+            if (e.target.value.length === 0) {
+              e.target.placeholder = "Không được để trống";
+            }
+          }}></input>
         </div>
 
         {/* Thành tiền và đặt hàng */}
@@ -98,7 +135,7 @@ export default function Home() {
                     x{item["Quantity"]}
                   </div>
                   <div className="flex-1/4 flex justify-end">
-                    &#8363;{item["Price"]}
+                    &#8363;{item["Price"]*(1-item["Discount"])}
                   </div>
                 </div>
               );
@@ -106,22 +143,22 @@ export default function Home() {
 
             <div className="flex justify-between">
               <p>Tổng:</p>
-              <p>&#8363;{cart[0]["Total price"] - 10000}</p>
+              <p>{cart[0]["Total price"] - 10000}&#8363;</p>
             </div>
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between">
               <p>Phí ship:</p>
-              <p>&#8363;10,000</p>
+              <p>10,000&#8363;</p>
             </div>
             <div className="h-px bg-gray-300 my-2"></div>
             <div className="flex justify-between mb-2">
-              <p>Thành tiền:</p>
-              <p>&#8363;{cart[0]["Total price"]}</p>
+                <label htmlFor="total-price">Thành tiền:</label>
+                <p><input type="text" id="total-price" name="total-price" className="border-none w-fit text-right" defaultValue={cart[0]["Total price"]} readOnly></input>&#8363;</p>
             </div>
 
             <div className="flex items-center justify-between font-normal">
               <div className="flex">
-                <input type="radio" id="payment-online" name="payment-type" className="inline mr-4"></input>
+                <input type="radio" id="payment-online" name="payment-type" value={"card"} className="inline mr-4"></input>
                 <label>Thanh toán online</label>
               </div>
               <div className="flex h-full items-center gap-2">
@@ -143,15 +180,15 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-between font-normal">
               <div className="flex">
-                <input type="radio" id="payment-cod" name="payment-type" className="inline mr-4"></input>
+                <input type="radio" id="payment-cod" name="payment-type" value={"cash"} defaultChecked className="inline mr-4"></input>
                 <label>Thanh toán khi nhận hàng</label>
               </div>
             </div>
-
-            <button type="button" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end"
+            <button type="submit" className="rounded font-normal text-white bg-red-400 hover:bg-red-600 px-4 py-2 mt-6 self-end"
             onClick={() => {
-              alert("Thanh toán thành công. Bạn hãy tiếp tục mua sắm nhé!");
-              redirect("/product_page")
+              
+              // alert("Thanh toán thành công. Bạn hãy tiếp tục mua sắm nhé!");
+              // redirect("/product_page")
             }}
             >Thanh toán</button>
           </div>
