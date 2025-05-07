@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import React from "react"
-import CreateComment from "./CreateComment";
+import CreateComment from "./CreateComment"
 import CommentSection from "./ComnentSection";
 import Image from "next/image";
 
