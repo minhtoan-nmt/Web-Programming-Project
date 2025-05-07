@@ -1,8 +1,30 @@
+'use client';
+
 import { FaPen } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function PostTable({ items }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(6);
+  const totalPages = Math.ceil(items.length / postPerPage);
+  const startIndex = (currentPage - 1) * postPerPage;
+  const endIndex = startIndex + postPerPage;
+  const currentPosts = items.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const pageFromQuery = parseInt(searchParams.get("page"));
+    if (pageFromQuery && pageFromQuery > 0) {
+      setCurrentPage(pageFromQuery);
+    } else {
+      setCurrentPage(1);
+    }
+  }, [searchParams]);
+
   const truncateContent = (content, maxLength=100) => {
     if (!content) return "";
     if (content.length > maxLength) {
@@ -37,6 +59,10 @@ export function PostTable({ items }) {
     }
   }
 
+  const handlePageChange = (newPage) => {
+    router.push(`/admin/posts?page=${newPage}`)
+  }
+
   return (  
     <div className="bg-white rounded-lg p-3">
       <div className="flex justify-between items-center">
@@ -57,7 +83,7 @@ export function PostTable({ items }) {
           </tr>
         </thead>
         <tbody className="text-gray-700">
-          {items.map((item, index) => {
+          {currentPosts.map((item, index) => {
             return (
               <tr key={index} className="border-b-2 border-gray-300">
                 <td className="p-3">{item["id"]}</td>
@@ -88,6 +114,38 @@ export function PostTable({ items }) {
           })}
         </tbody>
       </table>
+
+      {/* Phân trang */}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
+        >
+          Trang trước
+        </button>
+
+        <div className="flex items-center space-x-3 mx-3">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              className={`h-fit border-1 rounded px-1  ${(currentPage === pageNumber ? 'active' : '')} 
+                ${currentPage === pageNumber ? 'bg-blue-500 text-white font-semibold' : 'hover:bg-gray-200 active:bg-gray-400'}`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
+        >
+          Trang sau
+        </button>
+      </div>
     </div>
   );
 }

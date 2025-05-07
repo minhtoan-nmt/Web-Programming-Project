@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
@@ -25,13 +25,13 @@ function Button({ children, className = '', ...props }) {
 }
 
 const handleSubmit = async (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
+  // e.preventDefault();
+  // const formData = new FormData(e.target);
 
-  const response = await fetch("http://localhost/api/user/login.php", {
-    method: "POST",
-    body: formData,
-  });
+  // const response = await fetch("http://localhost/api/user/login.php", {
+  //   method: "POST",
+  //   body: formData,
+  // });
 };
 
 export default function LoginLayout() {

@@ -43,7 +43,7 @@ export default function Home() {
           return (
             <PageItem key={index}
               postTitle={item.title}
-              imgSrc={item.img_src}
+              imgSrc={item.thumbnail_img_src}
               redirect={`post/detail/${item.id}`}
             />
           );
@@ -61,7 +61,7 @@ export default function Home() {
             return (
               <PageItem key={index}
                 postTitle={item.title}
-                imgSrc={item.img_src}
+                imgSrc={item.thumbnail_img_src}
                 redirect={`post/detail/${item.id}`}
               />
             );

@@ -1,8 +1,34 @@
+'use client';
+
 import { FaPen } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function UserTable({ items }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemPerPage] = useState(6);
+  const totalPages = Math.ceil(items.length / itemPerPage);
+  const startIndex = (currentPage - 1) * itemPerPage;
+  const endIndex = startIndex + itemPerPage;
+  const currentItems = items.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const pageFromQuery = parseInt(searchParams.get("page"));
+    if (pageFromQuery && pageFromQuery > 0) {
+      setCurrentPage(pageFromQuery);
+    } else {
+      setCurrentPage(1);
+    }
+  }, [searchParams]);
+
+  const handlePageChange = (newPage) => {
+    router.push(`/admin/user?page=${newPage}`)
+  }
+
   const handleDelete = async (userId) => {
     const confirmDelete = confirm("Bạn có chắc chắn muốn xóa bài viết này không?");
     if (confirmDelete) {
@@ -35,7 +61,7 @@ export function UserTable({ items }) {
         <h1 className="p-4 text-2xl font-bold text-gray-500">
           Danh sách người dùng
         </h1>
-        <a href="posts/create" className="px-5 py-3 rounded-xl my-2 bg-[#435ebe] text-white hover:bg-blue-800">Tạo thông tin người dùng mới</a>
+        <a href="#" className="px-5 py-3 rounded-xl my-2 bg-[#435ebe] text-white hover:bg-blue-800">Tạo thông tin người dùng mới</a>
       </div>
       <table className="m-2">
         <thead>
@@ -51,7 +77,7 @@ export function UserTable({ items }) {
           </tr>
         </thead>
         <tbody className="text-gray-700">
-          {items.map((item, index) => {
+          {currentItems.map((item, index) => {
             return (
               <tr key={index} className="border-b-2 border-gray-300">
                 <td className="p-3">{item["id"]}</td>
@@ -84,6 +110,38 @@ export function UserTable({ items }) {
           })}
         </tbody>
       </table>
+
+      {/* Phân trang */}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
+        >
+          Trang trước
+        </button>
+
+        <div className="flex items-center space-x-3 mx-3">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              className={`h-fit border-1 rounded px-1  ${(currentPage === pageNumber ? 'active' : '')} 
+                ${currentPage === pageNumber ? 'bg-blue-500 text-white font-semibold' : 'hover:bg-gray-200 active:bg-gray-400'}`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
+        >
+          Trang sau
+        </button>
+      </div>
     </div>
   );
 }

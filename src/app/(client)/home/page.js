@@ -1,8 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import Sidebar from "../_comhome/Sidebar";
-import Banner from "../_comhome/Banner";
+import Sidebar from "@/app/_comhome/Sidebar"
+import Banner from "@/app/_comhome/Banner";
 
 const getTitleColor = (name) => {
   switch (name) {

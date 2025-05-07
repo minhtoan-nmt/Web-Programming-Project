@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import React from "react"
 import CreateComment from "./CreateComment";
 import CommentSection from "./ComnentSection";
+import Image from "next/image";
 
 export default function Page({ params }) {
   const resolveParams = React.use(params);
@@ -11,7 +12,7 @@ export default function Page({ params }) {
   const [postId, setPostId] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState([]);
-  const [postImage, setPostImage] = useState("");
+  const [postImgSrc, setPostImgSrc] = useState("");
   const [comments, setComments] = useState([]);
   const [newCommentAdded, setNewCommentAdded] = useState(false); // Add this state
   
@@ -31,12 +32,15 @@ export default function Page({ params }) {
       const responseData = await response.json();
       const post = responseData.data;
 
-      console.log(post);
       
       setPostId(post.id);
       setPostTitle(post.title);
-      setPostContent(post.content);
-      setPostImage(post.img_src);
+      setPostContent(post.content.split("\n"));
+      let img_src = post.content_img_src;
+      if (img_src.substring(0, 4) != "http") {
+        img_src = "/image/post/content/" + img_src;
+      }
+      setPostImgSrc(img_src);
     }
     
     fetchPostData();
@@ -75,40 +79,25 @@ export default function Page({ params }) {
           <h1 className="text-center font-bold text-2xl text-green-700 mb-12">
             {postTitle}
           </h1>
-          <div className="font-bold">
-            {/* {postContent.map((item, index) => {
-              if (item.type === "p") {
-                return (
-                  <p key={index} style={{ whiteSpace: 'pre-line' }}>
-                    {item.content}
-                  </p>
-                );
-              } else if (item.type === "img") {
-                return (
-                  <img
-                    key={index}
-                    src={item.src}
-                    alt={`Image ${index + 1}`}
-                    className="mx-auto mb-6"
-                  />
-                );
-              } else {
-                return (
-                  <div key={index}>
-                    <p>Not found this element type</p>
-                    <br></br>
-                    <p>{item.content}</p>
-                  </div>
-                );
-              }
-            })} */
-            postContent}
-            <img
-                    // key={index}
-                    src={postImage}
-                    alt={`Image`}
-                    className="mx-auto mb-6"
-                  />
+          <div className="flex flex-col font-semibold whitespace-pre-line">
+            {postContent.map((item, index) => {
+              return (
+                <p key={index} className="mb-6">
+                  {item}
+                </p>
+              );
+            })}
+            {postImgSrc && (
+              <Image
+                src={postImgSrc}
+                alt="Post thumbnail"
+                width={0}
+                height={0}
+                sizes="33vw"
+                style={{ width: "50%", height: "auto" }}
+                className="self-center"
+              />
+            )}
           </div>
         </div>
       </div>

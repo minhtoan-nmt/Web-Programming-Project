@@ -1,6 +1,6 @@
 'use client'
 
-import ProductCard from "../_component/product-card";
+import ProductCard from "@/app/_component/product-card";
 import Gamepad from "/public/image/productItem/game_pad.jpg";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
