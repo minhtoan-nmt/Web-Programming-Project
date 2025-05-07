@@ -15,7 +15,7 @@ export function PostTable({ items }) {
     const confirmDelete = confirm("Bạn có chắc chắn muốn xóa bài viết này không?");
     if (confirmDelete) {
       try {
-        const response = await fetch("/api/post/delete-post", {
+        const response = await fetch("/api/post/delete", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
