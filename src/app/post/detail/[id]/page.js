@@ -11,6 +11,7 @@ export default function Page({ params }) {
   const [postId, setPostId] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState([]);
+  const [postImage, setPostImage] = useState("");
   const [comments, setComments] = useState([]);
   const [newCommentAdded, setNewCommentAdded] = useState(false); // Add this state
   
@@ -34,7 +35,8 @@ export default function Page({ params }) {
       
       setPostId(post.id);
       setPostTitle(post.title);
-      setPostContent(JSON.parse(post.content));
+      setPostContent(post.content);
+      setPostImage(post.img_src);
     }
     
     fetchPostData();
@@ -74,7 +76,7 @@ export default function Page({ params }) {
             {postTitle}
           </h1>
           <div className="font-bold">
-            {postContent.map((item, index) => {
+            {/* {postContent.map((item, index) => {
               if (item.type === "p") {
                 return (
                   <p key={index} style={{ whiteSpace: 'pre-line' }}>
@@ -99,7 +101,14 @@ export default function Page({ params }) {
                   </div>
                 );
               }
-            })}
+            })} */
+            postContent}
+            <img
+                    // key={index}
+                    src={postImage}
+                    alt={`Image`}
+                    className="mx-auto mb-6"
+                  />
           </div>
         </div>
       </div>
