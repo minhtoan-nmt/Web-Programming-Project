@@ -14,7 +14,7 @@ function Input(props) {
 
 function Button({ children, className = '', ...props }) {
   return (
-    <button
+    <button type="submit"
       className={`px-4 py-2 rounded-md font-medium ${className}`}
       {...props}
     >
@@ -46,29 +46,35 @@ export default function RegisterPage() {
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Đăng ký tài khoản</h2>
           <p className="mb-4 text-gray-500">Nhập thông tin bên dưới</p>
 
-          <div className="space-y-4">
-            <Input placeholder="Họ và Tên" />
-            <Input placeholder="Email hoặc SĐT" />
-            <Input placeholder="Mật khẩu" type="password" />
+          <form action={"http://localhost/api/user/register.php"} method="post" className="space-y-4">
+            <Input name="last-name" placeholder="Họ" required/>
+            <Input name="first-name" placeholder="Tên" required/>
+            <Input name="citizen-id" placeholder="CCCD" required/>
+            <Input name="dob" placeholder="Ngày tháng năm sinh" type="date" required/>
+            <Input name="phone-num" placeholder="Số điện thoại" required/>
+            <Input name="address" placeholder="Địa chỉ" />
+            <Input name="username" placeholder="Tên tài khoản (dùng để đăng nhập)" required/>
+            <Input name="password" placeholder="Mật khẩu" type="password" required/>
+            <Input name="confirm-password" placeholder="Xác nhận mật khẩu" type="password" required/>
 
             <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
               Đăng ký
             </Button>
 
-            <Button
+            {/* <Button
               className="w-full flex items-center justify-center gap-2 border border-gray-300"
             >
               <FcGoogle size={20} />
               Đăng nhập bằng Google
-            </Button>
+            </Button> */}
 
             <p className="text-center text-sm mt-4">
               Bạn đã có tài khoản rồi?{' '}
-              <a href="/login" className="text-red-500 hover:underline">
+              <a href="/auth/login" className="text-red-500 hover:underline">
                 Đăng nhập
               </a>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>

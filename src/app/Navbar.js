@@ -38,8 +38,8 @@ export default function Navbar() {
   return (
     <div className={(sidebar=="on" && "flex flex-row")}>
     <div className={'h-screen w-[250px] text-lg absolute bg-white p-5 ' + (sidebar=="off" && "hidden")}>
-    <Link href={"/post"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5'>Blog</p></Link>
-      <Link href={"/faq"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5'>FAQ</p></Link>
+    <Link href={"/post"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>Blog</p></Link>
+      <Link href={"/faq"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>FAQ</p></Link>
     </div>
      <div
       id="navbar"
