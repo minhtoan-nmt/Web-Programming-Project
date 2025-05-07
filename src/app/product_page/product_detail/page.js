@@ -1,26 +1,12 @@
 'use client'
 
-import gamepad1 from "@/../public/image/productDetail/gamepad1.png";
-import gamepad2 from "@/../public/image/productDetail/gamepad2.png";
-import gamepad3 from "@/../public/image/productDetail/gamepad3.png";
-import gamepad4 from "@/../public/image/productDetail/gamepad4.png";
 import Image from "next/image";
-import { listItemsRelated } from "@/app/product_page/page";
 import { RatingStars } from "@/app/_component/product-card";
-import green from "@/../public/image/productDetail/icons8-filled-circle-48.png";
-import red from "@/../public/image/productDetail/icons8-filled-circle-red.png";
 import { ItemRelated } from "../page";
 import { AddToCartButton } from "@/app/_component/product-card";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-
-const subImage = [
-  { id: "sub1", url: gamepad1 },
-  { id: "sub2", url: gamepad2 },
-  { id: "sub3", url: gamepad3 },
-  { id: "sub4", url: gamepad4 },
-];
 
 function SubImage({ subImage = subImage }) {
   const listImage = subImage.map((image) => {

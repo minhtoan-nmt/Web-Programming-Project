@@ -57,7 +57,6 @@ export function ItemRelated({ itemType, currentID }) {
         console.log(res.status);
       }
       const data = await res.json();
-      console.log(data);
       setListItemsRelated(data.data);
     }
     getItem();
@@ -69,6 +68,7 @@ export function ItemRelated({ itemType, currentID }) {
     if (item["ID"] != currentID) return (
       <ProductCard
         key={item["ID"]}
+        productID={item["ID"]} 
         imageSrc={item["Image Src"]}
         discount={item["Discount"]}
         productName={item["Product Name"]}
@@ -79,6 +79,7 @@ export function ItemRelated({ itemType, currentID }) {
     );
     return listItemsRelated.slice(5,6).map(item => <ProductCard
       key={item["ID"]}
+      productID={item["ID"]}
       imageSrc={item["Image Src"]}
       discount={item["Discount"]}
       productName={item["Product Name"]}

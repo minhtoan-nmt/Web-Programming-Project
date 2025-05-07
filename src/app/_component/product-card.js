@@ -130,7 +130,7 @@ export default function ProductCard({productID, imageSrc, discount, productName,
     return (
         <>
         <div className=" h-full p-4 bg-[#fff] flex flex-col justify-evenly rounded-lg hover:bg-gray-100 transition">
-            <Link href={`/product_page/product_detail?id=${productID}`}>
+            <a href={`/product_page/product_detail?id=${productID}`}>
             <Discount discount={discount} />
             <Image src={imageSrc} width={500} height={1500} alt={productName + '"s image'} className="h-64" />
             <h1 className="text-base font-bold mt-2">{productName}</h1>
@@ -139,7 +139,7 @@ export default function ProductCard({productID, imageSrc, discount, productName,
             </p>
             {/* Add a rating image here */}
             <RatingStars rating={rating} />
-            </Link>
+            </a>
             <AddToCartButton id={productID} productName={productName} />
         </div>
         </>
