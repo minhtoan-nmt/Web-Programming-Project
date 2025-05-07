@@ -3,7 +3,7 @@
 $response = array();
 header('Content-Type: application/json');
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     $servername = "localhost";
     $username = "root";
@@ -19,44 +19,35 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       return;
     }
 
-    if (isset($_GET["id"])) {
-      $id = $_GET["id"];
-      $sql = "SELECT * FROM Post WHERE id=$id LIMIT 1";
-    } else {
-      $sql = "SELECT * FROM Post";
-    }
-  
-    $data = array();
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-      }
-    } else {
-      $data[] = "No data found";
-    }
+    $json_data = file_get_contents("php://input");
+    $data = json_decode($json_data, true);
 
-    if (isset($_GET["id"])) {
-      $return_data = $data[0];
-    } else {
-      $return_data = $data;
-    }
-  
+    $title = $data["title"];
+    $content = $data["content"];
+    $img_src = $data["img_src"] ?? "";
+    $date_posted = date("Y-m-d H:i:s");
+
+    $sql = "INSERT INTO post (title, star_rate, img_src, date_posted, content)
+            VALUES (?, 0, ?, ?, ?);";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $title, $img_src, $date_posted, $content);
+    $result = $stmt->execute();
+    $stmt->close();
+
     echo json_encode([
       'status' => 200,
-      'data' => $return_data
+      'message' => "Post created successfully"
     ]);
-  
   } catch (Exception $e) {
     printf($e->getMessage());
     echo json_encode([
       'status' => 400,
-      'error' => $e->getMessage()
+      'message' => $e->getMessage()
     ]);
   }
 } else {
   echo json_encode([
-    'status' => 404,
+    'status' => 405,
     'message' => "Can't find API"
   ]);
 }

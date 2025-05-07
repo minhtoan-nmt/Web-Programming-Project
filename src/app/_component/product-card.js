@@ -14,7 +14,7 @@ import Link from "next/link";
 //     )
 // }
 function Discount({discount}) {
-    if (discount > 0) {return <p className="p-1 mb-3 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + discount * 100 + "%"}</p>}
+    if (discount > 0) {return <p className="p-1 mb-3 text-xs bg-red-500 w-2/6 text-white rounded-sm">{"-" + Math.round(discount * 100) + "%"}</p>}
     else return null;
 }
 
