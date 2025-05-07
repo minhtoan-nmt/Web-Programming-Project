@@ -115,6 +115,7 @@ export function PostTable({ items }) {
         </tbody>
       </table>
 
+      {/* Phân trang */}
       <div className="flex justify-center mt-6">
         <button
           onClick={() => handlePageChange(currentPage - 1)}

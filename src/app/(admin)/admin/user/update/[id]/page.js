@@ -12,28 +12,14 @@ export default function Page({ params }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const titleInput = event.currentTarget.querySelector("#userTitle");
-    const contentTextarea = event.currentTarget.querySelector("#content");
-    const imgSrcInput = event.currentTarget.querySelector("#imgSrc");
-
-    const title = titleInput ? titleInput.value : "";
-    const content = contentTextarea ? contentTextarea.value : "";
-    const imgSrc = imgSrcInput ? imgSrcInput.value : "";
-
     try {
-      const data = {
-        title: title,
-        content: content,
-        img_src: imgSrc,
-      };
-      console.log(data);
+      const formData = new FormData(event.target);
+      formData.set("id", id);
+      console.log(formData.get("birthDate"));
 
       const response = await fetch("/api/user/update", {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (response.ok) {
@@ -84,7 +70,15 @@ export default function Page({ params }) {
       citizenIdInput.value = userData.citizen_id;
       phoneNumInput.value = userData.phone_num;
       addressInput.value = userData.address;
-      birthDateInput.value = userData.birthDate;
+
+      if (birthDateInput) {
+        const dateObj = new Date(userData.birth_date);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDay() + 1).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`
+        birthDateInput.value = formattedDate;
+      }
     }
   }, [userData]);
 
@@ -111,6 +105,7 @@ export default function Page({ params }) {
           type="text"
           id="citizenId"
           name="citizenId"
+          maxLength={12}
           className="border-solid border-2 border-gray-400 rounded p-2 mb-2"
         />
         <label className="ml-2 font-bold mb-2">SĐT</label>
@@ -129,10 +124,10 @@ export default function Page({ params }) {
         />
         <label className="ml-2 font-bold mb-2">Ngày sinh</label>
         <input
-          type="text"
+          type="date"
           id="birthDate"
           name="birthDate"
-          className="border-solid border-2 border-gray-400 rounded p-2 mb-2"
+          className="w-fit border-solid border-2 border-gray-400 rounded p-2 mb-2"
         />     
 
         <button
