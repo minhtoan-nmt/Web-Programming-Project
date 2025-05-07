@@ -10,7 +10,26 @@ export default function Dashboard() {
     event.preventDefault();
 
     try {
-      const formData = new FormData(event.target);
+      const titleData = event.currentTarget.querySelector("#postTitle");
+      const contentData = event.currentTarget.querySelector("#contentText");
+      
+      const title = titleData ? titleData.value : "";
+      const content = contentData ? contentData.value : "";
+
+      if (!title) {
+        alert("Hãy nhập tiêu đề bài viết trước khi đăng bài");
+        return;
+      }
+      if (!content) {
+        alert("Hãy nhập nội dung bài viết trước khi đăng bài");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.set("title", title);
+      formData.set("content", content);
+      formData.set("contentImg", image);
+
       const response = await fetch("/api/post/create", {
         method: "POST",
         body: formData,
@@ -22,6 +41,7 @@ export default function Dashboard() {
       }
 
       const data = await response.json();
+      alert(`Tạo bài viết mới thành công!`);
     } catch (e) {
       console.error("An error occurred:", e);
     }

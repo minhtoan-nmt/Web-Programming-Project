@@ -68,7 +68,7 @@ export default function Navbar() {
 
       
       {/* <Suspense fallback={<div>Loading...</div>}> */}
-        <NavCart />
+        {/* <NavCart /> */}
       {/* </Suspense> */}
 
       <Header />

@@ -34,10 +34,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased}`}
       >
-        {/* Khi nào có header thì xóa cái này */}
         <Navbar />
         {children}
-        {/* Khi nào có footer thì xóa cái này */}
         <Footer />
       </body>
     </html>

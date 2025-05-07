@@ -119,7 +119,7 @@ export function PostTable({ items }) {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="border-2 rounded px-2 py-1"
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
         >
           Trang trước
         </button>
@@ -129,7 +129,8 @@ export function PostTable({ items }) {
             <button
               key={pageNumber}
               onClick={() => handlePageChange(pageNumber)}
-              className={"h-fit border-1 rounded" + (currentPage === pageNumber ? 'active' : '')}
+              className={`h-fit border-1 rounded px-1  ${(currentPage === pageNumber ? 'active' : '')} 
+                ${currentPage === pageNumber ? 'bg-blue-500 text-white font-semibold' : 'hover:bg-gray-200 active:bg-gray-400'}`}
             >
               {pageNumber}
             </button>
@@ -139,7 +140,7 @@ export function PostTable({ items }) {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="border-2 rounded px-2 py-1"
+          className="border-2 rounded hover:bg-gray-200 active:bg-gray-400 cursor-pointer px-2 py-1"
         >
           Trang sau
         </button>

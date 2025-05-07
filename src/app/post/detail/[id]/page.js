@@ -36,7 +36,11 @@ export default function Page({ params }) {
       setPostId(post.id);
       setPostTitle(post.title);
       setPostContent(post.content.split("\n"));
-      setPostImgSrc(post.content_img_src);
+      let img_src = post.content_img_src;
+      if (img_src.substring(0, 4) != "http") {
+        img_src = "/image/post/content/" + img_src;
+      }
+      setPostImgSrc(img_src);
     }
     
     fetchPostData();
@@ -89,8 +93,8 @@ export default function Page({ params }) {
                 alt="Post thumbnail"
                 width={0}
                 height={0}
-                sizes="100vw"
-                style={{ width: "60%", height: "auto" }}
+                sizes="33vw"
+                style={{ width: "50%", height: "auto" }}
                 className="self-center"
               />
             )}
