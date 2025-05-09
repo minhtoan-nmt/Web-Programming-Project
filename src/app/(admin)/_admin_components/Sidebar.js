@@ -10,6 +10,7 @@ import { BsMoonStars, BsGridFill, BsStack, BsCollectionFill, BsFilePost } from "
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaQq } from "react-icons/fa";
 
 export function HeaderSidebar() {
     return (
@@ -32,10 +33,10 @@ export function HeaderSidebar() {
 export function Menu() {
     const pathname = usePathname();
     const menuItems = [
-        {  
-            itemName: "Dashboard",
-            icon: <BsGridFill />,
-            link: "/admin/dashboard"
+        {
+            itemName: "Users",
+            icon: <FaUsers />,
+            link: "/admin/user"
         },
         {
             itemName: "Products",
@@ -53,10 +54,10 @@ export function Menu() {
             link: "/admin/posts"
         },
         {
-            itemName: "Users",
-            icon: <FaUsers />,
-            link: "/admin/user"
-        }
+            itemName: "FAQs",
+            icon: <FaQq />,
+            link: "/admin/faq"
+        },
     ]
     let select = "";
     const listMenuItems = menuItems.map((item) => {
