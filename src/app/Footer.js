@@ -8,7 +8,7 @@ export default function Footer() {
   const pathname = usePathname();
   const hiddenRoutes = ['/auth/login', '/auth/register'];
 
-  if (hiddenRoutes.includes(pathname)) {
+  if (hiddenRoutes.includes(pathname) || pathname.startsWith('/admin')) {
     return null; 
   }
 
