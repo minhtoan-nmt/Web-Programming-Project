@@ -16,8 +16,8 @@ export default function AdminPage() {
             setLoading(true);
             setError(null);
             const url = searchTerm 
-                ? `http://localhost/BTL/web-backend/faq_about/admin_api/faq.php?search=${encodeURIComponent(searchTerm)}`
-                : 'http://localhost/BTL/web-backend/faq_about/admin_api/faq.php';
+                ? `http://localhost/faq_about/admin_api/faq.php?search=${encodeURIComponent(searchTerm)}`
+                : 'http://localhost/faq_about/admin_api/faq.php';
             console.log('Fetching from URL:', url); // Debug log
             const response = await fetch(url);
             if (!response.ok) {
@@ -45,7 +45,7 @@ export default function AdminPage() {
         try {
             setLoading(true);
             setError(null);
-            const url = `http://localhost/BTL/web-backend/faq_about/admin_api/faq.php?id=${id}`;
+            const url = `http://localhost/faq_about/admin_api/faq.php?id=${id}`;
             console.log('Deleting from URL:', url); // Debug log
             const response = await fetch(url, {
                 method: 'DELETE'
@@ -77,7 +77,7 @@ export default function AdminPage() {
         try {
             setLoading(true);
             setError(null);
-            const url = 'http://localhost/BTL/web-backend/faq_about/admin_api/faq.php';
+            const url = 'http://localhost/faq_about/admin_api/faq.php';
             console.log('Updating answer at URL:', url); // Debug log
             const response = await fetch(url, {
                 method: 'PUT',

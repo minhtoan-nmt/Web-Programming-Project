@@ -23,24 +23,10 @@ function Button({ children, className = '', ...props }) {
   );
 }
 
+
+
 export default function RegisterPage() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Left - Logo */}
-      {/* <div className="w-full md:w-1/2 flex items-center justify-center bg-[#2B2D42] p-6"> */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-[#ffffff] p-6">
-        <div className="text-center">
-          <Image
-            src="/logo.png"
-            alt="RCQ Logo"
-            width={400}
-            height={400}
-            className="mx-auto"
-          />
-        </div>
-      </div>
-
-      {/* Right - Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-4 bg-white">
         <div className="w-full max-w-[400px] md:max-w-[450px] bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Đăng ký tài khoản</h2>
@@ -77,6 +63,5 @@ export default function RegisterPage() {
           </form>
         </div>
       </div>
-    </div>
   );
 }

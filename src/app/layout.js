@@ -8,9 +8,11 @@ import Cart from '../../public/cart.svg';
 // import User from '../../public/user.png';
 import Header from '@/app/_comhome/Header';
 import Link from "next/link";
+import { cookies } from "next/headers";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { redirect } from "next/navigation";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,13 +30,15 @@ export const metadata = {
 
 
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased}`}
       >
-        <Navbar />
+        <Navbar token={token} />
         {children}
         <Footer />
       </body>

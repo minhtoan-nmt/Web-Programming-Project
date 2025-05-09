@@ -13,7 +13,7 @@ export default function AskQuestionPage() {
         try {
             setLoading(true);
             setError(null);
-            const response = await fetch('http://localhost/BTL/web-backend/faq_about/clients_api/faq.php');
+            const response = await fetch('http://localhost/faq_about/clients_api/faq.php');
             const data = await response.json();
             if (data.success) {
                 setFaqs(data.data);
@@ -39,7 +39,7 @@ export default function AskQuestionPage() {
         try {
             setLoading(true);
             setError(null);
-            const response = await fetch('http://localhost/BTL/web-backend/faq_about/clients_api/faq.php', {
+            const response = await fetch('http://localhost/faq_about/clients_api/faq.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

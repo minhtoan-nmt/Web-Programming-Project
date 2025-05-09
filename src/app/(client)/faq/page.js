@@ -36,7 +36,7 @@ export default function QAPage() {
             setLoading(true);
             setError(null);
             console.log('Searching for:', searchTerm);
-            const response = await fetch(`http://localhost/BTL/web-backend/faq_about/clients_api/faq.php?search=${encodeURIComponent(searchTerm)}`);
+            const response = await fetch(`http://localhost/faq_about/clients_api/faq.php?search=${encodeURIComponent(searchTerm)}`);
             console.log('Search response status:', response.status);
             const data = await response.json();
             console.log('Search Response:', data);

@@ -11,16 +11,22 @@ import { IoIosMenu } from "react-icons/io";
 import Header from '@/app/_comhome/Header';
 import Link from "next/link";
 import "./globals.css";
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
-export default function Navbar() {
+export default function Navbar({token}) {
   const pathname = usePathname();
   const hiddenRoutes = ['/auth/login', '/auth/register', '/admin/'];
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const [sidebar, setSidebar] = useState('off')
+  const [sidebar, setSidebar] = useState('off');
+  const router = useRouter();
 
-  if (hiddenRoutes.includes(pathname) || pathname.startsWith('/admin')) {
+  function checkToken(router, token) {
+    if (!token) {
+      router.push("/auth/login");
+    }
+  }
+
+  if (hiddenRoutes.includes(pathname) || pathname.startsWith('/admin') || pathname.startsWith('/auth')) {
     return null; 
   }
 
@@ -36,7 +42,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className={(sidebar=="on" && "flex flex-row")}>
+    <div className={(sidebar=="on" ? "flex flex-row" : undefined)} onLoad={() => checkToken(router, token)}>
     <div className={'h-screen w-[250px] text-lg absolute bg-white p-5 ' + (sidebar=="off" && "hidden")}>
     <Link href={"/post"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>Blog</p></Link>
       <Link href={"/faq"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>FAQ</p></Link>
