@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FaUser, FaBoxOpen, FaSignOutAlt } from "react-icons/fa";
+import { signOut } from "../_component/signOut";
 
 export default function Header({ userIcon }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,11 @@ export default function Header({ userIcon }) {
               <FaBoxOpen className="text-gray-600" /> Lịch sử đơn hàng
             </li>
             <li className="flex items-center gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer transition">
+              <button className="flex gap-2" type="button" onClick={() => {
+                signOut()
+              }}>
               <FaSignOutAlt className="text-gray-600" /> Đăng xuất
+              </button>
             </li>
           </ul>
         </div>

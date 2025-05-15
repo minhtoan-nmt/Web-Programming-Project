@@ -2,9 +2,9 @@
 import Image from "next/image"
 import { checkToken } from "./checkToken"
 
-export function Logo({token}) {
+export function Logo() {
     return (
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-[#ffffff] p-6" onLoad={() => checkToken(token)}>
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-[#ffffff] p-6">
           <div className="text-center">
             <Image
               src="/logo.png"

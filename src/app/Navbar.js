@@ -20,12 +20,6 @@ export default function Navbar({token}) {
   const [sidebar, setSidebar] = useState('off');
   const router = useRouter();
 
-  function checkToken(router, token) {
-    if (!token) {
-      router.push("/auth/login");
-    }
-  }
-
   if (hiddenRoutes.includes(pathname) || pathname.startsWith('/admin') || pathname.startsWith('/auth')) {
     return null; 
   }
@@ -42,7 +36,7 @@ export default function Navbar({token}) {
   }
 
   return (
-    <div className={(sidebar=="on" ? "flex flex-row" : undefined)} onLoad={() => checkToken(router, token)}>
+    <div className={(sidebar=="on" ? "flex flex-row" : undefined)}>
     <div className={'h-screen w-[250px] text-lg absolute bg-white p-5 ' + (sidebar=="off" && "hidden")}>
     <Link href={"/post"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>Blog</p></Link>
       <Link href={"/faq"} ><p className='p-5 w-full rounded-lg hover:bg-gray-200 my-5 bg-blue-100'>FAQ</p></Link>

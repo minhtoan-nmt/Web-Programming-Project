@@ -31,14 +31,12 @@ export const metadata = {
 
 
 export default async function RootLayout({ children }) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token");
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased}`}
       >
-        <Navbar token={token} />
+        <Navbar />
         {children}
         <Footer />
       </body>

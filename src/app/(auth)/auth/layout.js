@@ -7,13 +7,10 @@ export const metadata = {
   };
   
   export default async function AuthLayout({ children }) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token");
-
     return (
       <main className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="flex flex-col md:flex-row min-h-screen">
-          <Logo token={token}/>
+          <Logo />
           {children}
         </div>
       </main>
